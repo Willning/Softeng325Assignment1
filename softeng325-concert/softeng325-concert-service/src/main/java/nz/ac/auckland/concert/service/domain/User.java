@@ -36,6 +36,7 @@ public class User {
 
     }
 
+    //should be able to create a user
     public User(UserDTO userDTO){
         _username= userDTO.getUsername();
         _password=userDTO.getPassword();
@@ -44,6 +45,59 @@ public class User {
 
     }
 
+    public String get_username() {
+        return _username;
+    }
 
+    public void set_username(String _username) {
+        this._username = _username;
+    }
 
+    public String get_password() {
+        return _password;
+    }
+
+    public void set_password(String _password) {
+        this._password = _password;
+    }
+
+    public CreditCard get_creditCard() {
+        return _creditCard;
+    }
+
+    public void set_creditCard(CreditCard _creditCard) {
+        this._creditCard = _creditCard;
+    }
+
+    public String get_firstname() {
+        return _firstname;
+    }
+
+    public void set_firstname(String _firstname) {
+        this._firstname = _firstname;
+    }
+
+    public String get_lastname() {
+        return _lastname;
+    }
+
+    public void set_lastname(String _lastname) {
+        this._lastname = _lastname;
+    }
+
+    public String get_token() {
+        return _token;
+    }
+
+    public void set_token(String _token) {
+        this._token = _token;
+    }
+
+    public LocalDateTime get_tokenTimeStamp() {
+        return _tokenTimeStamp;
+    }
+
+    public void set_tokenTimeStamp(LocalDateTime _tokenTimeStamp) {
+        this._tokenTimeStamp = _tokenTimeStamp;
+    }
 }

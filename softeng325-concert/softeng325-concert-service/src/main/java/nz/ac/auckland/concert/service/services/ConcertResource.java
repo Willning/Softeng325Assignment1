@@ -7,6 +7,7 @@ import nz.ac.auckland.concert.service.domain.Concert;
 import nz.ac.auckland.concert.service.domain.Performer;
 import nz.ac.auckland.concert.service.domain.Reservation;
 import nz.ac.auckland.concert.service.domain.User;
+import org.hibernate.service.spi.ServiceException;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
@@ -15,9 +16,12 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.Cookie;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.net.URI;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 
 /**
  * Using this to implement a simple REST web service.
@@ -97,9 +101,11 @@ public class ConcertResource {
 
         if (user == null){
             //if no user, then invalid authentication token
+            em.close();
             return Response.status(Response.Status.UNAUTHORIZED).build();
         }else{
             //find all BookingDTOS associated with the tokenID
+            em.close();
             return null;
         }
 
@@ -108,8 +114,37 @@ public class ConcertResource {
 
     @POST
     @Path("/user")
-    public Response createNewUser(UserDTO newUser){
-        return null;
+    public Response createNewUser(UserDTO userDTO){
+        //need to check if the DTO has all the fields
+        if (userDTO.getFirstname() == null || userDTO.getLastname() == null
+                ||userDTO.getPassword()==null||userDTO.getUsername()==null){
+            //fail if any of the 4 fields are null
+            //server should not throw an exception, should send a message to the user. User should throw exception.
+            Response.ResponseBuilder errorRespsonse = Response.status(Response.Status.SERVICE_UNAVAILABLE);
+            return errorRespsonse.build();
+        }
+
+        if (userDTO.getFirstname() == "" || userDTO.getLastname() == ""
+                ||userDTO.getPassword()==""||userDTO.getUsername()==""){
+            //fail if any of the 4 fields are empty
+            Response.ResponseBuilder errorRespsonse = Response.status(Response.Status.SERVICE_UNAVAILABLE);
+            return errorRespsonse.build();
+        }
+
+        EntityManager em = PersistenceManager.instance().createEntityManager();
+        em.getTransaction().begin();
+        UUID token = UUID.randomUUID(); //generate a UUID
+
+        User user = new User(userDTO);
+        user.set_token(token.toString()); //make this the token of the user
+        user.set_tokenTimeStamp(LocalDateTime.now());
+
+        em.persist(user);
+
+        em.getTransaction().commit();
+
+        Response.ResponseBuilder builder = Response.created(URI.create("/user/" + user.get_username()));
+        return builder.build();
 
     }
 
