@@ -54,8 +54,34 @@ public class Performer {
         _id = id;
     }
 
+    public String getName(){
+        return _name;
 
+    }
 
+    public void setName(String name){
+        _name = name;
+    }
+
+    public String getImageName(){
+        return _imageName;
+    }
+
+    public void setImageName(String imageName){
+        _imageName = imageName;
+    }
+
+    public Genre getGenre(){
+        return _genre;
+    }
+
+    public void setGenre(Genre genre){
+        _genre = genre;
+    }
+
+    public Set<Concert> getConcerts(){
+        return  _concerts;
+    }
 
 
 }

@@ -5,8 +5,7 @@ import nz.ac.auckland.concert.common.dto.*;
 import java.awt.*;
 import java.util.Set;
 
-public class ReservationService implements ConcertService {
-
+public class DefaultService implements ConcertService {
 
 
     @Override
