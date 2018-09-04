@@ -19,7 +19,6 @@ public class Seat {
 
     }
 
-    //TODO make this work
     @Id
     @Column(name ="seatRow", nullable = false)
     @Enumerated(EnumType.STRING)
@@ -27,8 +26,7 @@ public class Seat {
 
     @Id
     @Column(name = "seatNumber", nullable = false)
-    private int _number;
-
+    private Integer _number; //fix this using the convert thing
 
     @Id
     @ManyToOne
@@ -54,6 +52,53 @@ public class Seat {
         return new SeatDTO(_row, new SeatNumber(_number));
     }
 
+    public SeatRow get_row() {
+        return _row;
+    }
+
+    public void set_row(SeatRow _row) {
+        this._row = _row;
+    }
+
+    public Integer get_number() {
+        return _number;
+    }
+
+    public void set_number(int _number) {
+        this._number = _number;
+    }
+
+    public Concert get_concert() {
+        return _concert;
+    }
+
+    public void set_concert(Concert _concert) {
+        this._concert = _concert;
+    }
+
+    public LocalDateTime get_datetime() {
+        return _datetime;
+    }
+
+    public void set_datetime(LocalDateTime _datetime) {
+        this._datetime = _datetime;
+    }
+
+    public Reservation get_reservation() {
+        return _reservation;
+    }
+
+    public void set_reservation(Reservation _reservation) {
+        this._reservation = _reservation;
+    }
+
+    public PriceBand get_priceband() {
+        return _priceband;
+    }
+
+    public void set_priceband(PriceBand _priceband) {
+        this._priceband = _priceband;
+    }
 }
 
 class SeatId implements Serializable {
@@ -102,7 +147,7 @@ class SeatId implements Serializable {
             return false;
         }
 
-        if (_datetime!=null ? !_datetime.equals((seatId._datetime): seatId._datetime !=null){
+        if (_datetime!=null ? !_datetime.equals(seatId._datetime) : seatId._datetime !=null){
             return false;
         }
 
