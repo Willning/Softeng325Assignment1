@@ -49,6 +49,7 @@ public class ConcertResource {
             em.close();
 
             Response.ResponseBuilder builder = Response.ok(concertDTOs);
+            //might need to wrap in a generic entity for client
 
             return builder.build();
         }
@@ -57,7 +58,7 @@ public class ConcertResource {
 
     @GET
     @Path("/performers")
-    public Response getPerformers(){
+    public Response getAllPerformers(){
         EntityManager em = PersistenceManager.instance().createEntityManager();
         em.getTransaction().begin();
 
@@ -108,7 +109,7 @@ public class ConcertResource {
             Set<BookingDTO>bookingDTOS = new HashSet<>();
 
             for(Reservation r: reservations){
-                bookingDTOS.add(r.makeBooking());
+                bookingDTOS.add(r.makeBookingDTO());
             }
             em.close();
             //may need to wrap this to get it to work.
@@ -152,6 +153,51 @@ public class ConcertResource {
 
         Response.ResponseBuilder builder = Response.created(URI.create("/user/" + user.get_username()));
         return builder.build();
+
+    }
+
+    @POST
+    @Path("/authenticate")
+    public Response authenticateUser(UserDTO userDTO){
+        EntityManager em = PersistenceManager.instance().createEntityManager();
+        em.getTransaction().begin();
+
+        if (userDTO.getUsername() == null || userDTO.getUsername() == ""){
+            return Response.status(Response.Status.SERVICE_UNAVAILABLE).build();
+        }
+
+        if (userDTO.getPassword() == null || userDTO.getPassword() == ""){
+            //don't allow empty passwords, should a service allow empty passwords?
+            return Response.status(Response.Status.SERVICE_UNAVAILABLE).build();
+        }
+
+        User u = em.find(User.class, userDTO.getUsername());
+
+        if (u == null){
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+
+        if (u.get_password() == userDTO.getPassword()){
+            //if passwords don't match, UNAUTHORIZED.
+            if(u.get_token()==null){
+                //if the password matches but the used has no token
+                UUID userToken = UUID.randomUUID();
+                u.set_token(userToken.toString());
+
+                //merge because user already exists
+                em.merge(u);
+                em.getTransaction().commit();
+                em.close();
+
+                return Response.accepted().entity(u.convertToDTO()).build();
+
+            }
+
+        }else{
+            return Response.status(Response.Status.UNAUTHORIZED).build();
+        }
+        //code shouldn't reach here.
+        return null;
 
     }
 

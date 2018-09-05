@@ -69,6 +69,10 @@ public class User {
         this._creditCard = _creditCard;
     }
 
+    public UserDTO convertToDTO(){
+        UserDTO dto = new UserDTO(_username,_password);
+    }
+
     public String get_firstname() {
         return _firstname;
     }

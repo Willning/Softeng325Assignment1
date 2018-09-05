@@ -37,7 +37,7 @@ public class Reservation {
     @Enumerated(EnumType.STRING)
     private PriceBand _priceBand;
 
-    public BookingDTO makeBooking(){
+    public BookingDTO makeBookingDTO(){
         //TODO make this only when confirmed
 
         Set<SeatDTO> seatDTOs = new HashSet<>();
