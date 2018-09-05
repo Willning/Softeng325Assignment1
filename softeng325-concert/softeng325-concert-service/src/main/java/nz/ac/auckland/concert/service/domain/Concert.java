@@ -39,7 +39,6 @@ public class Concert {
     @Column (name = "dateTime", nullable = false)
     private Set<LocalDateTime> _dates;
 
-
     @ManyToMany
     @JoinTable(name = "CONCERT_PERFORMANCE",
             joinColumns = @JoinColumn(name = "cid"),

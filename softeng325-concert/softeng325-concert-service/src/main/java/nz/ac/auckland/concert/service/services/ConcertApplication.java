@@ -12,7 +12,9 @@ public class ConcertApplication extends Application {
     public ConcertApplication(){
         _singletons.add(new ConcertResource());
 
-        PersistenceManager manager = new PersistenceManager().instance();
+        PersistenceManager pm = new PersistenceManager().instance();
+
+        //soemthing is iffy with the manager
         //create the singleton manager here.
     }
 

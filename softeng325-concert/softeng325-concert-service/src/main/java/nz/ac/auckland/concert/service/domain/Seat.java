@@ -14,6 +14,14 @@ import java.time.LocalDateTime;
 @IdClass(SeatId.class)
 @Table(name = "SEATS")
 public class Seat {
+    //TODO make this be stored wih a number or something
+
+    @Version
+    private int _version;
+
+    public int get_version() {
+        return _version;
+    }
 
     public Seat(){
 

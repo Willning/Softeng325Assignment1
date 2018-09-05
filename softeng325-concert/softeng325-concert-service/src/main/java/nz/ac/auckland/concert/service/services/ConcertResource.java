@@ -1,12 +1,7 @@
 package nz.ac.auckland.concert.service.services;
 
-import nz.ac.auckland.concert.common.dto.ConcertDTO;
-import nz.ac.auckland.concert.common.dto.PerformerDTO;
-import nz.ac.auckland.concert.common.dto.UserDTO;
-import nz.ac.auckland.concert.service.domain.Concert;
-import nz.ac.auckland.concert.service.domain.Performer;
-import nz.ac.auckland.concert.service.domain.Reservation;
-import nz.ac.auckland.concert.service.domain.User;
+import nz.ac.auckland.concert.common.dto.*;
+import nz.ac.auckland.concert.service.domain.*;
 import org.hibernate.service.spi.ServiceException;
 
 import javax.persistence.EntityManager;
@@ -87,7 +82,7 @@ public class ConcertResource {
 
     @GET
     @Path("/bookings")
-    public Response getAllBookings(@CookieParam("authenitcationToken") Cookie token){
+    public Response getAllBookings(@CookieParam("authenticationToken") Cookie token){
         if (token == null){
             return Response.status(Response.Status.NOT_FOUND).build();
             //if cookies is not presented, give a not found error, user not found.
@@ -105,8 +100,20 @@ public class ConcertResource {
             return Response.status(Response.Status.UNAUTHORIZED).build();
         }else{
             //find all BookingDTOS associated with the tokenID
+            TypedQuery<Reservation> reservationQuery = em.createQuery("SELECT r FROM RESERVATION r WHERE r._user._token =:token", Reservation.class)
+                    .setParameter("token", token.getValue());
+
+            List<Reservation> reservations = reservationQuery.getResultList();
+
+            Set<BookingDTO>bookingDTOS = new HashSet<>();
+
+            for(Reservation r: reservations){
+                bookingDTOS.add(r.makeBooking());
+            }
             em.close();
-            return null;
+            //may need to wrap this to get it to work.
+
+            return Response.ok(bookingDTOS).build();
         }
 
     }
@@ -146,6 +153,35 @@ public class ConcertResource {
         Response.ResponseBuilder builder = Response.created(URI.create("/user/" + user.get_username()));
         return builder.build();
 
+    }
+
+    @POST
+    @Path("/register_credit_card")
+    public Response registerCreditCard(CreditCardDTO creditCardDTO, @CookieParam("authenticationToken") Cookie token){
+        //need to be able to catch errors
+
+        if (token == null){
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+
+        EntityManager em = PersistenceManager.instance().createEntityManager();
+        em.getTransaction().begin();
+
+        //get user with the supplied token.
+        TypedQuery<User> query = em.createQuery("SELECT u FROM USERS WHERE u._token = :token", User.class).setParameter("token", token.getValue());
+        User user = query.getSingleResult();
+
+        if (user == null){
+            return Response.status(Response.Status.UNAUTHORIZED).build();
+        }
+
+        user.set_creditCard(new CreditCard(creditCardDTO));
+        em.persist(user.get_creditCard()); //persist the credit card
+        em.merge(user); //merge the user
+
+        em.getTransaction().commit();
+
+        return Response.accepted().build();
     }
 
 }

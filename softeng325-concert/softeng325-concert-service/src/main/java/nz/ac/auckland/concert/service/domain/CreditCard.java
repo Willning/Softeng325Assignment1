@@ -2,18 +2,24 @@ package nz.ac.auckland.concert.service.domain;
 
 import nz.ac.auckland.concert.common.dto.CreditCardDTO;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
 @Table(name = "CREDIT_CARDS")
 public class CreditCard {
 
-
-    private CreditCardDTO.Type _type;
-    private String _name;
+    @Id
+    @Column(name="number", nullable = false,unique = true)
     private String _number;
+
+    @Column(name = "name", nullable = false)
+    private String _name;
+
+    @Column(name = "type",nullable = true)
+    @Enumerated(EnumType.STRING)
+    private CreditCardDTO.Type _type;
+
     private LocalDate _expiryDate;
 
     public CreditCard(){
