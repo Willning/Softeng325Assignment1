@@ -139,19 +139,29 @@ public class ConcertResource {
                 ||userDTO.getPassword()==null||userDTO.getUsername()==null){
             //fail if any of the 4 fields are null
             //server should not throw an exception, should send a message to the user. User should throw exception.
-            Response.ResponseBuilder errorRespsonse = Response.status(Response.Status.SERVICE_UNAVAILABLE);
+            Response.ResponseBuilder errorRespsonse = Response.status(Response.Status.BAD_REQUEST);
             return errorRespsonse.build();
         }
 
         if (userDTO.getFirstname() == "" || userDTO.getLastname() == ""
                 ||userDTO.getPassword()==""||userDTO.getUsername()==""){
             //fail if any of the 4 fields are empty
-            Response.ResponseBuilder errorRespsonse = Response.status(Response.Status.SERVICE_UNAVAILABLE);
+            Response.ResponseBuilder errorRespsonse = Response.status(Response.Status.BAD_REQUEST);
             return errorRespsonse.build();
         }
 
+        //need to also check if new user is unique
+
+
         EntityManager em = PersistenceManager.instance().createEntityManager();
         em.getTransaction().begin();
+
+        User u = em.find(User.class, userDTO.getUsername());
+        if (u!= null){
+            //if non-unique user name, i.e. username already exists
+            return Response.status(Response.Status.CONFLICT).build();
+        }
+
         UUID token = UUID.randomUUID(); //generate a UUID
 
         User user = new User(userDTO);
@@ -174,15 +184,17 @@ public class ConcertResource {
         em.getTransaction().begin();
 
         if (userDTO.getUsername() == null || userDTO.getUsername() == ""){
-            return Response.status(Response.Status.SERVICE_UNAVAILABLE).build();
+            //don't allow empty usernames
+            return Response.status(Response.Status.BAD_REQUEST).build();
         }
 
         if (userDTO.getPassword() == null || userDTO.getPassword() == ""){
-            //don't allow empty passwords, should a service allow empty passwords?
-            return Response.status(Response.Status.SERVICE_UNAVAILABLE).build();
+            //don't allow empty passwords
+            return Response.status(Response.Status.BAD_REQUEST).build();
         }
 
         User u = em.find(User.class, userDTO.getUsername());
+        //attempt to find the user.
 
         if (u == null){
             return Response.status(Response.Status.NOT_FOUND).build();
