@@ -71,6 +71,7 @@ public class User {
 
     public UserDTO convertToDTO(){
         UserDTO dto = new UserDTO(_username,_password);
+        return dto;
     }
 
     public String get_firstname() {

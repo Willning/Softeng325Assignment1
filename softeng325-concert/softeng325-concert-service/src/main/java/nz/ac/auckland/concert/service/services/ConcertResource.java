@@ -5,10 +5,12 @@ import nz.ac.auckland.concert.service.domain.*;
 import org.hibernate.service.spi.ServiceException;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PostLoad;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Cookie;
+import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.net.URI;
@@ -33,7 +35,7 @@ public class ConcertResource {
         EntityManager em = PersistenceManager.instance().createEntityManager();
         em.getTransaction().begin();
 
-        TypedQuery<Concert> concertQuery = em.createQuery("SELECT c FROM CONCERTS c", Concert.class);
+        TypedQuery<Concert> concertQuery = em.createQuery("SELECT c FROM Concert c", Concert.class);
         List<Concert> concerts = concertQuery.getResultList();
         //if not empty convert to DTOs and build response
 
@@ -47,8 +49,10 @@ public class ConcertResource {
             }
 
             em.close();
+            GenericEntity<Set<ConcertDTO>> wrappedDTO = new GenericEntity<Set<ConcertDTO>>(concertDTOs) {
+            };
 
-            Response.ResponseBuilder builder = Response.ok(concertDTOs);
+            Response.ResponseBuilder builder = Response.ok(wrappedDTO);
             //might need to wrap in a generic entity for client
 
             return builder.build();
@@ -62,7 +66,7 @@ public class ConcertResource {
         EntityManager em = PersistenceManager.instance().createEntityManager();
         em.getTransaction().begin();
 
-        TypedQuery<Performer> performerQuery = em.createQuery("SELECT p FROM PERFORMERS p", Performer.class);
+        TypedQuery<Performer> performerQuery = em.createQuery("SELECT p FROM Performer p", Performer.class);
         List<Performer> performers = performerQuery.getResultList();
 
         if(performers.isEmpty()){
@@ -76,7 +80,11 @@ public class ConcertResource {
 
             em.close();
 
-            Response.ResponseBuilder builder = Response.ok(performerDTOS);
+            GenericEntity<Set<PerformerDTO>> wrappedDTOs = new GenericEntity<Set<PerformerDTO>>(performerDTOS) {
+            };
+
+
+            Response.ResponseBuilder builder = Response.ok(wrappedDTOs);
             return builder.build();
         }
     }
@@ -91,7 +99,7 @@ public class ConcertResource {
 
         EntityManager em = PersistenceManager.instance().createEntityManager();
         em.getTransaction().begin();
-        TypedQuery<User> userQuery =  em.createQuery("SELECT u FROM USERS u WHERE u.token = :token", User.class).setParameter("token",token.getValue());
+        TypedQuery<User> userQuery =  em.createQuery("SELECT u FROM User u WHERE u._token = :token", User.class).setParameter("token",token.getValue());
 
         User user = userQuery.getSingleResult();
 
@@ -101,7 +109,7 @@ public class ConcertResource {
             return Response.status(Response.Status.UNAUTHORIZED).build();
         }else{
             //find all BookingDTOS associated with the tokenID
-            TypedQuery<Reservation> reservationQuery = em.createQuery("SELECT r FROM RESERVATION r WHERE r._user._token =:token", Reservation.class)
+            TypedQuery<Reservation> reservationQuery = em.createQuery("SELECT r FROM Reservation r WHERE r._user._token =:token", Reservation.class)
                     .setParameter("token", token.getValue());
 
             List<Reservation> reservations = reservationQuery.getResultList();
@@ -113,8 +121,11 @@ public class ConcertResource {
             }
             em.close();
             //may need to wrap this to get it to work.
+            GenericEntity<Set<BookingDTO>> wrappedDTOs = new GenericEntity<Set<BookingDTO>>(bookingDTOS) {
+            };
 
-            return Response.ok(bookingDTOS).build();
+
+            return Response.ok(wrappedDTOs).build();
         }
 
     }
@@ -202,6 +213,64 @@ public class ConcertResource {
     }
 
     @POST
+    @Path("/reservations")
+    public Response reserveSeats(ReservationRequestDTO reservationRequestDTO, @CookieParam("authenitcationToken") Cookie token){
+
+        if (token == null) {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+
+        EntityManager em = PersistenceManager.instance().createEntityManager();
+        em.getTransaction().begin();
+
+        //search out the concert id
+
+        TypedQuery<Concert> concertQuery = em.createQuery("SELECT c FROM Concert c WHERE c._id =:cid", Concert.class)
+                .setParameter("cid",reservationRequestDTO.getConcertId());
+
+        Concert concert = concertQuery.getSingleResult();
+        //since cid is unique, should have single result
+
+        if (concert.getDates().contains(reservationRequestDTO.getDate())){
+           //TODO do the thing here
+
+
+        }else{
+            return Response.status(Response.Status.BAD_REQUEST).build();
+        }
+
+        return null;
+
+    }
+
+    @POST
+    @Path("/booking")
+    public Response confirmReservation(ReservationDTO reservationDTO, @CookieParam("authenticationToken") Cookie token){
+        if (token == null){
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+
+        EntityManager em = PersistenceManager.instance().createEntityManager();
+        em.getTransaction().begin();
+
+        //find the user by token
+        TypedQuery<User> userQuery = em.createQuery("SELECT u FROM User u WHERE u._token = :token",User.class)
+                .setParameter("token",token.getValue());
+
+        User user = userQuery.getSingleResult();
+
+        //find the reservation in database
+        TypedQuery<Reservation> reservationQuery = em.createQuery("SELECT r FROM Reservation r WHERE r._rid=:rid", Reservation.class)
+                .setParameter("rid", reservationDTO.getId());
+
+        Reservation reservation= reservationQuery.getSingleResult();
+
+        //TODO the thing here
+        return null;
+
+    }
+
+    @POST
     @Path("/register_credit_card")
     public Response registerCreditCard(CreditCardDTO creditCardDTO, @CookieParam("authenticationToken") Cookie token){
         //need to be able to catch errors
@@ -214,20 +283,21 @@ public class ConcertResource {
         em.getTransaction().begin();
 
         //get user with the supplied token.
-        TypedQuery<User> query = em.createQuery("SELECT u FROM USERS WHERE u._token = :token", User.class).setParameter("token", token.getValue());
+        TypedQuery<User> query = em.createQuery("SELECT u FROM User u WHERE u._token = :token", User.class).setParameter("token", token.getValue());
         User user = query.getSingleResult();
 
-        if (user == null){
+        if (user != null) {
+            user.set_creditCard(new CreditCard(creditCardDTO));
+            em.persist(user.get_creditCard()); //persist the credit card to the crdit card table
+            em.merge(user); //merge the user
+
+            em.getTransaction().commit();
+
+            return Response.accepted().build();
+        }else{
             return Response.status(Response.Status.UNAUTHORIZED).build();
         }
 
-        user.set_creditCard(new CreditCard(creditCardDTO));
-        em.persist(user.get_creditCard()); //persist the credit card
-        em.merge(user); //merge the user
-
-        em.getTransaction().commit();
-
-        return Response.accepted().build();
     }
 
 }

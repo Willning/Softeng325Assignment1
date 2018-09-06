@@ -28,7 +28,10 @@ public class Reservation {
     @CollectionTable(name = "RESERVED_SEATS", joinColumns = @JoinColumn(name = "r_id"))
     @Column(name = "seats", nullable = false)
     private Set<Seat> _seats;
-    //change this to an integer or a string.
+    /*reservation has valuetype of seats, seats that a reservation have should not persist to other reservations
+    until decision commited
+     */
+    //change seat to an integer or a string.
 
     @Column(name = "datetime")
     private LocalDateTime _dateTime;
