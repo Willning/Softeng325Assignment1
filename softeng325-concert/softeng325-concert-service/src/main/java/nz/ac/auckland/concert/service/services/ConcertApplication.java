@@ -1,9 +1,11 @@
 package nz.ac.auckland.concert.service.services;
 
+import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
 import java.util.HashSet;
 import java.util.Set;
 
+@ApplicationPath("/services")
 public class ConcertApplication extends Application {
 
     private Set<Object> _singletons = new HashSet<>();
@@ -13,7 +15,6 @@ public class ConcertApplication extends Application {
         _singletons.add(new ConcertResource());
 
         PersistenceManager pm = new PersistenceManager().instance();
-
         //soemthing is iffy with the manager
         //create the singleton manager here.
     }

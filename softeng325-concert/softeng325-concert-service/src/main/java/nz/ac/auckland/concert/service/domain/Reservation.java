@@ -27,11 +27,11 @@ public class Reservation {
     @ElementCollection
     @CollectionTable(name = "RESERVED_SEATS", joinColumns = @JoinColumn(name = "r_id"))
     @Column(name = "seats", nullable = false)
-    private Set<Seat> _seats;
+    private Set<String> _seats;
     /*reservation has valuetype of seats, seats that a reservation have should not persist to other reservations
     until decision commited
      */
-    //change seat to an integer or a string.
+    //format is ROW +NUMBER
 
     @Column(name = "datetime")
     private LocalDateTime _dateTime;
@@ -40,16 +40,21 @@ public class Reservation {
     @Enumerated(EnumType.STRING)
     private PriceBand _priceBand;
 
+    @Column(name = "booked")
+    private boolean booked = false;
+
     public BookingDTO makeBookingDTO(){
-        //TODO make this only when confirmed
+        if (booked){
 
-        Set<SeatDTO> seatDTOs = new HashSet<>();
+            Set<SeatDTO> seatDTOs = new HashSet<>();
 
-        for (Seat seat:_seats){
-            seatDTOs.add(seat.convertToDTO());
+            for (String seatCode : _seats) {
+                seatDTOs.add(new Seat(seatCode).convertToDTO());
+            }
+
+            return new BookingDTO(_concert.getID(), _concert.getTitle(), _dateTime, seatDTOs, _priceBand);
         }
-
-        return new BookingDTO(_concert.getID(), _concert.getTitle(),_dateTime, seatDTOs, _priceBand);
+        return null;
 
     }
 

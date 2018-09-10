@@ -19,6 +19,8 @@ public class Seat {
     @Version
     private int _version;
 
+    private boolean _confirmed;
+
     public int get_version() {
         return _version;
     }
@@ -27,14 +29,14 @@ public class Seat {
 
     }
 
-    @Id
-    @Column(name ="seatRow", nullable = false)
-    @Enumerated(EnumType.STRING)
     private SeatRow _row;
 
-    @Id
-    @Column(name = "seatNumber", nullable = false)
     private Integer _number; //fix this using the convert thing
+
+    //Probably use this instead of row and column
+    @Id
+    @Column(name = "seatCode",nullable = false)
+    private String _seatCode; //string consisting of merged seat row and seat number
 
     @Id
     @ManyToOne
@@ -47,11 +49,29 @@ public class Seat {
     @ManyToOne
     private Reservation _reservation;
 
+    @Column(name = "priceband", nullable = false)
+    @Enumerated(EnumType.STRING)
     private PriceBand _priceband;
+
 
     public Seat(SeatDTO seatDTO){
         _number =seatDTO.getNumber().intValue();
         _row = seatDTO.getRow();
+
+        _seatCode = _row.toString() + _number.toString();
+    }
+
+    public Seat(String seatCode){
+        _row = SeatRow.valueOf(String.valueOf(seatCode.charAt(0)));
+
+        if (seatCode.length() == 2){
+            //is it time to do a 18 case switch statement.
+            //please end my pathetic existence
+            _number = Character.getNumericValue(seatCode.charAt(1));
+
+        }else if(seatCode.length() ==3){
+            _number = Integer.parseInt(seatCode.substring(1));
+        }
     }
 
 
@@ -60,7 +80,7 @@ public class Seat {
         return new SeatDTO(_row, new SeatNumber(_number));
     }
 
-    public SeatRow get_row() {
+    public SeatRow get_row(){
         return _row;
     }
 
@@ -107,26 +127,40 @@ public class Seat {
     public void set_priceband(PriceBand _priceband) {
         this._priceband = _priceband;
     }
+
+
+    public boolean is_confirmed() {
+        return _confirmed;
+    }
+
+    public void set_confirmed(boolean _confirmed) {
+        this._confirmed = _confirmed;
+    }
+
+    public String getSeatCode() {
+        return _seatCode;
+    }
+
+    public void setSeatCode(String seatCode) {
+        this._seatCode = seatCode;
+    }
 }
 
 class SeatId implements Serializable {
     //make this so we can use compound key?
     //primary key should be concert, date, row and number.
     Concert _concert;
-    SeatRow _row;
-    Integer _number;
+    String _seatCode;
     LocalDateTime _datetime;
 
     public SeatId(){
 
     }
 
-    public SeatId(Concert concert, SeatRow row, SeatNumber number, LocalDateTime datetime){
+    public SeatId(Concert concert, String seatCode, LocalDateTime datetime){
         _concert=concert;
-        _row = row;
-        _number = number.intValue();
+        _seatCode = seatCode;
         _datetime = datetime;
-
     }
 
     @Override
@@ -134,8 +168,7 @@ class SeatId implements Serializable {
         final int prime = 31;
         int result = _concert.hashCode();
         result = result * prime + (_datetime != null ? _datetime.hashCode() :0);
-        result = result * prime + (_row != null ? _row.hashCode() :0);
-        result = result * prime + _number;
+        result = result * prime + _seatCode.hashCode();
 
         return result;
     }
@@ -159,11 +192,7 @@ class SeatId implements Serializable {
             return false;
         }
 
-        if (_datetime!=null ? !_row.equals(seatId._row): seatId._row !=null){
-            return false;
-        }
-
-        return (_number !=null ? seatId._number == null :_number == seatId._number);
+        return (_seatCode !=null ? seatId._seatCode == null :_seatCode == seatId._seatCode);
 
     }
 

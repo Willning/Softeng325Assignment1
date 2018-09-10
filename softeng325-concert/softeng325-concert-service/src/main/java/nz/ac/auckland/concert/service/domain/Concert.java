@@ -13,16 +13,13 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-@XmlRootElement
-@XmlAccessorType(XmlAccessType.FIELD)
-@Table(name = "CONCERTS")
 @Entity
-
+@Table(name = "CONCERTS")
 public class Concert {
     @Id
     @GeneratedValue
     @Column(name = "cid", nullable = false, unique = true)
-    private long _id;
+    private Long _id;
 
     @Column(name = "Title", nullable = false)
     private String _title;
@@ -39,11 +36,12 @@ public class Concert {
     @Column (name = "dateTime", nullable = false)
     private Set<LocalDateTime> _dates;
 
-    @ManyToMany
-    @JoinTable(name = "CONCERT_PERFORMANCE",
-            joinColumns = @JoinColumn(name = "cid"),
-            inverseJoinColumns =@JoinColumn(name = "pid"))
-    @Column(name = "performer", nullable = false)
+
+    //Seems to be error here in the join.
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "CONCERT_PERFORMER",
+            joinColumns = {@JoinColumn(name = "cid")},
+            inverseJoinColumns ={@JoinColumn(name = "pid")})
     private Set<Performer> _performers;
 
     //make a concert object to a DTO object

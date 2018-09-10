@@ -22,15 +22,14 @@ public class DefaultService implements ConcertService {
 
     private static String WEB_SERVICE_URI = "http://localhost:10000/services/resource";
 
-    private Set<ConcertDTO> _concertCache;
     private Set<PerformerDTO> _performerCache;
 
     private Cookie cookie; // held by the service to authenticate.
 
+
     @Override
     public Set<ConcertDTO> getConcerts() throws ServiceException {
         Client client = ClientBuilder.newClient();
-
 
         try{
             Invocation.Builder builder = client.target(WEB_SERVICE_URI + "/concerts").request().accept(MediaType.APPLICATION_XML);
@@ -42,10 +41,11 @@ public class DefaultService implements ConcertService {
                 //if ok status.
                 concerts = response.readEntity(new GenericType<Set<ConcertDTO>>() {
                 });
-                _concertCache = concerts;
-                //set up caching of concerts too.
+
             }else if (response.getStatus() == Response.Status.NOT_MODIFIED.getStatusCode()){
-                concerts = _concertCache;
+                concerts = response.readEntity(new GenericType<Set<ConcertDTO>>() {
+                });
+
             }else{
                 concerts = new HashSet<>();
             }
@@ -53,7 +53,8 @@ public class DefaultService implements ConcertService {
             return concerts;
 
         }catch(Exception e){
-            throw new ServiceException(Messages.SERVICE_COMMUNICATION_ERROR);
+            throw new ServiceException(e.getMessage());
+            //throw new ServiceException(Messages.SERVICE_COMMUNICATION_ERROR);
         }finally {
             client.close();
         }
@@ -86,7 +87,8 @@ public class DefaultService implements ConcertService {
             return performers;
 
         }catch (Exception e){
-            throw new ServiceException(Messages.SERVICE_COMMUNICATION_ERROR);
+            throw new ServiceException(e.getMessage());
+            //throw new ServiceException(Messages.SERVICE_COMMUNICATION_ERROR);
         }finally {
             client.close();
         }
@@ -105,7 +107,6 @@ public class DefaultService implements ConcertService {
             if (response.getStatus() == Response.Status.CREATED.getStatusCode()){
 
                 //Mission accomplished
-
             }else if(response.getStatus() == Response.Status.BAD_REQUEST.getStatusCode()) {
                 throw new ServiceException(Messages.CREATE_USER_WITH_MISSING_FIELDS);
 
@@ -116,7 +117,8 @@ public class DefaultService implements ConcertService {
                 throw new ServiceException("Unexpected HTTP code");
             }
         }catch (Exception e){
-            throw new ServiceException(Messages.SERVICE_COMMUNICATION_ERROR);
+            throw new ServiceException(e.getMessage());
+            //throw new ServiceException(Messages.SERVICE_COMMUNICATION_ERROR);
         }finally {
             client.close();
         }
@@ -128,10 +130,11 @@ public class DefaultService implements ConcertService {
     @Override
     public UserDTO authenticateUser(UserDTO user) throws ServiceException {
         Client client = ClientBuilder.newClient();
+
         try{
             Invocation.Builder builder = client.target(WEB_SERVICE_URI + "/authenticate").request().accept(MediaType.APPLICATION_XML);
 
-            Response response = builder.get();
+            Response response = builder.post(Entity.entity(user,MediaType.APPLICATION_XML));
             if(response.getStatus() == Response.Status.ACCEPTED.getStatusCode()){
 
                 return response.readEntity(new GenericType<UserDTO>(){
@@ -150,11 +153,12 @@ public class DefaultService implements ConcertService {
                 throw new ServiceException(Messages.AUTHENTICATE_USER_WITH_ILLEGAL_PASSWORD);
 
             }else{
-                throw new ServiceException("Unexpected HTTP code");
+                throw new ServiceException("Failed with error code" + + response.getStatus());
             }
 
         }catch (Exception e){
-            throw new ServiceException(Messages.SERVICE_COMMUNICATION_ERROR);
+            //throw new ServiceException(Messages.SERVICE_COMMUNICATION_ERROR);
+            throw new ServiceException(e.getMessage());
         }finally {
             client.close();
         }
@@ -179,25 +183,28 @@ public class DefaultService implements ConcertService {
     public void registerCreditCard(CreditCardDTO creditCard) throws ServiceException {
         Client client = ClientBuilder.newClient();
 
-        try{
+        try {
             Invocation.Builder builder = client.target(WEB_SERVICE_URI + "/register_credit_card").request().accept(MediaType.APPLICATION_XML);
 
-            Response response = builder.get();
+            Response response = builder.cookie("authenticationToken", cookie.getValue())
+                    .post(Entity.entity(creditCard, MediaType.APPLICATION_XML));
             //actually will need to post information to the server
 
 
-            if (response.getStatus() == Response.Status.ACCEPTED.getStatusCode()){
+            if (response.getStatus() == Response.Status.ACCEPTED.getStatusCode()) {
                 //we can throw errors when something goes wrong? But what to do when something goes right?
 
-            }else if(response.getStatus() == Response.Status.UNAUTHORIZED.getStatusCode()){
+            } else if (response.getStatus() == Response.Status.UNAUTHORIZED.getStatusCode()) {
                 throw new ServiceException(Messages.BAD_AUTHENTICATON_TOKEN);
-            }else if(response.getStatus()==Response.Status.NOT_FOUND.getStatusCode()){
+            } else if (response.getStatus() == Response.Status.NOT_FOUND.getStatusCode()) {
                 //no token, i.e. not authenticated
                 throw new ServiceException(Messages.UNAUTHENTICATED_REQUEST);
 
-            }else{
-                throw new ServiceException("Unexpected HTTP");
+            } else {
+                throw new ServiceException("Failed with error code " + response.getStatus());
             }
+        }catch (Exception e){
+            throw new ServiceException(e.getMessage());
         }finally {
             client.close();
         }
@@ -207,7 +214,7 @@ public class DefaultService implements ConcertService {
     public Set<BookingDTO> getBookings() throws ServiceException {
         Client client = ClientBuilder.newClient();
         try {
-            Invocation.Builder builder = client.target(WEB_SERVICE_URI + "/books").request().accept(MediaType.APPLICATION_XML);
+            Invocation.Builder builder = client.target(WEB_SERVICE_URI + "/booking").request().accept(MediaType.APPLICATION_XML);
             Response response = builder.get();
 
 

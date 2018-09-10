@@ -2,6 +2,8 @@ package nz.ac.auckland.concert.service.domain;
 
 import nz.ac.auckland.concert.common.dto.PerformerDTO;
 import nz.ac.auckland.concert.common.types.Genre;
+import org.hibernate.annotations.Cascade;
+import org.jboss.resteasy.spi.touri.MappedBy;
 
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -10,13 +12,13 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@XmlAccessorType(XmlAccessType.FIELD)
-@Table(name  = "PERFORMER")
+@Table(name  = "PERFORMERS")
 public class Performer {
+
     @Id
     @GeneratedValue
     @Column(name = "pid", nullable = false)
-    private long _id;
+    private Long _id;
 
     @Column(name= "name", nullable = false)
     private String _name;
@@ -28,12 +30,11 @@ public class Performer {
     @Enumerated(EnumType.STRING)
     private Genre _genre;
 
-    //map many to many relationship between performer and concert.
-    @ManyToMany
+    //need someway to have cascading delete on both sides.
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "CONCERT_PERFORMER",
-            joinColumns = @JoinColumn(name = "pid"),
-            inverseJoinColumns = @JoinColumn(name = "cid"))
-    @Column(name = "concert", nullable = false)
+            joinColumns = {@JoinColumn(name = "pid")},
+            inverseJoinColumns ={@JoinColumn(name = "cid")})
     private Set<Concert> _concerts;
 
     public PerformerDTO convertToDTO(){
@@ -81,6 +82,10 @@ public class Performer {
 
     public Set<Concert> getConcerts(){
         return  _concerts;
+    }
+
+    public void setConcerts(Set<Concert> concertSet){
+        this._concerts=concertSet;
     }
 
 
