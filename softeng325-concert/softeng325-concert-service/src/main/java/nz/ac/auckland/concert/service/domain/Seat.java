@@ -65,8 +65,6 @@ public class Seat {
         _row = SeatRow.valueOf(String.valueOf(seatCode.charAt(0)));
 
         if (seatCode.length() == 2){
-            //is it time to do a 18 case switch statement.
-            //please end my pathetic existence
             _number = Character.getNumericValue(seatCode.charAt(1));
 
         }else if(seatCode.length() ==3){

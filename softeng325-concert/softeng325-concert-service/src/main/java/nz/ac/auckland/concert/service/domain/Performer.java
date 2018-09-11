@@ -12,6 +12,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
+@XmlAccessorType(XmlAccessType.FIELD)
 @Table(name  = "PERFORMERS")
 public class Performer {
 
@@ -31,10 +32,7 @@ public class Performer {
     private Genre _genre;
 
     //need someway to have cascading delete on both sides.
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "CONCERT_PERFORMER",
-            joinColumns = {@JoinColumn(name = "pid")},
-            inverseJoinColumns ={@JoinColumn(name = "cid")})
+    @ManyToMany(mappedBy = "_performers")
     private Set<Concert> _concerts;
 
     public PerformerDTO convertToDTO(){

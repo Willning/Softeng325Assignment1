@@ -32,11 +32,13 @@ public class DefaultService implements ConcertService {
         Client client = ClientBuilder.newClient();
 
         try{
-            Invocation.Builder builder = client.target(WEB_SERVICE_URI + "/concerts").request().accept(MediaType.APPLICATION_XML);
+            Invocation.Builder builder = client.target(WEB_SERVICE_URI + "/concerts")
+                    .request()
+                    .accept(MediaType.APPLICATION_XML);
+            Response response= builder.get();
 
             Set<ConcertDTO> concerts;
 
-            Response response= builder.get();
             if (response.getStatus() == Response.Status.OK.getStatusCode()) {
                 //if ok status.
                 concerts = response.readEntity(new GenericType<Set<ConcertDTO>>() {
@@ -45,7 +47,6 @@ public class DefaultService implements ConcertService {
             }else if (response.getStatus() == Response.Status.NOT_MODIFIED.getStatusCode()){
                 concerts = response.readEntity(new GenericType<Set<ConcertDTO>>() {
                 });
-
             }else{
                 concerts = new HashSet<>();
             }
@@ -137,15 +138,14 @@ public class DefaultService implements ConcertService {
             Response response = builder.post(Entity.entity(user,MediaType.APPLICATION_XML));
             if(response.getStatus() == Response.Status.ACCEPTED.getStatusCode()){
 
-                return response.readEntity(new GenericType<UserDTO>(){
-                });
+                //this part is broke
+                return response.readEntity(new GenericType<UserDTO>(){});
 
             }else if (response.getStatus() == Response.Status.BAD_REQUEST.getStatusCode()) {
 
                 throw new ServiceException(Messages.AUTHENTICATE_USER_WITH_MISSING_FIELDS);
                 //if either username or password is invalid
             }else if(response.getStatus()==Response.Status.NOT_FOUND.getStatusCode()){
-
                 throw new ServiceException(Messages.AUTHENTICATE_NON_EXISTENT_USER);
                 //no user found
             }else if (response.getStatus() == Response.Status.UNAUTHORIZED.getStatusCode()){
@@ -184,18 +184,23 @@ public class DefaultService implements ConcertService {
         Client client = ClientBuilder.newClient();
 
         try {
-            Invocation.Builder builder = client.target(WEB_SERVICE_URI + "/register_credit_card").request().accept(MediaType.APPLICATION_XML);
+            Invocation.Builder builder = client.target(WEB_SERVICE_URI + "/register_credit_card")
+                    .request()
+                    .accept(MediaType.APPLICATION_XML);
 
             Response response = builder.cookie("authenticationToken", cookie.getValue())
                     .post(Entity.entity(creditCard, MediaType.APPLICATION_XML));
             //actually will need to post information to the server
 
-
             if (response.getStatus() == Response.Status.ACCEPTED.getStatusCode()) {
                 //we can throw errors when something goes wrong? But what to do when something goes right?
+                //TODO this should do something.
+                return;
 
             } else if (response.getStatus() == Response.Status.UNAUTHORIZED.getStatusCode()) {
+
                 throw new ServiceException(Messages.BAD_AUTHENTICATON_TOKEN);
+
             } else if (response.getStatus() == Response.Status.NOT_FOUND.getStatusCode()) {
                 //no token, i.e. not authenticated
                 throw new ServiceException(Messages.UNAUTHENTICATED_REQUEST);
@@ -230,7 +235,6 @@ public class DefaultService implements ConcertService {
             }else{
                 throw new ServiceException(Messages.SERVICE_COMMUNICATION_ERROR);
             }
-
 
         }catch (Exception e){
             throw new ServiceException(Messages.SERVICE_COMMUNICATION_ERROR);

@@ -38,7 +38,7 @@ public class Concert {
 
 
     //Seems to be error here in the join.
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany
     @JoinTable(name = "CONCERT_PERFORMER",
             joinColumns = {@JoinColumn(name = "cid")},
             inverseJoinColumns ={@JoinColumn(name = "pid")})

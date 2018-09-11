@@ -22,8 +22,8 @@ import java.util.UUID;
  */
 
 @Path("/resource")
-@Produces({MediaType.APPLICATION_XML})
-@Consumes({MediaType.APPLICATION_XML})
+@Produces({javax.ws.rs.core.MediaType.APPLICATION_XML})
+@Consumes({javax.ws.rs.core.MediaType.APPLICATION_XML})
 public class ConcertResource {
 
     @GET
@@ -33,11 +33,10 @@ public class ConcertResource {
         em.getTransaction().begin();
 
         try {
-
             TypedQuery<Concert> concertQuery = em.createQuery("SELECT c FROM Concert c", Concert.class);
             List<Concert> concerts = concertQuery.getResultList();
-            //if not empty convert to DTOs and build response
 
+            //if not empty convert to DTO and build response
             if (!concerts.isEmpty()) {
                 Set<ConcertDTO> concertDTOs = new HashSet<>();
                 for (Concert c : concerts) {
@@ -47,19 +46,16 @@ public class ConcertResource {
                 GenericEntity<Set<ConcertDTO>> wrappedDTO = new GenericEntity<Set<ConcertDTO>>(concertDTOs) {
                 };
 
-                Response.ResponseBuilder builder = Response.ok(wrappedDTO);
-                //might need to wrap in a generic entity for client
+                Response.ResponseBuilder builder = Response.ok().entity(wrappedDTO);
+
 
                 return builder.build();
-
             } else {
-
                 return Response.noContent().build();
             }
         }finally {
             em.close();
         }
-
     }
 
     @GET
@@ -69,7 +65,6 @@ public class ConcertResource {
         em.getTransaction().begin();
 
         try {
-
 
             TypedQuery<Performer> performerQuery = em.createQuery("SELECT p FROM Performer p", Performer.class);
             List<Performer> performers = performerQuery.getResultList();
@@ -91,11 +86,9 @@ public class ConcertResource {
                 Response.ResponseBuilder builder = Response.ok(wrappedDTOs);
                 return builder.build();
             }
-
         }finally {
             em.close();
         }
-
     }
 
     @GET
@@ -141,7 +134,6 @@ public class ConcertResource {
         }finally {
             em.close();
         }
-
     }
 
 
@@ -172,14 +164,13 @@ public class ConcertResource {
         em.getTransaction().begin();
         try {
 
-
             User u = em.find(User.class, userDTO.getUsername());
             if (u != null) {
                 //if non-unique user name, i.e. username already exists
                 return Response.status(Response.Status.CONFLICT).build();
             }
 
-            UUID token = UUID.randomUUID(); //generate a UUID
+            UUID token = UUID.randomUUID(); //generate a UUID,randomly should be fine?
 
             User user = new User(userDTO);
             user.set_token(token.toString()); //make this the token of the user
@@ -188,7 +179,6 @@ public class ConcertResource {
             em.persist(user);
 
             em.getTransaction().commit();
-
 
             Response.ResponseBuilder builder = Response.created(URI.create("/user/" + user.get_username()));
             return builder.build();
@@ -218,13 +208,13 @@ public class ConcertResource {
         try {
 
             User u = em.find(User.class, userDTO.getUsername());
-            //attempt to find the user.
+            //attempt to find the user to see if the password/ username is empty
 
             if (u == null) {
                 return Response.status(Response.Status.NOT_FOUND).build();
             }
 
-            if (u.get_password() == userDTO.getPassword()) {
+            if (u.get_password().equals(userDTO.getPassword())) {
 
                 //if passwords don't match, UNAUTHORIZED.
                 if (u.get_token() == null) {
@@ -235,12 +225,12 @@ public class ConcertResource {
                     //merge because user already exists
                     em.merge(u);
                     em.getTransaction().commit();
-
-                    return Response.accepted().entity(u.convertToDTO()).build();
-                } else {
-
-                    return Response.accepted().entity(u.convertToDTO()).build();
                 }
+
+                GenericEntity<UserDTO> wrappedDTO = new GenericEntity<UserDTO>(u.convertToDTO()) {
+                };
+
+                return Response.accepted().entity(wrappedDTO).build();
 
             } else {
                 em.close();
@@ -253,7 +243,7 @@ public class ConcertResource {
 
     @POST
     @Path("/reservations")
-    public Response reserveSeats(ReservationRequestDTO reservationRequestDTO, @CookieParam("authenitcationToken") Cookie token){
+    public Response reserveSeats(ReservationRequestDTO reservationRequestDTO, @CookieParam("authenticationToken") Cookie token){
 
         if (token == null) {
             return Response.status(Response.Status.NOT_FOUND).build();
@@ -344,22 +334,28 @@ public class ConcertResource {
         EntityManager em = PersistenceManager.instance().createEntityManager();
         em.getTransaction().begin();
 
-        //get user with the supplied token.
-        TypedQuery<User> query = em.createQuery("SELECT u FROM User u WHERE u._token = :token", User.class).setParameter("token", token.getValue());
-        User user = query.getSingleResult();
+        try {
+            //get user with the supplied token.
+            TypedQuery<User> query = em.createQuery("SELECT u FROM User u WHERE u._token = :token", User.class)
+                    .setParameter("token", token.getValue());
 
-        if (user != null) {
-            user.set_creditCard(new CreditCard(creditCardDTO));
-            em.persist(user.get_creditCard()); //persist the credit card to the crdit card table
-            em.merge(user); //merge the user
+            User user = query.getSingleResult();
 
-            em.getTransaction().commit();
+            if (user != null) {
+                user.set_creditCard(new CreditCard(creditCardDTO));
+
+                em.persist(user.get_creditCard()); //persist the credit card to the credit card table
+                em.merge(user); //merge the user
+
+                em.getTransaction().commit();
+
+                return Response.accepted().build();
+            } else {
+                return Response.status(Response.Status.UNAUTHORIZED).build();
+            }
+
+        }finally {
             em.close();
-
-            return Response.accepted().build();
-        }else{
-            em.close();
-            return Response.status(Response.Status.UNAUTHORIZED).build();
         }
 
     }

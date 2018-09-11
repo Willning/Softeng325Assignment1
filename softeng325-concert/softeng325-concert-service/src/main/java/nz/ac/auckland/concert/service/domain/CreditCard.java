@@ -20,6 +20,7 @@ public class CreditCard {
     @Enumerated(EnumType.STRING)
     private CreditCardDTO.Type _type;
 
+    @Column(name = "expiry_date", nullable = false)
     private LocalDate _expiryDate;
 
     public CreditCard(){
