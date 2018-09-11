@@ -218,7 +218,7 @@ public class ConcertResource {
 
                 //if passwords don't match, UNAUTHORIZED.
                 if (u.get_token() == null) {
-                    //if the password matches but the used has no token
+                    //if the password matches but the user has no token
                     UUID userToken = UUID.randomUUID();
                     u.set_token(userToken.toString());
 
@@ -350,11 +350,14 @@ public class ConcertResource {
                 em.getTransaction().commit();
 
                 return Response.accepted().build();
+
             } else {
                 return Response.status(Response.Status.UNAUTHORIZED).build();
             }
 
-        }finally {
+        }catch (Exception e) {
+            throw new ServiceException(e.getMessage());
+        }finally        {
             em.close();
         }
 

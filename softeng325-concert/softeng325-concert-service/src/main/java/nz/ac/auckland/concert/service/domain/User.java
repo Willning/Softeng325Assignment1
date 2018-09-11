@@ -18,6 +18,7 @@ public class User {
     //lmao
 
     @ManyToOne
+    @JoinColumn(name = "creditCard")
     private CreditCard _creditCard;
 
     @Column(name ="firstname", nullable = false)
@@ -70,7 +71,8 @@ public class User {
     }
 
     public UserDTO convertToDTO(){
-        UserDTO dto = new UserDTO(_username,_password);
+        UserDTO dto = new UserDTO(_username,_password, _lastname, _firstname);
+
         return dto;
     }
 
