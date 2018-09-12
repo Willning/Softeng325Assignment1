@@ -22,9 +22,7 @@ public class DefaultService implements ConcertService {
 
     private static String WEB_SERVICE_URI = "http://localhost:10000/services/resource";
 
-    private Set<PerformerDTO> _performerCache;
-
-    private Cookie cookie; // held by the service to authenticate.
+    private Cookie cookie; // held by the client to authenticate for later
 
 
     @Override
@@ -44,9 +42,6 @@ public class DefaultService implements ConcertService {
                 concerts = response.readEntity(new GenericType<Set<ConcertDTO>>() {
                 });
 
-            }else if (response.getStatus() == Response.Status.NOT_MODIFIED.getStatusCode()){
-                concerts = response.readEntity(new GenericType<Set<ConcertDTO>>() {
-                });
             }else{
                 concerts = new HashSet<>();
             }
@@ -77,10 +72,7 @@ public class DefaultService implements ConcertService {
                 //if ok status.
                 performers = response.readEntity(new GenericType<Set<PerformerDTO>>() {
                 });
-                _performerCache = performers;
 
-            }else if (response.getStatus() == Response.Status.NOT_MODIFIED.getStatusCode()){
-               performers =_performerCache;
             }else{
                performers = new HashSet<>();
             }
@@ -106,6 +98,10 @@ public class DefaultService implements ConcertService {
             //post the xml to the server
 
             if (response.getStatus() == Response.Status.CREATED.getStatusCode()){
+                cookie = (Cookie) response.getCookies().values().toArray()[0];
+                return response.readEntity(new GenericType<UserDTO>(){
+
+                });
 
                 //Mission accomplished
             }else if(response.getStatus() == Response.Status.BAD_REQUEST.getStatusCode()) {
@@ -124,8 +120,6 @@ public class DefaultService implements ConcertService {
             client.close();
         }
 
-
-        return null;
     }
 
     @Override
@@ -171,17 +165,61 @@ public class DefaultService implements ConcertService {
 
     @Override
     public ReservationDTO reserveSeats(ReservationRequestDTO reservationRequest) throws ServiceException {
-        return null;
+        Client client = ClientBuilder.newClient();
+        try {
+            Invocation.Builder builder = client.target(WEB_SERVICE_URI + "/reservations")
+                    .request(MediaType.APPLICATION_XML).accept(MediaType.APPLICATION_XML);
+            //Do something with the token checking.
+            Response response = builder.post(Entity.entity(reservationRequest, MediaType.APPLICATION_XML));
+
+            if (response.getStatus() == Response.Status.OK.getStatusCode()){
+                return response.readEntity(ReservationDTO.class);
+            }
+
+
+
+        }finally {
+            client.close();
+        }
+
+
+            return null;
     }
 
     @Override
     public void confirmReservation(ReservationDTO reservation) throws ServiceException {
+        Client client = ClientBuilder.newClient();
+
+        //do the booking
+        try {
+            Invocation.Builder builder = client.target(WEB_SERVICE_URI + "/booking")
+                    .request()
+                    .accept(MediaType.APPLICATION_XML);
+
+            Response response = builder.post(Entity.entity(reservation,MediaType.APPLICATION_XML));
+
+            if (response.getStatus() == Response.Status.OK.getStatusCode()){
+                //TODO do the thing here
+
+            }else if(response.getStatus()==Response.Status.LENGTH_REQUIRED.getStatusCode()){
+                throw new ServiceException(Messages.CREDIT_CARD_NOT_REGISTERED);
+            }
+
+
+        }finally{
+            client.close();
+        }
+
 
     }
 
     @Override
     public void registerCreditCard(CreditCardDTO creditCard) throws ServiceException {
         Client client = ClientBuilder.newClient();
+
+        if (cookie == null){
+            throw new ServiceException(Messages.UNAUTHENTICATED_REQUEST);
+        }
 
         try {
             Invocation.Builder builder = client.target(WEB_SERVICE_URI + "/register_credit_card")
@@ -192,19 +230,19 @@ public class DefaultService implements ConcertService {
                     .post(Entity.entity(creditCard, MediaType.APPLICATION_XML));
             //actually will need to post information to the server
 
+
             if (response.getStatus() == Response.Status.ACCEPTED.getStatusCode()) {
                 //we can throw errors when something goes wrong? But what to do when something goes right?
                 //TODO this should do something.
                 return;
 
-            } else if (response.getStatus() == Response.Status.UNAUTHORIZED.getStatusCode()) {
+            } else if (response.getStatus() == Response.Status.NOT_FOUND.getStatusCode()) {
 
                 throw new ServiceException(Messages.BAD_AUTHENTICATON_TOKEN);
 
-            } else if (response.getStatus() == Response.Status.NOT_FOUND.getStatusCode()) {
+            } else if (response.getStatus() == Response.Status.UNAUTHORIZED.getStatusCode()) {
                 //no token, i.e. not authenticated
                 throw new ServiceException(Messages.UNAUTHENTICATED_REQUEST);
-
             } else {
                 throw new ServiceException("Failed with error code " + response.getStatus());
             }

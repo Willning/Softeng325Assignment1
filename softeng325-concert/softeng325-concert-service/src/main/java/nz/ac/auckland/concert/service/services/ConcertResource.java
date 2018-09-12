@@ -3,13 +3,12 @@ package nz.ac.auckland.concert.service.services;
 import nz.ac.auckland.concert.common.dto.*;
 import nz.ac.auckland.concert.service.domain.*;
 import org.hibernate.service.spi.ServiceException;
+import org.hibernate.sql.Select;
+import sun.net.www.content.text.Generic;
 
 import javax.persistence.*;
 import javax.ws.rs.*;
-import javax.ws.rs.core.Cookie;
-import javax.ws.rs.core.GenericEntity;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
+import javax.ws.rs.core.*;
 import java.net.URI;
 import java.time.LocalDateTime;
 import java.util.HashSet;
@@ -175,12 +174,16 @@ public class ConcertResource {
             User user = new User(userDTO);
             user.set_token(token.toString()); //make this the token of the user
             user.set_tokenTimeStamp(LocalDateTime.now());
-
             em.persist(user);
 
             em.getTransaction().commit();
 
-            Response.ResponseBuilder builder = Response.created(URI.create("/user/" + user.get_username()));
+            Response.ResponseBuilder builder = Response.created(URI.create("/user/" + user.get_username()))
+                    .entity(new GenericEntity<UserDTO> (user.convertToDTO()){
+            })
+                    .cookie(new NewCookie("authenticationToken", token.toString()));
+
+
             return builder.build();
         }finally {
             em.close();
@@ -270,6 +273,55 @@ public class ConcertResource {
         }
 
         return null;
+    }
+
+    @POST
+    @Path("/request")
+    public Response requestReservation(ReservationRequestDTO requestDTO, @CookieParam("authenticationToken") Cookie token){
+        if (token == null){
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+
+        EntityManager em = PersistenceManager.instance().createEntityManager();
+        em.getTransaction().begin();
+
+        try {
+            //check if the user is valid
+            TypedQuery<User> userQuery = em.createQuery("SELECT u FROM User u WHERE u._token = :token", User.class)
+                    .setParameter("token", token.getValue());
+
+            User user = userQuery.getSingleResult();
+
+            if (user == null) {
+                return Response.status(Response.Status.UNAUTHORIZED).build();
+            }
+
+            TypedQuery<Concert> concertQuery = em.createQuery("SELECT c FROM Concert c WHERE c._id =:cid", Concert.class)
+                    .setParameter("cid",requestDTO.getConcertId());
+
+            Concert concert = concertQuery.getSingleResult();
+
+
+            if (concert.getDates().contains(requestDTO.getDate())){
+                TypedQuery<Seat> seatQuery = em
+                        .createQuery("SELECT s FROM Seat s WHERE s._concert._id=:cid AND s._datetime=:date",Seat.class)
+                        .setParameter("cid", concert.getID())
+                        .setParameter("date",requestDTO.getDate())
+                        .setLockMode(LockModeType.OPTIMISTIC);
+
+                List<Seat> seatList = seatQuery.getResultList();
+
+                //go through every seat and if it is free book it, if not free throw an error.
+
+
+                return Response.ok().build();
+            }else{
+                return Response.status(Response.Status.BAD_REQUEST).build();
+            }
+
+        }finally {
+            em.close();
+        }
 
     }
 
@@ -291,6 +343,10 @@ public class ConcertResource {
 
         if (user == null) {
             return Response.status(Response.Status.UNAUTHORIZED).build();
+        }
+
+        if (user.get_creditCard() == null){
+            return Response.status(Response.Status.LENGTH_REQUIRED).build();
         }
 
         //find the reservation in database
@@ -326,15 +382,13 @@ public class ConcertResource {
     @Path("/register_credit_card")
     public Response registerCreditCard(CreditCardDTO creditCardDTO, @CookieParam("authenticationToken") Cookie token){
         //need to be able to catch errors
-
-        if (token == null){
-            return Response.status(Response.Status.NOT_FOUND).build();
-        }
-
         EntityManager em = PersistenceManager.instance().createEntityManager();
         em.getTransaction().begin();
 
         try {
+            if (token == null){
+                return Response.status(Response.Status.NOT_FOUND).build();
+            }
             //get user with the supplied token.
             TypedQuery<User> query = em.createQuery("SELECT u FROM User u WHERE u._token = :token", User.class)
                     .setParameter("token", token.getValue());
@@ -348,16 +402,13 @@ public class ConcertResource {
                 em.merge(user); //merge the user
 
                 em.getTransaction().commit();
-
                 return Response.accepted().build();
 
             } else {
                 return Response.status(Response.Status.UNAUTHORIZED).build();
             }
 
-        }catch (Exception e) {
-            throw new ServiceException(e.getMessage());
-        }finally        {
+        }finally{
             em.close();
         }
 

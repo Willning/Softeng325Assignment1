@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="18" failures="5" name="nz.ac.auckland.concert.client.service.ConcertServiceTest" time="8.431" errors="4" skipped="0">
+<testsuite tests="18" failures="0" name="nz.ac.auckland.concert.client.service.ConcertServiceTest" time="7.552" errors="7" skipped="0">
   <properties>
     <property name="idea.version" value="2018.1.5"/>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
@@ -62,9 +62,13 @@
     <property name="sun.desktop" value="windows"/>
     <property name="sun.cpu.isalist" value="amd64"/>
   </properties>
-  <testcase classname="nz.ac.auckland.concert.client.service.ConcertServiceTest" name="testMakeReservation" time="3.243">
-    <error type="java.lang.NullPointerException">java.lang.NullPointerException
-	at nz.ac.auckland.concert.client.service.ConcertServiceTest.testMakeReservation(ConcertServiceTest.java:232)
+  <testcase classname="nz.ac.auckland.concert.client.service.ConcertServiceTest" name="testMakeReservation" time="3.274">
+    <error message="RESTEASY004655: Unable to invoke request" type="javax.ws.rs.ProcessingException">javax.ws.rs.ProcessingException: RESTEASY004655: Unable to invoke request
+	at org.jboss.resteasy.client.jaxrs.engines.ApacheHttpClient4Engine.invoke(ApacheHttpClient4Engine.java:316)
+	at org.jboss.resteasy.client.jaxrs.internal.ClientInvocation.invoke(ClientInvocation.java:462)
+	at org.jboss.resteasy.client.jaxrs.internal.ClientInvocationBuilder.post(ClientInvocationBuilder.java:193)
+	at nz.ac.auckland.concert.client.service.DefaultService.reserveSeats(DefaultService.java:173)
+	at nz.ac.auckland.concert.client.service.ConcertServiceTest.testMakeReservation(ConcertServiceTest.java:230)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -98,16 +102,30 @@
 	at org.apache.maven.surefire.booter.ProviderFactory.invokeProvider(ProviderFactory.java:85)
 	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:115)
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:75)
+Caused by: javax.ws.rs.ProcessingException: RESTEASY003215: could not find writer for content-type application/xml type: nz.ac.auckland.concert.common.dto.ReservationRequestDTO
+	at org.jboss.resteasy.core.interception.jaxrs.ClientWriterInterceptorContext.throwWriterNotFoundException(ClientWriterInterceptorContext.java:40)
+	at org.jboss.resteasy.core.interception.jaxrs.AbstractWriterInterceptorContext.getWriter(AbstractWriterInterceptorContext.java:146)
+	at org.jboss.resteasy.core.interception.jaxrs.AbstractWriterInterceptorContext.proceed(AbstractWriterInterceptorContext.java:121)
+	at org.jboss.resteasy.client.jaxrs.internal.ClientInvocation.writeRequestBody(ClientInvocation.java:390)
+	at org.jboss.resteasy.client.jaxrs.engines.ApacheHttpClient4Engine.writeRequestBodyToOutputStream(ApacheHttpClient4Engine.java:630)
+	at org.jboss.resteasy.client.jaxrs.engines.ApacheHttpClient4Engine.buildEntity(ApacheHttpClient4Engine.java:595)
+	at org.jboss.resteasy.client.jaxrs.engines.ApacheHttpClient4Engine.loadHttpMethod(ApacheHttpClient4Engine.java:483)
+	at org.jboss.resteasy.client.jaxrs.engines.ApacheHttpClient4Engine.invoke(ApacheHttpClient4Engine.java:305)
+	... 37 more
 </error>
-    <system-out>2018-09-11 13:31:51,053 [main] DEBUG org.jboss.logging  - Logging Provider: org.jboss.logging.Log4jLoggerProvider
-2018-09-11 13:31:52,323 [main] WARN  org.hibernate.orm.connections.pooling  - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
-2018-09-11 13:31:53,943 [main] WARN  org.hibernate.orm.connections.pooling  - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
-2018-09-11 13:31:54,590 [qtp156856360-11] WARN  org.hibernate.orm.connections.pooling  - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+    <system-out>2018-09-12 15:10:46,779 [main] DEBUG org.jboss.logging  - Logging Provider: org.jboss.logging.Log4jLoggerProvider
+2018-09-12 15:10:48,362 [main] WARN  org.hibernate.orm.connections.pooling  - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2018-09-12 15:10:49,864 [main] WARN  org.hibernate.orm.connections.pooling  - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2018-09-12 15:10:50,475 [qtp156856360-12] WARN  org.hibernate.orm.connections.pooling  - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
 </system-out>
   </testcase>
-  <testcase classname="nz.ac.auckland.concert.client.service.ConcertServiceTest" name="testMakeReservationWhereSeatsAreNotAvailable" time="0.313">
-    <error type="java.lang.NullPointerException">java.lang.NullPointerException
-	at nz.ac.auckland.concert.client.service.ConcertServiceTest.testMakeReservationWhereSeatsAreNotAvailable(ConcertServiceTest.java:281)
+  <testcase classname="nz.ac.auckland.concert.client.service.ConcertServiceTest" name="testMakeReservationWhereSeatsAreNotAvailable" time="0.292">
+    <error message="RESTEASY004655: Unable to invoke request" type="javax.ws.rs.ProcessingException">javax.ws.rs.ProcessingException: RESTEASY004655: Unable to invoke request
+	at org.jboss.resteasy.client.jaxrs.engines.ApacheHttpClient4Engine.invoke(ApacheHttpClient4Engine.java:316)
+	at org.jboss.resteasy.client.jaxrs.internal.ClientInvocation.invoke(ClientInvocation.java:462)
+	at org.jboss.resteasy.client.jaxrs.internal.ClientInvocationBuilder.post(ClientInvocationBuilder.java:193)
+	at nz.ac.auckland.concert.client.service.DefaultService.reserveSeats(DefaultService.java:173)
+	at nz.ac.auckland.concert.client.service.ConcertServiceTest.testMakeReservationWhereSeatsAreNotAvailable(ConcertServiceTest.java:279)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -141,15 +159,25 @@
 	at org.apache.maven.surefire.booter.ProviderFactory.invokeProvider(ProviderFactory.java:85)
 	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:115)
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:75)
+Caused by: javax.ws.rs.ProcessingException: RESTEASY003215: could not find writer for content-type application/xml type: nz.ac.auckland.concert.common.dto.ReservationRequestDTO
+	at org.jboss.resteasy.core.interception.jaxrs.ClientWriterInterceptorContext.throwWriterNotFoundException(ClientWriterInterceptorContext.java:40)
+	at org.jboss.resteasy.core.interception.jaxrs.AbstractWriterInterceptorContext.getWriter(AbstractWriterInterceptorContext.java:146)
+	at org.jboss.resteasy.core.interception.jaxrs.AbstractWriterInterceptorContext.proceed(AbstractWriterInterceptorContext.java:121)
+	at org.jboss.resteasy.client.jaxrs.internal.ClientInvocation.writeRequestBody(ClientInvocation.java:390)
+	at org.jboss.resteasy.client.jaxrs.engines.ApacheHttpClient4Engine.writeRequestBodyToOutputStream(ApacheHttpClient4Engine.java:630)
+	at org.jboss.resteasy.client.jaxrs.engines.ApacheHttpClient4Engine.buildEntity(ApacheHttpClient4Engine.java:595)
+	at org.jboss.resteasy.client.jaxrs.engines.ApacheHttpClient4Engine.loadHttpMethod(ApacheHttpClient4Engine.java:483)
+	at org.jboss.resteasy.client.jaxrs.engines.ApacheHttpClient4Engine.invoke(ApacheHttpClient4Engine.java:305)
+	... 37 more
 </error>
-    <system-out>2018-09-11 13:31:54,949 [main] WARN  org.hibernate.orm.connections.pooling  - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
-2018-09-11 13:31:55,075 [main] WARN  org.hibernate.orm.connections.pooling  - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+    <system-out>2018-09-12 15:10:50,818 [main] WARN  org.hibernate.orm.connections.pooling  - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2018-09-12 15:10:50,941 [main] WARN  org.hibernate.orm.connections.pooling  - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
 </system-out>
   </testcase>
-  <testcase classname="nz.ac.auckland.concert.client.service.ConcertServiceTest" name="testAuthenticateUserWithMissingPassword" time="0.348"/>
-  <testcase classname="nz.ac.auckland.concert.client.service.ConcertServiceTest" name="testConfirmBookingWithExpiredReservation" time="0.499">
+  <testcase classname="nz.ac.auckland.concert.client.service.ConcertServiceTest" name="testAuthenticateUserWithMissingPassword" time="0.282"/>
+  <testcase classname="nz.ac.auckland.concert.client.service.ConcertServiceTest" name="testConfirmBookingWithExpiredReservation" time="0.472">
     <error message="Unable to contact remote Service" type="nz.ac.auckland.concert.client.service.ServiceException">nz.ac.auckland.concert.client.service.ServiceException: Unable to contact remote Service
-	at nz.ac.auckland.concert.client.service.DefaultService.getBookings(DefaultService.java:240)
+	at nz.ac.auckland.concert.client.service.DefaultService.getBookings(DefaultService.java:278)
 	at nz.ac.auckland.concert.client.service.ConcertServiceTest.testConfirmBookingWithExpiredReservation(ConcertServiceTest.java:376)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
@@ -185,9 +213,9 @@
 	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:115)
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:75)
 </error>
-    <system-out>2018-09-11 13:31:55,638 [main] WARN  org.hibernate.orm.connections.pooling  - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
-2018-09-11 13:31:55,899 [main] WARN  org.hibernate.orm.connections.pooling  - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
-2018-09-11 13:31:56,065 [qtp156856360-54] ERROR org.jboss.resteasy.resteasy_jaxrs.i18n  - RESTEASY002010: Failed to execute
+    <system-out>2018-09-12 15:10:51,387 [main] WARN  org.hibernate.orm.connections.pooling  - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2018-09-12 15:10:51,468 [main] WARN  org.hibernate.orm.connections.pooling  - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2018-09-12 15:10:51,783 [qtp156856360-58] ERROR org.jboss.resteasy.resteasy_jaxrs.i18n  - RESTEASY002010: Failed to execute
 javax.ws.rs.NotAllowedException: RESTEASY003650: No resource method found for GET, return 405 with Allow header
 	at org.jboss.resteasy.core.registry.SegmentNode.match(SegmentNode.java:426)
 	at org.jboss.resteasy.core.registry.SegmentNode.match(SegmentNode.java:139)
@@ -221,11 +249,14 @@ javax.ws.rs.NotAllowedException: RESTEASY003650: No resource method found for GE
 	at java.lang.Thread.run(Thread.java:748)
 </system-out>
   </testcase>
-  <testcase classname="nz.ac.auckland.concert.client.service.ConcertServiceTest" name="testRegisterCreditCard" time="0.214">
-    <failure type="java.lang.AssertionError">java.lang.AssertionError
-	at org.junit.Assert.fail(Assert.java:86)
-	at org.junit.Assert.fail(Assert.java:95)
-	at nz.ac.auckland.concert.client.service.ConcertServiceTest.testRegisterCreditCard(ConcertServiceTest.java:416)
+  <testcase classname="nz.ac.auckland.concert.client.service.ConcertServiceTest" name="testRegisterCreditCard" time="0.277"/>
+  <testcase classname="nz.ac.auckland.concert.client.service.ConcertServiceTest" name="testMakeReservationWithBadRequest" time="0.251">
+    <error message="RESTEASY004655: Unable to invoke request" type="javax.ws.rs.ProcessingException">javax.ws.rs.ProcessingException: RESTEASY004655: Unable to invoke request
+	at org.jboss.resteasy.client.jaxrs.engines.ApacheHttpClient4Engine.invoke(ApacheHttpClient4Engine.java:316)
+	at org.jboss.resteasy.client.jaxrs.internal.ClientInvocation.invoke(ClientInvocation.java:462)
+	at org.jboss.resteasy.client.jaxrs.internal.ClientInvocationBuilder.post(ClientInvocationBuilder.java:193)
+	at nz.ac.auckland.concert.client.service.DefaultService.reserveSeats(DefaultService.java:173)
+	at nz.ac.auckland.concert.client.service.ConcertServiceTest.testMakeReservationWithBadRequest(ConcertServiceTest.java:257)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -259,58 +290,25 @@ javax.ws.rs.NotAllowedException: RESTEASY003650: No resource method found for GE
 	at org.apache.maven.surefire.booter.ProviderFactory.invokeProvider(ProviderFactory.java:85)
 	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:115)
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:75)
-</failure>
-    <system-out>2018-09-11 13:31:56,096 [main] WARN  org.hibernate.orm.connections.pooling  - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
-2018-09-11 13:31:56,194 [main] WARN  org.hibernate.orm.connections.pooling  - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+Caused by: javax.ws.rs.ProcessingException: RESTEASY003215: could not find writer for content-type application/xml type: nz.ac.auckland.concert.common.dto.ReservationRequestDTO
+	at org.jboss.resteasy.core.interception.jaxrs.ClientWriterInterceptorContext.throwWriterNotFoundException(ClientWriterInterceptorContext.java:40)
+	at org.jboss.resteasy.core.interception.jaxrs.AbstractWriterInterceptorContext.getWriter(AbstractWriterInterceptorContext.java:146)
+	at org.jboss.resteasy.core.interception.jaxrs.AbstractWriterInterceptorContext.proceed(AbstractWriterInterceptorContext.java:121)
+	at org.jboss.resteasy.client.jaxrs.internal.ClientInvocation.writeRequestBody(ClientInvocation.java:390)
+	at org.jboss.resteasy.client.jaxrs.engines.ApacheHttpClient4Engine.writeRequestBodyToOutputStream(ApacheHttpClient4Engine.java:630)
+	at org.jboss.resteasy.client.jaxrs.engines.ApacheHttpClient4Engine.buildEntity(ApacheHttpClient4Engine.java:595)
+	at org.jboss.resteasy.client.jaxrs.engines.ApacheHttpClient4Engine.loadHttpMethod(ApacheHttpClient4Engine.java:483)
+	at org.jboss.resteasy.client.jaxrs.engines.ApacheHttpClient4Engine.invoke(ApacheHttpClient4Engine.java:305)
+	... 37 more
+</error>
+    <system-out>2018-09-12 15:10:52,139 [main] WARN  org.hibernate.orm.connections.pooling  - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2018-09-12 15:10:52,246 [main] WARN  org.hibernate.orm.connections.pooling  - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
 </system-out>
   </testcase>
-  <testcase classname="nz.ac.auckland.concert.client.service.ConcertServiceTest" name="testMakeReservationWithBadRequest" time="0.274">
-    <failure type="java.lang.AssertionError">java.lang.AssertionError
-	at org.junit.Assert.fail(Assert.java:86)
-	at org.junit.Assert.fail(Assert.java:95)
-	at nz.ac.auckland.concert.client.service.ConcertServiceTest.testMakeReservationWithBadRequest(ConcertServiceTest.java:258)
-	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
-	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.lang.reflect.Method.invoke(Method.java:498)
-	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:50)
-	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
-	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:47)
-	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
-	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:26)
-	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:27)
-	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:325)
-	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:78)
-	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:57)
-	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290)
-	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)
-	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288)
-	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)
-	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268)
-	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:26)
-	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:27)
-	at org.junit.runners.ParentRunner.run(ParentRunner.java:363)
-	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:252)
-	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:141)
-	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:112)
-	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
-	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.lang.reflect.Method.invoke(Method.java:498)
-	at org.apache.maven.surefire.util.ReflectionUtils.invokeMethodWithArray(ReflectionUtils.java:189)
-	at org.apache.maven.surefire.booter.ProviderFactory$ProviderProxy.invoke(ProviderFactory.java:165)
-	at org.apache.maven.surefire.booter.ProviderFactory.invokeProvider(ProviderFactory.java:85)
-	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:115)
-	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:75)
-</failure>
-    <system-out>2018-09-11 13:31:56,311 [main] WARN  org.hibernate.orm.connections.pooling  - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
-2018-09-11 13:31:56,443 [main] WARN  org.hibernate.orm.connections.pooling  - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
-</system-out>
-  </testcase>
-  <testcase classname="nz.ac.auckland.concert.client.service.ConcertServiceTest" name="testCreateUserWithMissingField" time="0.292"/>
-  <testcase classname="nz.ac.auckland.concert.client.service.ConcertServiceTest" name="testConfirmReservationWithoutRegisteredCreditCard" time="0.308">
+  <testcase classname="nz.ac.auckland.concert.client.service.ConcertServiceTest" name="testCreateUserWithMissingField" time="0.207"/>
+  <testcase classname="nz.ac.auckland.concert.client.service.ConcertServiceTest" name="testConfirmReservationWithoutRegisteredCreditCard" time="0.211">
     <error message="Unable to contact remote Service" type="nz.ac.auckland.concert.client.service.ServiceException">nz.ac.auckland.concert.client.service.ServiceException: Unable to contact remote Service
-	at nz.ac.auckland.concert.client.service.DefaultService.getBookings(DefaultService.java:240)
+	at nz.ac.auckland.concert.client.service.DefaultService.getBookings(DefaultService.java:278)
 	at nz.ac.auckland.concert.client.service.ConcertServiceTest.testConfirmReservationWithoutRegisteredCreditCard(ConcertServiceTest.java:402)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
@@ -346,9 +344,9 @@ javax.ws.rs.NotAllowedException: RESTEASY003650: No resource method found for GE
 	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:115)
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:75)
 </error>
-    <system-out>2018-09-11 13:31:56,879 [main] WARN  org.hibernate.orm.connections.pooling  - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
-2018-09-11 13:31:57,037 [main] WARN  org.hibernate.orm.connections.pooling  - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
-2018-09-11 13:31:57,157 [qtp156856360-99] ERROR org.jboss.resteasy.resteasy_jaxrs.i18n  - RESTEASY002010: Failed to execute
+    <system-out>2018-09-12 15:10:52,590 [main] WARN  org.hibernate.orm.connections.pooling  - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2018-09-12 15:10:52,670 [main] WARN  org.hibernate.orm.connections.pooling  - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2018-09-12 15:10:52,771 [qtp156856360-99] ERROR org.jboss.resteasy.resteasy_jaxrs.i18n  - RESTEASY002010: Failed to execute
 javax.ws.rs.NotAllowedException: RESTEASY003650: No resource method found for GET, return 405 with Allow header
 	at org.jboss.resteasy.core.registry.SegmentNode.match(SegmentNode.java:426)
 	at org.jboss.resteasy.core.registry.SegmentNode.match(SegmentNode.java:139)
@@ -386,11 +384,13 @@ javax.ws.rs.NotAllowedException: RESTEASY003650: No resource method found for GE
 	at java.lang.Thread.run(Thread.java:748)
 </system-out>
   </testcase>
-  <testcase classname="nz.ac.auckland.concert.client.service.ConcertServiceTest" name="testMakeReservationWithUnauthenticatedUser" time="0.272">
-    <failure type="java.lang.AssertionError">java.lang.AssertionError
-	at org.junit.Assert.fail(Assert.java:86)
-	at org.junit.Assert.fail(Assert.java:95)
-	at nz.ac.auckland.concert.client.service.ConcertServiceTest.testMakeReservationWithUnauthenticatedUser(ConcertServiceTest.java:310)
+  <testcase classname="nz.ac.auckland.concert.client.service.ConcertServiceTest" name="testMakeReservationWithUnauthenticatedUser" time="0.222">
+    <error message="RESTEASY004655: Unable to invoke request" type="javax.ws.rs.ProcessingException">javax.ws.rs.ProcessingException: RESTEASY004655: Unable to invoke request
+	at org.jboss.resteasy.client.jaxrs.engines.ApacheHttpClient4Engine.invoke(ApacheHttpClient4Engine.java:316)
+	at org.jboss.resteasy.client.jaxrs.internal.ClientInvocation.invoke(ClientInvocation.java:462)
+	at org.jboss.resteasy.client.jaxrs.internal.ClientInvocationBuilder.post(ClientInvocationBuilder.java:193)
+	at nz.ac.auckland.concert.client.service.DefaultService.reserveSeats(DefaultService.java:173)
+	at nz.ac.auckland.concert.client.service.ConcertServiceTest.testMakeReservationWithUnauthenticatedUser(ConcertServiceTest.java:309)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -424,23 +424,35 @@ javax.ws.rs.NotAllowedException: RESTEASY003650: No resource method found for GE
 	at org.apache.maven.surefire.booter.ProviderFactory.invokeProvider(ProviderFactory.java:85)
 	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:115)
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:75)
-</failure>
-    <system-out>2018-09-11 13:31:57,186 [main] WARN  org.hibernate.orm.connections.pooling  - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
-2018-09-11 13:31:57,300 [main] WARN  org.hibernate.orm.connections.pooling  - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+Caused by: javax.ws.rs.ProcessingException: RESTEASY003215: could not find writer for content-type application/xml type: nz.ac.auckland.concert.common.dto.ReservationRequestDTO
+	at org.jboss.resteasy.core.interception.jaxrs.ClientWriterInterceptorContext.throwWriterNotFoundException(ClientWriterInterceptorContext.java:40)
+	at org.jboss.resteasy.core.interception.jaxrs.AbstractWriterInterceptorContext.getWriter(AbstractWriterInterceptorContext.java:146)
+	at org.jboss.resteasy.core.interception.jaxrs.AbstractWriterInterceptorContext.proceed(AbstractWriterInterceptorContext.java:121)
+	at org.jboss.resteasy.client.jaxrs.internal.ClientInvocation.writeRequestBody(ClientInvocation.java:390)
+	at org.jboss.resteasy.client.jaxrs.engines.ApacheHttpClient4Engine.writeRequestBodyToOutputStream(ApacheHttpClient4Engine.java:630)
+	at org.jboss.resteasy.client.jaxrs.engines.ApacheHttpClient4Engine.buildEntity(ApacheHttpClient4Engine.java:595)
+	at org.jboss.resteasy.client.jaxrs.engines.ApacheHttpClient4Engine.loadHttpMethod(ApacheHttpClient4Engine.java:483)
+	at org.jboss.resteasy.client.jaxrs.engines.ApacheHttpClient4Engine.invoke(ApacheHttpClient4Engine.java:305)
+	... 37 more
+</error>
+    <system-out>2018-09-12 15:10:52,825 [main] WARN  org.hibernate.orm.connections.pooling  - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2018-09-12 15:10:52,921 [main] WARN  org.hibernate.orm.connections.pooling  - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
 </system-out>
   </testcase>
-  <testcase classname="nz.ac.auckland.concert.client.service.ConcertServiceTest" name="testAuthenticateUser" time="0.34"/>
-  <testcase classname="nz.ac.auckland.concert.client.service.ConcertServiceTest" name="testCreateUserWithDuplicateUsername" time="0.289"/>
-  <testcase classname="nz.ac.auckland.concert.client.service.ConcertServiceTest" name="testRetrieveConcerts" time="0.572"/>
-  <testcase classname="nz.ac.auckland.concert.client.service.ConcertServiceTest" name="testRetrievePerformers" time="0.286"/>
-  <testcase classname="nz.ac.auckland.concert.client.service.ConcertServiceTest" name="testCreateUser" time="0.224"/>
-  <testcase classname="nz.ac.auckland.concert.client.service.ConcertServiceTest" name="testAuthenticateWithNonExistentUser" time="0.225"/>
-  <testcase classname="nz.ac.auckland.concert.client.service.ConcertServiceTest" name="testAuthenticateUserWithIncorrectPassword" time="0.276"/>
-  <testcase classname="nz.ac.auckland.concert.client.service.ConcertServiceTest" name="testConfirmReservation" time="0.267">
-    <failure type="java.lang.AssertionError">java.lang.AssertionError
-	at org.junit.Assert.fail(Assert.java:86)
-	at org.junit.Assert.fail(Assert.java:95)
-	at nz.ac.auckland.concert.client.service.ConcertServiceTest.testConfirmReservation(ConcertServiceTest.java:344)
+  <testcase classname="nz.ac.auckland.concert.client.service.ConcertServiceTest" name="testAuthenticateUser" time="0.282"/>
+  <testcase classname="nz.ac.auckland.concert.client.service.ConcertServiceTest" name="testCreateUserWithDuplicateUsername" time="0.194"/>
+  <testcase classname="nz.ac.auckland.concert.client.service.ConcertServiceTest" name="testRetrieveConcerts" time="0.327"/>
+  <testcase classname="nz.ac.auckland.concert.client.service.ConcertServiceTest" name="testRetrievePerformers" time="0.295"/>
+  <testcase classname="nz.ac.auckland.concert.client.service.ConcertServiceTest" name="testCreateUser" time="0.196"/>
+  <testcase classname="nz.ac.auckland.concert.client.service.ConcertServiceTest" name="testAuthenticateWithNonExistentUser" time="0.193"/>
+  <testcase classname="nz.ac.auckland.concert.client.service.ConcertServiceTest" name="testAuthenticateUserWithIncorrectPassword" time="0.21"/>
+  <testcase classname="nz.ac.auckland.concert.client.service.ConcertServiceTest" name="testConfirmReservation" time="0.209">
+    <error message="RESTEASY004655: Unable to invoke request" type="javax.ws.rs.ProcessingException">javax.ws.rs.ProcessingException: RESTEASY004655: Unable to invoke request
+	at org.jboss.resteasy.client.jaxrs.engines.ApacheHttpClient4Engine.invoke(ApacheHttpClient4Engine.java:316)
+	at org.jboss.resteasy.client.jaxrs.internal.ClientInvocation.invoke(ClientInvocation.java:462)
+	at org.jboss.resteasy.client.jaxrs.internal.ClientInvocationBuilder.post(ClientInvocationBuilder.java:193)
+	at nz.ac.auckland.concert.client.service.DefaultService.reserveSeats(DefaultService.java:173)
+	at nz.ac.auckland.concert.client.service.ConcertServiceTest.testConfirmReservation(ConcertServiceTest.java:330)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -474,54 +486,20 @@ javax.ws.rs.NotAllowedException: RESTEASY003650: No resource method found for GE
 	at org.apache.maven.surefire.booter.ProviderFactory.invokeProvider(ProviderFactory.java:85)
 	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:115)
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:75)
-</failure>
-    <system-out>2018-09-11 13:31:59,670 [main] WARN  org.hibernate.orm.connections.pooling  - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
-2018-09-11 13:31:59,768 [main] WARN  org.hibernate.orm.connections.pooling  - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+Caused by: javax.ws.rs.ProcessingException: RESTEASY003215: could not find writer for content-type application/xml type: nz.ac.auckland.concert.common.dto.ReservationRequestDTO
+	at org.jboss.resteasy.core.interception.jaxrs.ClientWriterInterceptorContext.throwWriterNotFoundException(ClientWriterInterceptorContext.java:40)
+	at org.jboss.resteasy.core.interception.jaxrs.AbstractWriterInterceptorContext.getWriter(AbstractWriterInterceptorContext.java:146)
+	at org.jboss.resteasy.core.interception.jaxrs.AbstractWriterInterceptorContext.proceed(AbstractWriterInterceptorContext.java:121)
+	at org.jboss.resteasy.client.jaxrs.internal.ClientInvocation.writeRequestBody(ClientInvocation.java:390)
+	at org.jboss.resteasy.client.jaxrs.engines.ApacheHttpClient4Engine.writeRequestBodyToOutputStream(ApacheHttpClient4Engine.java:630)
+	at org.jboss.resteasy.client.jaxrs.engines.ApacheHttpClient4Engine.buildEntity(ApacheHttpClient4Engine.java:595)
+	at org.jboss.resteasy.client.jaxrs.engines.ApacheHttpClient4Engine.loadHttpMethod(ApacheHttpClient4Engine.java:483)
+	at org.jboss.resteasy.client.jaxrs.engines.ApacheHttpClient4Engine.invoke(ApacheHttpClient4Engine.java:305)
+	... 37 more
+</error>
+    <system-out>2018-09-12 15:10:54,721 [main] WARN  org.hibernate.orm.connections.pooling  - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2018-09-12 15:10:54,797 [main] WARN  org.hibernate.orm.connections.pooling  - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
 </system-out>
   </testcase>
-  <testcase classname="nz.ac.auckland.concert.client.service.ConcertServiceTest" name="testRegisterCreditCardWithUnauthenticatedUser" time="0.189">
-    <failure message="expected:&lt;Unable to process request - missing authentication token&gt; but was:&lt;null&gt;" type="java.lang.AssertionError">java.lang.AssertionError: expected:&lt;Unable to process request - missing authentication token&gt; but was:&lt;null&gt;
-	at org.junit.Assert.fail(Assert.java:88)
-	at org.junit.Assert.failNotEquals(Assert.java:834)
-	at org.junit.Assert.assertEquals(Assert.java:118)
-	at org.junit.Assert.assertEquals(Assert.java:144)
-	at nz.ac.auckland.concert.client.service.ConcertServiceTest.testRegisterCreditCardWithUnauthenticatedUser(ConcertServiceTest.java:427)
-	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
-	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.lang.reflect.Method.invoke(Method.java:498)
-	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:50)
-	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
-	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:47)
-	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
-	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:26)
-	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:27)
-	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:325)
-	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:78)
-	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:57)
-	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290)
-	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)
-	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288)
-	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)
-	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268)
-	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:26)
-	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:27)
-	at org.junit.runners.ParentRunner.run(ParentRunner.java:363)
-	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:252)
-	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:141)
-	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:112)
-	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
-	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.lang.reflect.Method.invoke(Method.java:498)
-	at org.apache.maven.surefire.util.ReflectionUtils.invokeMethodWithArray(ReflectionUtils.java:189)
-	at org.apache.maven.surefire.booter.ProviderFactory$ProviderProxy.invoke(ProviderFactory.java:165)
-	at org.apache.maven.surefire.booter.ProviderFactory.invokeProvider(ProviderFactory.java:85)
-	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:115)
-	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:75)
-</failure>
-    <system-out>2018-09-11 13:31:59,934 [main] WARN  org.hibernate.orm.connections.pooling  - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
-2018-09-11 13:31:59,999 [main] WARN  org.hibernate.orm.connections.pooling  - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
-</system-out>
-  </testcase>
+  <testcase classname="nz.ac.auckland.concert.client.service.ConcertServiceTest" name="testRegisterCreditCardWithUnauthenticatedUser" time="0.158"/>
 </testsuite>
