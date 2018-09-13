@@ -83,6 +83,7 @@ public class Seat {
 
     public Seat(String seatCode){
         _row = SeatRow.valueOf(String.valueOf(seatCode.charAt(0)));
+        _seatCode = seatCode;
 
         if (seatCode.length() == 2){
             _number = Character.getNumericValue(seatCode.charAt(1));

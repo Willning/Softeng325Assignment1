@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="18" failures="1" name="nz.ac.auckland.concert.client.service.ConcertServiceTest" time="11.665" errors="4" skipped="0">
+<testsuite tests="18" failures="2" name="nz.ac.auckland.concert.client.service.ConcertServiceTest" time="14.17" errors="2" skipped="0">
   <properties>
     <property name="idea.version" value="2018.1.5"/>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
@@ -62,9 +62,12 @@
     <property name="sun.desktop" value="windows"/>
     <property name="sun.cpu.isalist" value="amd64"/>
   </properties>
-  <testcase classname="nz.ac.auckland.concert.client.service.ConcertServiceTest" name="testMakeReservation" time="2.932">
-    <error type="java.lang.NullPointerException">java.lang.NullPointerException
-	at nz.ac.auckland.concert.client.service.ConcertServiceTest.testMakeReservation(ConcertServiceTest.java:232)
+  <testcase classname="nz.ac.auckland.concert.client.service.ConcertServiceTest" name="testMakeReservation" time="3.189"/>
+  <testcase classname="nz.ac.auckland.concert.client.service.ConcertServiceTest" name="testMakeReservationWhereSeatsAreNotAvailable" time="0.486">
+    <failure type="java.lang.AssertionError">java.lang.AssertionError
+	at org.junit.Assert.fail(Assert.java:86)
+	at org.junit.Assert.fail(Assert.java:95)
+	at nz.ac.auckland.concert.client.service.ConcertServiceTest.testMakeReservationWhereSeatsAreNotAvailable(ConcertServiceTest.java:295)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -98,150 +101,15 @@
 	at org.apache.maven.surefire.booter.ProviderFactory.invokeProvider(ProviderFactory.java:85)
 	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:115)
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:75)
-</error>
-    <system-out>2018-09-14 00:05:44,705 [main] DEBUG org.jboss.logging  - Logging Provider: org.jboss.logging.Log4jLoggerProvider
-2018-09-14 00:05:45,842 [main] WARN  org.hibernate.orm.connections.pooling  - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
-2018-09-14 00:05:47,122 [main] WARN  org.hibernate.orm.connections.pooling  - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
-2018-09-14 00:05:47,670 [qtp156856360-11] WARN  org.hibernate.orm.connections.pooling  - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
-2018-09-14 00:05:48,162 [qtp156856360-12] WARN  org.eclipse.jetty.server.HttpChannel  - /services/resource/make_request
-org.jboss.resteasy.spi.UnhandledException: java.lang.IllegalArgumentException: Unknown entity: nz.ac.auckland.concert.common.dto.ReservationDTO
-	at org.jboss.resteasy.core.ExceptionHandler.handleApplicationException(ExceptionHandler.java:78)
-	at org.jboss.resteasy.core.ExceptionHandler.handleException(ExceptionHandler.java:222)
-	at org.jboss.resteasy.core.SynchronousDispatcher.writeException(SynchronousDispatcher.java:175)
-	at org.jboss.resteasy.core.SynchronousDispatcher.invoke(SynchronousDispatcher.java:418)
-	at org.jboss.resteasy.core.SynchronousDispatcher.invoke(SynchronousDispatcher.java:209)
-	at org.jboss.resteasy.plugins.server.servlet.ServletContainerDispatcher.service(ServletContainerDispatcher.java:227)
-	at org.jboss.resteasy.plugins.server.servlet.HttpServletDispatcher.service(HttpServletDispatcher.java:56)
-	at org.jboss.resteasy.plugins.server.servlet.HttpServletDispatcher.service(HttpServletDispatcher.java:51)
-	at javax.servlet.http.HttpServlet.service(HttpServlet.java:790)
-	at org.eclipse.jetty.servlet.ServletHolder.handle(ServletHolder.java:841)
-	at org.eclipse.jetty.servlet.ServletHandler.doHandle(ServletHandler.java:535)
-	at org.eclipse.jetty.server.handler.ScopedHandler.nextHandle(ScopedHandler.java:188)
-	at org.eclipse.jetty.server.handler.ContextHandler.doHandle(ContextHandler.java:1253)
-	at org.eclipse.jetty.server.handler.ScopedHandler.nextScope(ScopedHandler.java:168)
-	at org.eclipse.jetty.servlet.ServletHandler.doScope(ServletHandler.java:473)
-	at org.eclipse.jetty.server.handler.ScopedHandler.nextScope(ScopedHandler.java:166)
-	at org.eclipse.jetty.server.handler.ContextHandler.doScope(ContextHandler.java:1155)
-	at org.eclipse.jetty.server.handler.ScopedHandler.handle(ScopedHandler.java:141)
-	at org.eclipse.jetty.server.handler.HandlerWrapper.handle(HandlerWrapper.java:132)
-	at org.eclipse.jetty.server.Server.handle(Server.java:564)
-	at org.eclipse.jetty.server.HttpChannel.handle(HttpChannel.java:317)
-	at org.eclipse.jetty.server.HttpConnection.onFillable(HttpConnection.java:251)
-	at org.eclipse.jetty.io.AbstractConnection$ReadCallback.succeeded(AbstractConnection.java:279)
-	at org.eclipse.jetty.io.FillInterest.fillable(FillInterest.java:110)
-	at org.eclipse.jetty.io.ChannelEndPoint$2.run(ChannelEndPoint.java:124)
-	at org.eclipse.jetty.util.thread.Invocable.invokePreferred(Invocable.java:128)
-	at org.eclipse.jetty.util.thread.Invocable$InvocableExecutor.invoke(Invocable.java:222)
-	at org.eclipse.jetty.util.thread.strategy.EatWhatYouKill.doProduce(EatWhatYouKill.java:294)
-	at org.eclipse.jetty.util.thread.strategy.EatWhatYouKill.produce(EatWhatYouKill.java:126)
-	at org.eclipse.jetty.util.thread.QueuedThreadPool.runJob(QueuedThreadPool.java:673)
-	at org.eclipse.jetty.util.thread.QueuedThreadPool$2.run(QueuedThreadPool.java:591)
-	at java.lang.Thread.run(Thread.java:748)
-Caused by: java.lang.IllegalArgumentException: Unknown entity: nz.ac.auckland.concert.common.dto.ReservationDTO
-	at org.hibernate.internal.SessionImpl.firePersist(SessionImpl.java:784)
-	at org.hibernate.internal.SessionImpl.persist(SessionImpl.java:765)
-	at nz.ac.auckland.concert.service.services.ConcertResource.requestReservation(ConcertResource.java:312)
-	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
-	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.lang.reflect.Method.invoke(Method.java:498)
-	at org.jboss.resteasy.core.MethodInjectorImpl.invoke(MethodInjectorImpl.java:140)
-	at org.jboss.resteasy.core.ResourceMethodInvoker.invokeOnTarget(ResourceMethodInvoker.java:294)
-	at org.jboss.resteasy.core.ResourceMethodInvoker.invoke(ResourceMethodInvoker.java:248)
-	at org.jboss.resteasy.core.ResourceMethodInvoker.invoke(ResourceMethodInvoker.java:235)
-	at org.jboss.resteasy.core.SynchronousDispatcher.invoke(SynchronousDispatcher.java:402)
-	... 28 more
+</failure>
+    <system-out>2018-09-14 11:29:42,019 [main] WARN  org.hibernate.orm.connections.pooling  - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2018-09-14 11:29:42,146 [main] WARN  org.hibernate.orm.connections.pooling  - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
 </system-out>
   </testcase>
-  <testcase classname="nz.ac.auckland.concert.client.service.ConcertServiceTest" name="testMakeReservationWhereSeatsAreNotAvailable" time="0.353">
-    <error type="java.lang.NullPointerException">java.lang.NullPointerException
-	at nz.ac.auckland.concert.client.service.ConcertServiceTest.testMakeReservationWhereSeatsAreNotAvailable(ConcertServiceTest.java:281)
-	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
-	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.lang.reflect.Method.invoke(Method.java:498)
-	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:50)
-	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
-	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:47)
-	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
-	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:26)
-	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:27)
-	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:325)
-	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:78)
-	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:57)
-	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290)
-	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)
-	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288)
-	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)
-	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268)
-	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:26)
-	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:27)
-	at org.junit.runners.ParentRunner.run(ParentRunner.java:363)
-	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:252)
-	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:141)
-	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:112)
-	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
-	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.lang.reflect.Method.invoke(Method.java:498)
-	at org.apache.maven.surefire.util.ReflectionUtils.invokeMethodWithArray(ReflectionUtils.java:189)
-	at org.apache.maven.surefire.booter.ProviderFactory$ProviderProxy.invoke(ProviderFactory.java:165)
-	at org.apache.maven.surefire.booter.ProviderFactory.invokeProvider(ProviderFactory.java:85)
-	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:115)
-	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:75)
-</error>
-    <system-out>2018-09-14 00:05:48,222 [main] WARN  org.hibernate.orm.connections.pooling  - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
-2018-09-14 00:05:48,346 [main] WARN  org.hibernate.orm.connections.pooling  - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
-2018-09-14 00:05:48,526 [qtp156856360-33] WARN  org.eclipse.jetty.server.HttpChannel  - /services/resource/make_request
-org.jboss.resteasy.spi.UnhandledException: java.lang.IllegalArgumentException: Unknown entity: nz.ac.auckland.concert.common.dto.ReservationDTO
-	at org.jboss.resteasy.core.ExceptionHandler.handleApplicationException(ExceptionHandler.java:78)
-	at org.jboss.resteasy.core.ExceptionHandler.handleException(ExceptionHandler.java:222)
-	at org.jboss.resteasy.core.SynchronousDispatcher.writeException(SynchronousDispatcher.java:175)
-	at org.jboss.resteasy.core.SynchronousDispatcher.invoke(SynchronousDispatcher.java:418)
-	at org.jboss.resteasy.core.SynchronousDispatcher.invoke(SynchronousDispatcher.java:209)
-	at org.jboss.resteasy.plugins.server.servlet.ServletContainerDispatcher.service(ServletContainerDispatcher.java:227)
-	at org.jboss.resteasy.plugins.server.servlet.HttpServletDispatcher.service(HttpServletDispatcher.java:56)
-	at org.jboss.resteasy.plugins.server.servlet.HttpServletDispatcher.service(HttpServletDispatcher.java:51)
-	at javax.servlet.http.HttpServlet.service(HttpServlet.java:790)
-	at org.eclipse.jetty.servlet.ServletHolder.handle(ServletHolder.java:841)
-	at org.eclipse.jetty.servlet.ServletHandler.doHandle(ServletHandler.java:535)
-	at org.eclipse.jetty.server.handler.ScopedHandler.nextHandle(ScopedHandler.java:188)
-	at org.eclipse.jetty.server.handler.ContextHandler.doHandle(ContextHandler.java:1253)
-	at org.eclipse.jetty.server.handler.ScopedHandler.nextScope(ScopedHandler.java:168)
-	at org.eclipse.jetty.servlet.ServletHandler.doScope(ServletHandler.java:473)
-	at org.eclipse.jetty.server.handler.ScopedHandler.nextScope(ScopedHandler.java:166)
-	at org.eclipse.jetty.server.handler.ContextHandler.doScope(ContextHandler.java:1155)
-	at org.eclipse.jetty.server.handler.ScopedHandler.handle(ScopedHandler.java:141)
-	at org.eclipse.jetty.server.handler.HandlerWrapper.handle(HandlerWrapper.java:132)
-	at org.eclipse.jetty.server.Server.handle(Server.java:564)
-	at org.eclipse.jetty.server.HttpChannel.handle(HttpChannel.java:317)
-	at org.eclipse.jetty.server.HttpConnection.onFillable(HttpConnection.java:251)
-	at org.eclipse.jetty.io.AbstractConnection$ReadCallback.succeeded(AbstractConnection.java:279)
-	at org.eclipse.jetty.io.FillInterest.fillable(FillInterest.java:110)
-	at org.eclipse.jetty.io.ChannelEndPoint$2.run(ChannelEndPoint.java:124)
-	at org.eclipse.jetty.util.thread.QueuedThreadPool.runJob(QueuedThreadPool.java:673)
-	at org.eclipse.jetty.util.thread.QueuedThreadPool$2.run(QueuedThreadPool.java:591)
-	at java.lang.Thread.run(Thread.java:748)
-Caused by: java.lang.IllegalArgumentException: Unknown entity: nz.ac.auckland.concert.common.dto.ReservationDTO
-	at org.hibernate.internal.SessionImpl.firePersist(SessionImpl.java:784)
-	at org.hibernate.internal.SessionImpl.persist(SessionImpl.java:765)
-	at nz.ac.auckland.concert.service.services.ConcertResource.requestReservation(ConcertResource.java:312)
-	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
-	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.lang.reflect.Method.invoke(Method.java:498)
-	at org.jboss.resteasy.core.MethodInjectorImpl.invoke(MethodInjectorImpl.java:140)
-	at org.jboss.resteasy.core.ResourceMethodInvoker.invokeOnTarget(ResourceMethodInvoker.java:294)
-	at org.jboss.resteasy.core.ResourceMethodInvoker.invoke(ResourceMethodInvoker.java:248)
-	at org.jboss.resteasy.core.ResourceMethodInvoker.invoke(ResourceMethodInvoker.java:235)
-	at org.jboss.resteasy.core.SynchronousDispatcher.invoke(SynchronousDispatcher.java:402)
-	... 24 more
-</system-out>
-  </testcase>
-  <testcase classname="nz.ac.auckland.concert.client.service.ConcertServiceTest" name="testAuthenticateUserWithMissingPassword" time="0.339"/>
-  <testcase classname="nz.ac.auckland.concert.client.service.ConcertServiceTest" name="testConfirmBookingWithExpiredReservation" time="5.294">
+  <testcase classname="nz.ac.auckland.concert.client.service.ConcertServiceTest" name="testAuthenticateUserWithMissingPassword" time="0.449"/>
+  <testcase classname="nz.ac.auckland.concert.client.service.ConcertServiceTest" name="testConfirmBookingWithExpiredReservation" time="5.514">
     <error message="Unable to contact remote Service" type="nz.ac.auckland.concert.client.service.ServiceException">nz.ac.auckland.concert.client.service.ServiceException: Unable to contact remote Service
-	at nz.ac.auckland.concert.client.service.DefaultService.getBookings(DefaultService.java:291)
+	at nz.ac.auckland.concert.client.service.DefaultService.getBookings(DefaultService.java:295)
 	at nz.ac.auckland.concert.client.service.ConcertServiceTest.testConfirmBookingWithExpiredReservation(ConcertServiceTest.java:376)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
@@ -277,10 +145,10 @@ Caused by: java.lang.IllegalArgumentException: Unknown entity: nz.ac.auckland.co
 	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:115)
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:75)
 </error>
-    <system-out>2018-09-14 00:05:48,914 [main] WARN  org.hibernate.orm.connections.pooling  - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
-2018-09-14 00:05:49,006 [main] WARN  org.hibernate.orm.connections.pooling  - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
-2018-09-14 00:05:49,143 [qtp156856360-55] WARN  org.eclipse.jetty.server.HttpChannel  - /services/resource/make_request
-org.jboss.resteasy.spi.UnhandledException: java.lang.IllegalArgumentException: Unknown entity: nz.ac.auckland.concert.common.dto.ReservationDTO
+    <system-out>2018-09-14 11:29:42,952 [main] WARN  org.hibernate.orm.connections.pooling  - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2018-09-14 11:29:43,138 [main] WARN  org.hibernate.orm.connections.pooling  - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2018-09-14 11:29:48,411 [qtp156856360-54] WARN  org.eclipse.jetty.server.HttpChannel  - /services/resource/confirm
+org.jboss.resteasy.spi.UnhandledException: java.lang.IllegalArgumentException: Parameter value element [E12] did not match expected type [java.lang.String (n/a)]
 	at org.jboss.resteasy.core.ExceptionHandler.handleApplicationException(ExceptionHandler.java:78)
 	at org.jboss.resteasy.core.ExceptionHandler.handleException(ExceptionHandler.java:222)
 	at org.jboss.resteasy.core.SynchronousDispatcher.writeException(SynchronousDispatcher.java:175)
@@ -306,17 +174,19 @@ org.jboss.resteasy.spi.UnhandledException: java.lang.IllegalArgumentException: U
 	at org.eclipse.jetty.io.AbstractConnection$ReadCallback.succeeded(AbstractConnection.java:279)
 	at org.eclipse.jetty.io.FillInterest.fillable(FillInterest.java:110)
 	at org.eclipse.jetty.io.ChannelEndPoint$2.run(ChannelEndPoint.java:124)
-	at org.eclipse.jetty.util.thread.Invocable.invokePreferred(Invocable.java:128)
-	at org.eclipse.jetty.util.thread.Invocable$InvocableExecutor.invoke(Invocable.java:222)
-	at org.eclipse.jetty.util.thread.strategy.EatWhatYouKill.doProduce(EatWhatYouKill.java:294)
-	at org.eclipse.jetty.util.thread.strategy.EatWhatYouKill.run(EatWhatYouKill.java:199)
 	at org.eclipse.jetty.util.thread.QueuedThreadPool.runJob(QueuedThreadPool.java:673)
 	at org.eclipse.jetty.util.thread.QueuedThreadPool$2.run(QueuedThreadPool.java:591)
 	at java.lang.Thread.run(Thread.java:748)
-Caused by: java.lang.IllegalArgumentException: Unknown entity: nz.ac.auckland.concert.common.dto.ReservationDTO
-	at org.hibernate.internal.SessionImpl.firePersist(SessionImpl.java:784)
-	at org.hibernate.internal.SessionImpl.persist(SessionImpl.java:765)
-	at nz.ac.auckland.concert.service.services.ConcertResource.requestReservation(ConcertResource.java:312)
+Caused by: java.lang.IllegalArgumentException: Parameter value element [E12] did not match expected type [java.lang.String (n/a)]
+	at org.hibernate.query.spi.QueryParameterBindingValidator.validateCollectionValuedParameterBinding(QueryParameterBindingValidator.java:77)
+	at org.hibernate.query.spi.QueryParameterBindingValidator.validate(QueryParameterBindingValidator.java:46)
+	at org.hibernate.query.spi.QueryParameterBindingValidator.validate(QueryParameterBindingValidator.java:27)
+	at org.hibernate.query.internal.QueryParameterListBindingImpl.validate(QueryParameterListBindingImpl.java:75)
+	at org.hibernate.query.internal.QueryParameterListBindingImpl.setBindValues(QueryParameterListBindingImpl.java:33)
+	at org.hibernate.query.internal.AbstractProducedQuery.setParameterList(AbstractProducedQuery.java:560)
+	at org.hibernate.query.internal.AbstractProducedQuery.setParameter(AbstractProducedQuery.java:483)
+	at org.hibernate.query.internal.AbstractProducedQuery.setParameter(AbstractProducedQuery.java:104)
+	at nz.ac.auckland.concert.service.services.ConcertResource.confirmReservation(ConcertResource.java:417)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -326,56 +196,15 @@ Caused by: java.lang.IllegalArgumentException: Unknown entity: nz.ac.auckland.co
 	at org.jboss.resteasy.core.ResourceMethodInvoker.invoke(ResourceMethodInvoker.java:248)
 	at org.jboss.resteasy.core.ResourceMethodInvoker.invoke(ResourceMethodInvoker.java:235)
 	at org.jboss.resteasy.core.SynchronousDispatcher.invoke(SynchronousDispatcher.java:402)
-	... 28 more
-2018-09-14 00:05:54,156 [qtp156856360-56] ERROR org.jboss.resteasy.resteasy_jaxrs.i18n  - RESTEASY002010: Failed to execute
-javax.ws.rs.BadRequestException: HTTP 400 Bad Request
-	at org.jboss.resteasy.core.interception.jaxrs.ServerReaderInterceptorContext.readFrom(ServerReaderInterceptorContext.java:65)
-	at org.jboss.resteasy.core.interception.jaxrs.AbstractReaderInterceptorContext.proceed(AbstractReaderInterceptorContext.java:56)
-	at org.jboss.resteasy.core.MessageBodyParameterInjector.inject(MessageBodyParameterInjector.java:147)
-	at org.jboss.resteasy.core.MethodInjectorImpl.injectArguments(MethodInjectorImpl.java:92)
-	at org.jboss.resteasy.core.MethodInjectorImpl.invoke(MethodInjectorImpl.java:115)
-	at org.jboss.resteasy.core.ResourceMethodInvoker.invokeOnTarget(ResourceMethodInvoker.java:294)
-	at org.jboss.resteasy.core.ResourceMethodInvoker.invoke(ResourceMethodInvoker.java:248)
-	at org.jboss.resteasy.core.ResourceMethodInvoker.invoke(ResourceMethodInvoker.java:235)
-	at org.jboss.resteasy.core.SynchronousDispatcher.invoke(SynchronousDispatcher.java:402)
-	at org.jboss.resteasy.core.SynchronousDispatcher.invoke(SynchronousDispatcher.java:209)
-	at org.jboss.resteasy.plugins.server.servlet.ServletContainerDispatcher.service(ServletContainerDispatcher.java:227)
-	at org.jboss.resteasy.plugins.server.servlet.HttpServletDispatcher.service(HttpServletDispatcher.java:56)
-	at org.jboss.resteasy.plugins.server.servlet.HttpServletDispatcher.service(HttpServletDispatcher.java:51)
-	at javax.servlet.http.HttpServlet.service(HttpServlet.java:790)
-	at org.eclipse.jetty.servlet.ServletHolder.handle(ServletHolder.java:841)
-	at org.eclipse.jetty.servlet.ServletHandler.doHandle(ServletHandler.java:535)
-	at org.eclipse.jetty.server.handler.ScopedHandler.nextHandle(ScopedHandler.java:188)
-	at org.eclipse.jetty.server.handler.ContextHandler.doHandle(ContextHandler.java:1253)
-	at org.eclipse.jetty.server.handler.ScopedHandler.nextScope(ScopedHandler.java:168)
-	at org.eclipse.jetty.servlet.ServletHandler.doScope(ServletHandler.java:473)
-	at org.eclipse.jetty.server.handler.ScopedHandler.nextScope(ScopedHandler.java:166)
-	at org.eclipse.jetty.server.handler.ContextHandler.doScope(ContextHandler.java:1155)
-	at org.eclipse.jetty.server.handler.ScopedHandler.handle(ScopedHandler.java:141)
-	at org.eclipse.jetty.server.handler.HandlerWrapper.handle(HandlerWrapper.java:132)
-	at org.eclipse.jetty.server.Server.handle(Server.java:564)
-	at org.eclipse.jetty.server.HttpChannel.handle(HttpChannel.java:317)
-	at org.eclipse.jetty.server.HttpConnection.onFillable(HttpConnection.java:251)
-	at org.eclipse.jetty.io.AbstractConnection$ReadCallback.succeeded(AbstractConnection.java:279)
-	at org.eclipse.jetty.io.FillInterest.fillable(FillInterest.java:110)
-	at org.eclipse.jetty.io.ChannelEndPoint$2.run(ChannelEndPoint.java:124)
-	at org.eclipse.jetty.util.thread.QueuedThreadPool.runJob(QueuedThreadPool.java:673)
-	at org.eclipse.jetty.util.thread.QueuedThreadPool$2.run(QueuedThreadPool.java:591)
-	at java.lang.Thread.run(Thread.java:748)
-Caused by: javax.ws.rs.core.NoContentException: RESTEASY003625: No content.  Content-Length is 0
-	at org.jboss.resteasy.util.NoContent.contentLengthCheck(NoContent.java:40)
-	at org.jboss.resteasy.plugins.providers.jaxb.AbstractJAXBProvider.readFrom(AbstractJAXBProvider.java:111)
-	at org.jboss.resteasy.core.interception.jaxrs.AbstractReaderInterceptorContext.readFrom(AbstractReaderInterceptorContext.java:66)
-	at org.jboss.resteasy.core.interception.jaxrs.ServerReaderInterceptorContext.readFrom(ServerReaderInterceptorContext.java:61)
-	... 32 more
+	... 24 more
 </system-out>
   </testcase>
-  <testcase classname="nz.ac.auckland.concert.client.service.ConcertServiceTest" name="testRegisterCreditCard" time="0.21"/>
-  <testcase classname="nz.ac.auckland.concert.client.service.ConcertServiceTest" name="testMakeReservationWithBadRequest" time="0.257"/>
-  <testcase classname="nz.ac.auckland.concert.client.service.ConcertServiceTest" name="testCreateUserWithMissingField" time="0.214"/>
-  <testcase classname="nz.ac.auckland.concert.client.service.ConcertServiceTest" name="testConfirmReservationWithoutRegisteredCreditCard" time="0.246">
+  <testcase classname="nz.ac.auckland.concert.client.service.ConcertServiceTest" name="testRegisterCreditCard" time="0.488"/>
+  <testcase classname="nz.ac.auckland.concert.client.service.ConcertServiceTest" name="testMakeReservationWithBadRequest" time="0.381"/>
+  <testcase classname="nz.ac.auckland.concert.client.service.ConcertServiceTest" name="testCreateUserWithMissingField" time="0.412"/>
+  <testcase classname="nz.ac.auckland.concert.client.service.ConcertServiceTest" name="testConfirmReservationWithoutRegisteredCreditCard" time="0.367">
     <error message="Unable to contact remote Service" type="nz.ac.auckland.concert.client.service.ServiceException">nz.ac.auckland.concert.client.service.ServiceException: Unable to contact remote Service
-	at nz.ac.auckland.concert.client.service.DefaultService.getBookings(DefaultService.java:291)
+	at nz.ac.auckland.concert.client.service.DefaultService.getBookings(DefaultService.java:295)
 	at nz.ac.auckland.concert.client.service.ConcertServiceTest.testConfirmReservationWithoutRegisteredCreditCard(ConcertServiceTest.java:402)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
@@ -411,112 +240,19 @@ Caused by: javax.ws.rs.core.NoContentException: RESTEASY003625: No content.  Con
 	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:115)
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:75)
 </error>
-    <system-out>2018-09-14 00:05:54,881 [main] WARN  org.hibernate.orm.connections.pooling  - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
-2018-09-14 00:05:54,961 [main] WARN  org.hibernate.orm.connections.pooling  - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
-2018-09-14 00:05:55,066 [qtp156856360-100] WARN  org.eclipse.jetty.server.HttpChannel  - /services/resource/make_request
-org.jboss.resteasy.spi.UnhandledException: java.lang.IllegalArgumentException: Unknown entity: nz.ac.auckland.concert.common.dto.ReservationDTO
-	at org.jboss.resteasy.core.ExceptionHandler.handleApplicationException(ExceptionHandler.java:78)
-	at org.jboss.resteasy.core.ExceptionHandler.handleException(ExceptionHandler.java:222)
-	at org.jboss.resteasy.core.SynchronousDispatcher.writeException(SynchronousDispatcher.java:175)
-	at org.jboss.resteasy.core.SynchronousDispatcher.invoke(SynchronousDispatcher.java:418)
-	at org.jboss.resteasy.core.SynchronousDispatcher.invoke(SynchronousDispatcher.java:209)
-	at org.jboss.resteasy.plugins.server.servlet.ServletContainerDispatcher.service(ServletContainerDispatcher.java:227)
-	at org.jboss.resteasy.plugins.server.servlet.HttpServletDispatcher.service(HttpServletDispatcher.java:56)
-	at org.jboss.resteasy.plugins.server.servlet.HttpServletDispatcher.service(HttpServletDispatcher.java:51)
-	at javax.servlet.http.HttpServlet.service(HttpServlet.java:790)
-	at org.eclipse.jetty.servlet.ServletHolder.handle(ServletHolder.java:841)
-	at org.eclipse.jetty.servlet.ServletHandler.doHandle(ServletHandler.java:535)
-	at org.eclipse.jetty.server.handler.ScopedHandler.nextHandle(ScopedHandler.java:188)
-	at org.eclipse.jetty.server.handler.ContextHandler.doHandle(ContextHandler.java:1253)
-	at org.eclipse.jetty.server.handler.ScopedHandler.nextScope(ScopedHandler.java:168)
-	at org.eclipse.jetty.servlet.ServletHandler.doScope(ServletHandler.java:473)
-	at org.eclipse.jetty.server.handler.ScopedHandler.nextScope(ScopedHandler.java:166)
-	at org.eclipse.jetty.server.handler.ContextHandler.doScope(ContextHandler.java:1155)
-	at org.eclipse.jetty.server.handler.ScopedHandler.handle(ScopedHandler.java:141)
-	at org.eclipse.jetty.server.handler.HandlerWrapper.handle(HandlerWrapper.java:132)
-	at org.eclipse.jetty.server.Server.handle(Server.java:564)
-	at org.eclipse.jetty.server.HttpChannel.handle(HttpChannel.java:317)
-	at org.eclipse.jetty.server.HttpConnection.onFillable(HttpConnection.java:251)
-	at org.eclipse.jetty.io.AbstractConnection$ReadCallback.succeeded(AbstractConnection.java:279)
-	at org.eclipse.jetty.io.FillInterest.fillable(FillInterest.java:110)
-	at org.eclipse.jetty.io.ChannelEndPoint$2.run(ChannelEndPoint.java:124)
-	at org.eclipse.jetty.util.thread.Invocable.invokePreferred(Invocable.java:128)
-	at org.eclipse.jetty.util.thread.Invocable$InvocableExecutor.invoke(Invocable.java:222)
-	at org.eclipse.jetty.util.thread.strategy.EatWhatYouKill.doProduce(EatWhatYouKill.java:294)
-	at org.eclipse.jetty.util.thread.strategy.EatWhatYouKill.produce(EatWhatYouKill.java:126)
-	at org.eclipse.jetty.util.thread.QueuedThreadPool.runJob(QueuedThreadPool.java:673)
-	at org.eclipse.jetty.util.thread.QueuedThreadPool$2.run(QueuedThreadPool.java:591)
-	at java.lang.Thread.run(Thread.java:748)
-Caused by: java.lang.IllegalArgumentException: Unknown entity: nz.ac.auckland.concert.common.dto.ReservationDTO
-	at org.hibernate.internal.SessionImpl.firePersist(SessionImpl.java:784)
-	at org.hibernate.internal.SessionImpl.persist(SessionImpl.java:765)
-	at nz.ac.auckland.concert.service.services.ConcertResource.requestReservation(ConcertResource.java:312)
-	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
-	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.lang.reflect.Method.invoke(Method.java:498)
-	at org.jboss.resteasy.core.MethodInjectorImpl.invoke(MethodInjectorImpl.java:140)
-	at org.jboss.resteasy.core.ResourceMethodInvoker.invokeOnTarget(ResourceMethodInvoker.java:294)
-	at org.jboss.resteasy.core.ResourceMethodInvoker.invoke(ResourceMethodInvoker.java:248)
-	at org.jboss.resteasy.core.ResourceMethodInvoker.invoke(ResourceMethodInvoker.java:235)
-	at org.jboss.resteasy.core.SynchronousDispatcher.invoke(SynchronousDispatcher.java:402)
-	... 28 more
-2018-09-14 00:05:55,079 [qtp156856360-104] ERROR org.jboss.resteasy.resteasy_jaxrs.i18n  - RESTEASY002010: Failed to execute
-javax.ws.rs.BadRequestException: HTTP 400 Bad Request
-	at org.jboss.resteasy.core.interception.jaxrs.ServerReaderInterceptorContext.readFrom(ServerReaderInterceptorContext.java:65)
-	at org.jboss.resteasy.core.interception.jaxrs.AbstractReaderInterceptorContext.proceed(AbstractReaderInterceptorContext.java:56)
-	at org.jboss.resteasy.core.MessageBodyParameterInjector.inject(MessageBodyParameterInjector.java:147)
-	at org.jboss.resteasy.core.MethodInjectorImpl.injectArguments(MethodInjectorImpl.java:92)
-	at org.jboss.resteasy.core.MethodInjectorImpl.invoke(MethodInjectorImpl.java:115)
-	at org.jboss.resteasy.core.ResourceMethodInvoker.invokeOnTarget(ResourceMethodInvoker.java:294)
-	at org.jboss.resteasy.core.ResourceMethodInvoker.invoke(ResourceMethodInvoker.java:248)
-	at org.jboss.resteasy.core.ResourceMethodInvoker.invoke(ResourceMethodInvoker.java:235)
-	at org.jboss.resteasy.core.SynchronousDispatcher.invoke(SynchronousDispatcher.java:402)
-	at org.jboss.resteasy.core.SynchronousDispatcher.invoke(SynchronousDispatcher.java:209)
-	at org.jboss.resteasy.plugins.server.servlet.ServletContainerDispatcher.service(ServletContainerDispatcher.java:227)
-	at org.jboss.resteasy.plugins.server.servlet.HttpServletDispatcher.service(HttpServletDispatcher.java:56)
-	at org.jboss.resteasy.plugins.server.servlet.HttpServletDispatcher.service(HttpServletDispatcher.java:51)
-	at javax.servlet.http.HttpServlet.service(HttpServlet.java:790)
-	at org.eclipse.jetty.servlet.ServletHolder.handle(ServletHolder.java:841)
-	at org.eclipse.jetty.servlet.ServletHandler.doHandle(ServletHandler.java:535)
-	at org.eclipse.jetty.server.handler.ScopedHandler.nextHandle(ScopedHandler.java:188)
-	at org.eclipse.jetty.server.handler.ContextHandler.doHandle(ContextHandler.java:1253)
-	at org.eclipse.jetty.server.handler.ScopedHandler.nextScope(ScopedHandler.java:168)
-	at org.eclipse.jetty.servlet.ServletHandler.doScope(ServletHandler.java:473)
-	at org.eclipse.jetty.server.handler.ScopedHandler.nextScope(ScopedHandler.java:166)
-	at org.eclipse.jetty.server.handler.ContextHandler.doScope(ContextHandler.java:1155)
-	at org.eclipse.jetty.server.handler.ScopedHandler.handle(ScopedHandler.java:141)
-	at org.eclipse.jetty.server.handler.HandlerWrapper.handle(HandlerWrapper.java:132)
-	at org.eclipse.jetty.server.Server.handle(Server.java:564)
-	at org.eclipse.jetty.server.HttpChannel.handle(HttpChannel.java:317)
-	at org.eclipse.jetty.server.HttpConnection.onFillable(HttpConnection.java:251)
-	at org.eclipse.jetty.io.AbstractConnection$ReadCallback.succeeded(AbstractConnection.java:279)
-	at org.eclipse.jetty.io.FillInterest.fillable(FillInterest.java:110)
-	at org.eclipse.jetty.io.ChannelEndPoint$2.run(ChannelEndPoint.java:124)
-	at org.eclipse.jetty.util.thread.Invocable.invokePreferred(Invocable.java:128)
-	at org.eclipse.jetty.util.thread.Invocable$InvocableExecutor.invoke(Invocable.java:222)
-	at org.eclipse.jetty.util.thread.strategy.EatWhatYouKill.doProduce(EatWhatYouKill.java:294)
-	at org.eclipse.jetty.util.thread.strategy.EatWhatYouKill.run(EatWhatYouKill.java:199)
-	at org.eclipse.jetty.util.thread.QueuedThreadPool.runJob(QueuedThreadPool.java:673)
-	at org.eclipse.jetty.util.thread.QueuedThreadPool$2.run(QueuedThreadPool.java:591)
-	at java.lang.Thread.run(Thread.java:748)
-Caused by: javax.ws.rs.core.NoContentException: RESTEASY003625: No content.  Content-Length is 0
-	at org.jboss.resteasy.util.NoContent.contentLengthCheck(NoContent.java:40)
-	at org.jboss.resteasy.plugins.providers.jaxb.AbstractJAXBProvider.readFrom(AbstractJAXBProvider.java:111)
-	at org.jboss.resteasy.core.interception.jaxrs.AbstractReaderInterceptorContext.readFrom(AbstractReaderInterceptorContext.java:66)
-	at org.jboss.resteasy.core.interception.jaxrs.ServerReaderInterceptorContext.readFrom(ServerReaderInterceptorContext.java:61)
-	... 36 more
+    <system-out>2018-09-14 11:29:49,747 [main] WARN  org.hibernate.orm.connections.pooling  - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2018-09-14 11:29:49,851 [main] WARN  org.hibernate.orm.connections.pooling  - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
 </system-out>
   </testcase>
-  <testcase classname="nz.ac.auckland.concert.client.service.ConcertServiceTest" name="testMakeReservationWithUnauthenticatedUser" time="0.167"/>
-  <testcase classname="nz.ac.auckland.concert.client.service.ConcertServiceTest" name="testAuthenticateUser" time="0.221"/>
-  <testcase classname="nz.ac.auckland.concert.client.service.ConcertServiceTest" name="testCreateUserWithDuplicateUsername" time="0.185"/>
-  <testcase classname="nz.ac.auckland.concert.client.service.ConcertServiceTest" name="testRetrieveConcerts" time="0.264"/>
-  <testcase classname="nz.ac.auckland.concert.client.service.ConcertServiceTest" name="testRetrievePerformers" time="0.198"/>
-  <testcase classname="nz.ac.auckland.concert.client.service.ConcertServiceTest" name="testCreateUser" time="0.148"/>
-  <testcase classname="nz.ac.auckland.concert.client.service.ConcertServiceTest" name="testAuthenticateWithNonExistentUser" time="0.161"/>
-  <testcase classname="nz.ac.auckland.concert.client.service.ConcertServiceTest" name="testAuthenticateUserWithIncorrectPassword" time="0.156"/>
-  <testcase classname="nz.ac.auckland.concert.client.service.ConcertServiceTest" name="testConfirmReservation" time="0.189">
+  <testcase classname="nz.ac.auckland.concert.client.service.ConcertServiceTest" name="testMakeReservationWithUnauthenticatedUser" time="0.262"/>
+  <testcase classname="nz.ac.auckland.concert.client.service.ConcertServiceTest" name="testAuthenticateUser" time="0.341"/>
+  <testcase classname="nz.ac.auckland.concert.client.service.ConcertServiceTest" name="testCreateUserWithDuplicateUsername" time="0.355"/>
+  <testcase classname="nz.ac.auckland.concert.client.service.ConcertServiceTest" name="testRetrieveConcerts" time="0.333"/>
+  <testcase classname="nz.ac.auckland.concert.client.service.ConcertServiceTest" name="testRetrievePerformers" time="0.276"/>
+  <testcase classname="nz.ac.auckland.concert.client.service.ConcertServiceTest" name="testCreateUser" time="0.223"/>
+  <testcase classname="nz.ac.auckland.concert.client.service.ConcertServiceTest" name="testAuthenticateWithNonExistentUser" time="0.241"/>
+  <testcase classname="nz.ac.auckland.concert.client.service.ConcertServiceTest" name="testAuthenticateUserWithIncorrectPassword" time="0.297"/>
+  <testcase classname="nz.ac.auckland.concert.client.service.ConcertServiceTest" name="testConfirmReservation" time="0.388">
     <failure type="java.lang.AssertionError">java.lang.AssertionError
 	at org.junit.Assert.fail(Assert.java:86)
 	at org.junit.Assert.fail(Assert.java:95)
@@ -555,63 +291,14 @@ Caused by: javax.ws.rs.core.NoContentException: RESTEASY003625: No content.  Con
 	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:115)
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:75)
 </failure>
-    <system-out>2018-09-14 00:05:56,629 [main] WARN  org.hibernate.orm.connections.pooling  - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
-2018-09-14 00:05:56,683 [main] WARN  org.hibernate.orm.connections.pooling  - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
-2018-09-14 00:05:56,779 [qtp156856360-205] WARN  org.eclipse.jetty.server.HttpChannel  - /services/resource/make_request
-org.jboss.resteasy.spi.UnhandledException: java.lang.IllegalArgumentException: Unknown entity: nz.ac.auckland.concert.common.dto.ReservationDTO
+    <system-out>2018-09-14 11:29:52,441 [main] WARN  org.hibernate.orm.connections.pooling  - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2018-09-14 11:29:52,533 [main] WARN  org.hibernate.orm.connections.pooling  - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2018-09-14 11:29:52,700 [qtp156856360-212] WARN  org.eclipse.jetty.server.HttpChannel  - /services/resource/confirm
+org.jboss.resteasy.spi.UnhandledException: java.lang.IllegalArgumentException: Parameter value element [H5] did not match expected type [java.lang.String (n/a)]
 	at org.jboss.resteasy.core.ExceptionHandler.handleApplicationException(ExceptionHandler.java:78)
 	at org.jboss.resteasy.core.ExceptionHandler.handleException(ExceptionHandler.java:222)
 	at org.jboss.resteasy.core.SynchronousDispatcher.writeException(SynchronousDispatcher.java:175)
 	at org.jboss.resteasy.core.SynchronousDispatcher.invoke(SynchronousDispatcher.java:418)
-	at org.jboss.resteasy.core.SynchronousDispatcher.invoke(SynchronousDispatcher.java:209)
-	at org.jboss.resteasy.plugins.server.servlet.ServletContainerDispatcher.service(ServletContainerDispatcher.java:227)
-	at org.jboss.resteasy.plugins.server.servlet.HttpServletDispatcher.service(HttpServletDispatcher.java:56)
-	at org.jboss.resteasy.plugins.server.servlet.HttpServletDispatcher.service(HttpServletDispatcher.java:51)
-	at javax.servlet.http.HttpServlet.service(HttpServlet.java:790)
-	at org.eclipse.jetty.servlet.ServletHolder.handle(ServletHolder.java:841)
-	at org.eclipse.jetty.servlet.ServletHandler.doHandle(ServletHandler.java:535)
-	at org.eclipse.jetty.server.handler.ScopedHandler.nextHandle(ScopedHandler.java:188)
-	at org.eclipse.jetty.server.handler.ContextHandler.doHandle(ContextHandler.java:1253)
-	at org.eclipse.jetty.server.handler.ScopedHandler.nextScope(ScopedHandler.java:168)
-	at org.eclipse.jetty.servlet.ServletHandler.doScope(ServletHandler.java:473)
-	at org.eclipse.jetty.server.handler.ScopedHandler.nextScope(ScopedHandler.java:166)
-	at org.eclipse.jetty.server.handler.ContextHandler.doScope(ContextHandler.java:1155)
-	at org.eclipse.jetty.server.handler.ScopedHandler.handle(ScopedHandler.java:141)
-	at org.eclipse.jetty.server.handler.HandlerWrapper.handle(HandlerWrapper.java:132)
-	at org.eclipse.jetty.server.Server.handle(Server.java:564)
-	at org.eclipse.jetty.server.HttpChannel.handle(HttpChannel.java:317)
-	at org.eclipse.jetty.server.HttpConnection.onFillable(HttpConnection.java:251)
-	at org.eclipse.jetty.io.AbstractConnection$ReadCallback.succeeded(AbstractConnection.java:279)
-	at org.eclipse.jetty.io.FillInterest.fillable(FillInterest.java:110)
-	at org.eclipse.jetty.io.ChannelEndPoint$2.run(ChannelEndPoint.java:124)
-	at org.eclipse.jetty.util.thread.QueuedThreadPool.runJob(QueuedThreadPool.java:673)
-	at org.eclipse.jetty.util.thread.QueuedThreadPool$2.run(QueuedThreadPool.java:591)
-	at java.lang.Thread.run(Thread.java:748)
-Caused by: java.lang.IllegalArgumentException: Unknown entity: nz.ac.auckland.concert.common.dto.ReservationDTO
-	at org.hibernate.internal.SessionImpl.firePersist(SessionImpl.java:784)
-	at org.hibernate.internal.SessionImpl.persist(SessionImpl.java:765)
-	at nz.ac.auckland.concert.service.services.ConcertResource.requestReservation(ConcertResource.java:312)
-	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
-	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.lang.reflect.Method.invoke(Method.java:498)
-	at org.jboss.resteasy.core.MethodInjectorImpl.invoke(MethodInjectorImpl.java:140)
-	at org.jboss.resteasy.core.ResourceMethodInvoker.invokeOnTarget(ResourceMethodInvoker.java:294)
-	at org.jboss.resteasy.core.ResourceMethodInvoker.invoke(ResourceMethodInvoker.java:248)
-	at org.jboss.resteasy.core.ResourceMethodInvoker.invoke(ResourceMethodInvoker.java:235)
-	at org.jboss.resteasy.core.SynchronousDispatcher.invoke(SynchronousDispatcher.java:402)
-	... 24 more
-2018-09-14 00:05:56,787 [qtp156856360-211] ERROR org.jboss.resteasy.resteasy_jaxrs.i18n  - RESTEASY002010: Failed to execute
-javax.ws.rs.BadRequestException: HTTP 400 Bad Request
-	at org.jboss.resteasy.core.interception.jaxrs.ServerReaderInterceptorContext.readFrom(ServerReaderInterceptorContext.java:65)
-	at org.jboss.resteasy.core.interception.jaxrs.AbstractReaderInterceptorContext.proceed(AbstractReaderInterceptorContext.java:56)
-	at org.jboss.resteasy.core.MessageBodyParameterInjector.inject(MessageBodyParameterInjector.java:147)
-	at org.jboss.resteasy.core.MethodInjectorImpl.injectArguments(MethodInjectorImpl.java:92)
-	at org.jboss.resteasy.core.MethodInjectorImpl.invoke(MethodInjectorImpl.java:115)
-	at org.jboss.resteasy.core.ResourceMethodInvoker.invokeOnTarget(ResourceMethodInvoker.java:294)
-	at org.jboss.resteasy.core.ResourceMethodInvoker.invoke(ResourceMethodInvoker.java:248)
-	at org.jboss.resteasy.core.ResourceMethodInvoker.invoke(ResourceMethodInvoker.java:235)
-	at org.jboss.resteasy.core.SynchronousDispatcher.invoke(SynchronousDispatcher.java:402)
 	at org.jboss.resteasy.core.SynchronousDispatcher.invoke(SynchronousDispatcher.java:209)
 	at org.jboss.resteasy.plugins.server.servlet.ServletContainerDispatcher.service(ServletContainerDispatcher.java:227)
 	at org.jboss.resteasy.plugins.server.servlet.HttpServletDispatcher.service(HttpServletDispatcher.java:56)
@@ -640,13 +327,27 @@ javax.ws.rs.BadRequestException: HTTP 400 Bad Request
 	at org.eclipse.jetty.util.thread.QueuedThreadPool.runJob(QueuedThreadPool.java:673)
 	at org.eclipse.jetty.util.thread.QueuedThreadPool$2.run(QueuedThreadPool.java:591)
 	at java.lang.Thread.run(Thread.java:748)
-Caused by: javax.ws.rs.core.NoContentException: RESTEASY003625: No content.  Content-Length is 0
-	at org.jboss.resteasy.util.NoContent.contentLengthCheck(NoContent.java:40)
-	at org.jboss.resteasy.plugins.providers.jaxb.AbstractJAXBProvider.readFrom(AbstractJAXBProvider.java:111)
-	at org.jboss.resteasy.core.interception.jaxrs.AbstractReaderInterceptorContext.readFrom(AbstractReaderInterceptorContext.java:66)
-	at org.jboss.resteasy.core.interception.jaxrs.ServerReaderInterceptorContext.readFrom(ServerReaderInterceptorContext.java:61)
-	... 36 more
+Caused by: java.lang.IllegalArgumentException: Parameter value element [H5] did not match expected type [java.lang.String (n/a)]
+	at org.hibernate.query.spi.QueryParameterBindingValidator.validateCollectionValuedParameterBinding(QueryParameterBindingValidator.java:77)
+	at org.hibernate.query.spi.QueryParameterBindingValidator.validate(QueryParameterBindingValidator.java:46)
+	at org.hibernate.query.spi.QueryParameterBindingValidator.validate(QueryParameterBindingValidator.java:27)
+	at org.hibernate.query.internal.QueryParameterListBindingImpl.validate(QueryParameterListBindingImpl.java:75)
+	at org.hibernate.query.internal.QueryParameterListBindingImpl.setBindValues(QueryParameterListBindingImpl.java:33)
+	at org.hibernate.query.internal.AbstractProducedQuery.setParameterList(AbstractProducedQuery.java:560)
+	at org.hibernate.query.internal.AbstractProducedQuery.setParameter(AbstractProducedQuery.java:483)
+	at org.hibernate.query.internal.AbstractProducedQuery.setParameter(AbstractProducedQuery.java:104)
+	at nz.ac.auckland.concert.service.services.ConcertResource.confirmReservation(ConcertResource.java:417)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.jboss.resteasy.core.MethodInjectorImpl.invoke(MethodInjectorImpl.java:140)
+	at org.jboss.resteasy.core.ResourceMethodInvoker.invokeOnTarget(ResourceMethodInvoker.java:294)
+	at org.jboss.resteasy.core.ResourceMethodInvoker.invoke(ResourceMethodInvoker.java:248)
+	at org.jboss.resteasy.core.ResourceMethodInvoker.invoke(ResourceMethodInvoker.java:235)
+	at org.jboss.resteasy.core.SynchronousDispatcher.invoke(SynchronousDispatcher.java:402)
+	... 28 more
 </system-out>
   </testcase>
-  <testcase classname="nz.ac.auckland.concert.client.service.ConcertServiceTest" name="testRegisterCreditCardWithUnauthenticatedUser" time="0.131"/>
+  <testcase classname="nz.ac.auckland.concert.client.service.ConcertServiceTest" name="testRegisterCreditCardWithUnauthenticatedUser" time="0.168"/>
 </testsuite>

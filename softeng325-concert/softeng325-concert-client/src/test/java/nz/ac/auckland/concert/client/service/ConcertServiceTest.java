@@ -239,7 +239,7 @@ public class ConcertServiceTest {
 			for(SeatDTO seat : reservedSeats) {
 				assertTrue(TheatreLayout.getRowsForPriceBand(PriceBand.PriceBandC).contains(seat.getRow()));
 			}
-			
+
 		} catch(ServiceException e) {
 			fail();
 		}

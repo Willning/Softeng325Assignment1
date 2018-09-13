@@ -1,5 +1,6 @@
 package nz.ac.auckland.concert.client.service;
 
+import com.amazonaws.services.dynamodbv2.xspec.M;
 import nz.ac.auckland.concert.common.dto.*;
 import nz.ac.auckland.concert.common.message.Messages;
 import nz.ac.auckland.concert.service.domain.Concert;
@@ -181,17 +182,23 @@ public class DefaultService implements ConcertService {
 
             if (response.getStatus() == Response.Status.OK.getStatusCode()){
                 return response.readEntity(ReservationDTO.class);
+
             }else if(response.getStatus()== Response.Status.UNAUTHORIZED.getStatusCode()){
+
                 throw new ServiceException((Messages.UNAUTHENTICATED_REQUEST));
             }else if (response.getStatus() == Response.Status.BAD_REQUEST.getStatusCode()){
+
                 throw new ServiceException(Messages.CONCERT_NOT_SCHEDULED_ON_RESERVATION_DATE);
+            }else if(response.getStatus() == Response.Status.REQUESTED_RANGE_NOT_SATISFIABLE.getStatusCode()){
+
+                throw new ServiceException(Messages.INSUFFICIENT_SEATS_AVAILABLE_FOR_RESERVATION);
+            }else{
+                throw new ServiceException(Messages.SERVICE_COMMUNICATION_ERROR);
             }
 
         }finally {
             client.close();
         }
-
-            return null;
     }
 
     @Override
