@@ -11,10 +11,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.*;
 import java.net.URI;
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * Using this to implement a simple REST web service.
@@ -244,39 +241,9 @@ public class ConcertResource {
         }
     }
 
-    @POST
-    @Path("/reservations")
-    public Response reserveSeats(ReservationRequestDTO reservationRequestDTO, @CookieParam("authenticationToken") Cookie token){
-
-        if (token == null) {
-            return Response.status(Response.Status.NOT_FOUND).build();
-        }
-
-        EntityManager em = PersistenceManager.instance().createEntityManager();
-        em.getTransaction().begin();
-
-        //search out the concert id
-
-        TypedQuery<Concert> concertQuery = em.createQuery("SELECT c FROM Concert c WHERE c._id =:cid", Concert.class)
-                .setParameter("cid",reservationRequestDTO.getConcertId());
-
-        Concert concert = concertQuery.getSingleResult();
-        //since cid is unique, should have single result
-
-        em.close();
-        if (concert.getDates().contains(reservationRequestDTO.getDate())){
-           //TODO do the thing here
-
-
-        }else{
-            return Response.status(Response.Status.BAD_REQUEST).build();
-        }
-
-        return null;
-    }
 
     @POST
-    @Path("/request")
+    @Path("/make_request")
     public Response requestReservation(ReservationRequestDTO requestDTO, @CookieParam("authenticationToken") Cookie token){
         if (token == null){
             return Response.status(Response.Status.NOT_FOUND).build();
@@ -286,6 +253,7 @@ public class ConcertResource {
         em.getTransaction().begin();
 
         try {
+
             //check if the user is valid
             TypedQuery<User> userQuery = em.createQuery("SELECT u FROM User u WHERE u._token = :token", User.class)
                     .setParameter("token", token.getValue());
@@ -309,12 +277,42 @@ public class ConcertResource {
                         .setParameter("date",requestDTO.getDate())
                         .setLockMode(LockModeType.OPTIMISTIC);
 
+                //need to do a priceband check as well
+
                 List<Seat> seatList = seatQuery.getResultList();
 
-                //go through every seat and if it is free book it, if not free throw an error.
+                List<Seat> seatsToBook = new ArrayList<>();
 
+                for (Seat seat:seatList){
+                    if (seat.get_status().equals(Seat.Status.FREE)){
+                        //go through every seat and if it is free book it, if not free throw an error.
+                        seat.set_status(Seat.Status.PENDING);
+                        seatsToBook.add(seat);
+                    }
+                }
 
-                return Response.ok().build();
+                Reservation reservation = new Reservation();
+
+                Set<SeatDTO> seatDTOS= new HashSet<>();
+                for (Seat seat: seatsToBook){
+
+                    seat.set_reservation(reservation);
+                    seatDTOS.add(seat.convertToDTO());
+                    em.persist(seat);
+                }
+
+                reservation.set_concert(concert);
+                reservation.set_dateTime(requestDTO.getDate());
+                reservation.set_user(user);
+                reservation.set_priceBand(requestDTO.getSeatType());
+                reservation.set_rid(UUID.randomUUID().getMostSignificantBits());
+
+                ReservationDTO completeReservation= new ReservationDTO(reservation.get_rid(), requestDTO, seatDTOS);
+
+                em.persist(completeReservation);
+                em.getTransaction().commit();
+
+                return Response.ok(new GenericEntity<ReservationDTO>(completeReservation){}).build();
             }else{
                 return Response.status(Response.Status.BAD_REQUEST).build();
             }
@@ -326,7 +324,7 @@ public class ConcertResource {
     }
 
     @POST
-    @Path("/booking")
+    @Path("/confirm")
     public Response confirmReservation(ReservationDTO reservationDTO, @CookieParam("authenticationToken") Cookie token){
         if (token == null){
             return Response.status(Response.Status.NOT_FOUND).build();

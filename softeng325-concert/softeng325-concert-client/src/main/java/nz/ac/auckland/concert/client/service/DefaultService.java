@@ -165,23 +165,31 @@ public class DefaultService implements ConcertService {
 
     @Override
     public ReservationDTO reserveSeats(ReservationRequestDTO reservationRequest) throws ServiceException {
+
+        if (cookie == null){
+            throw new ServiceException(Messages.UNAUTHENTICATED_REQUEST);
+        }
+
         Client client = ClientBuilder.newClient();
         try {
-            Invocation.Builder builder = client.target(WEB_SERVICE_URI + "/reservations")
-                    .request(MediaType.APPLICATION_XML).accept(MediaType.APPLICATION_XML);
-            //Do something with the token checking.
-            Response response = builder.post(Entity.entity(reservationRequest, MediaType.APPLICATION_XML));
+            Invocation.Builder builder = client.target(WEB_SERVICE_URI + "/make_request")
+                    .request()
+                    .accept(MediaType.APPLICATION_XML);
+
+            Response response = builder.cookie("authenticationToken", cookie.getValue())
+                    .post(Entity.entity(reservationRequest, MediaType.APPLICATION_XML));
 
             if (response.getStatus() == Response.Status.OK.getStatusCode()){
                 return response.readEntity(ReservationDTO.class);
+            }else if(response.getStatus()== Response.Status.UNAUTHORIZED.getStatusCode()){
+                throw new ServiceException((Messages.UNAUTHENTICATED_REQUEST));
+            }else if (response.getStatus() == Response.Status.BAD_REQUEST.getStatusCode()){
+                throw new ServiceException(Messages.CONCERT_NOT_SCHEDULED_ON_RESERVATION_DATE);
             }
-
-
 
         }finally {
             client.close();
         }
-
 
             return null;
     }
@@ -190,13 +198,19 @@ public class DefaultService implements ConcertService {
     public void confirmReservation(ReservationDTO reservation) throws ServiceException {
         Client client = ClientBuilder.newClient();
 
+        if (cookie == null){
+            throw new ServiceException(Messages.UNAUTHENTICATED_REQUEST);
+        }
+
         //do the booking
         try {
-            Invocation.Builder builder = client.target(WEB_SERVICE_URI + "/booking")
+            Invocation.Builder builder = client.target(WEB_SERVICE_URI + "/confirm")
                     .request()
                     .accept(MediaType.APPLICATION_XML);
 
-            Response response = builder.post(Entity.entity(reservation,MediaType.APPLICATION_XML));
+            Response response = builder
+                    .cookie("authenticationToken", cookie.getValue())
+                    .post(Entity.entity(reservation,MediaType.APPLICATION_XML));
 
             if (response.getStatus() == Response.Status.OK.getStatusCode()){
                 //TODO do the thing here
@@ -204,7 +218,6 @@ public class DefaultService implements ConcertService {
             }else if(response.getStatus()==Response.Status.LENGTH_REQUIRED.getStatusCode()){
                 throw new ServiceException(Messages.CREDIT_CARD_NOT_REGISTERED);
             }
-
 
         }finally{
             client.close();

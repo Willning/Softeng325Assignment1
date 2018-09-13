@@ -32,35 +32,26 @@
       <file leaf-file-name="Performer.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/softeng325-concert/softeng325-concert-service/src/main/java/nz/ac/auckland/concert/service/domain/Performer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="425">
-              <caret line="34" column="41" selection-start-line="34" selection-start-column="41" selection-end-line="34" selection-end-column="41" />
+            <state>
+              <caret line="33" column="38" lean-forward="true" selection-start-line="33" selection-start-column="38" selection-end-line="33" selection-end-column="38" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="persistence.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/softeng325-concert/softeng325-concert-service/src/main/resources/META-INF/persistence.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="510">
-              <caret line="30" column="71" selection-start-line="30" selection-start-column="71" selection-end-line="30" selection-end-column="71" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="DefaultService.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="DefaultService.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/softeng325-concert/softeng325-concert-client/src/main/java/nz/ac/auckland/concert/client/service/DefaultService.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="475">
-              <caret line="244" column="77" lean-forward="true" selection-start-line="244" selection-start-column="77" selection-end-line="244" selection-end-column="77" />
+              <caret line="191" column="9" selection-start-line="191" selection-start-column="9" selection-end-line="191" selection-end-column="9" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ConcertResource.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="ConcertResource.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/softeng325-concert/softeng325-concert-service/src/main/java/nz/ac/auckland/concert/service/services/ConcertResource.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1">
-              <caret line="375" column="29" lean-forward="true" selection-start-line="375" selection-start-column="29" selection-end-line="375" selection-end-column="29" />
+            <state relative-caret-position="563">
+              <caret line="290" column="21" lean-forward="true" selection-start-line="290" selection-start-column="21" selection-end-line="290" selection-end-column="21" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -68,11 +59,30 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ConcertServiceTest.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/softeng325-concert/softeng325-concert-client/src/test/java/nz/ac/auckland/concert/client/service/ConcertServiceTest.java">
+      <file leaf-file-name="Seat.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/softeng325-concert/softeng325-concert-service/src/main/java/nz/ac/auckland/concert/service/domain/Seat.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="390">
-              <caret line="420" column="36" lean-forward="true" selection-start-line="420" selection-start-column="36" selection-end-line="420" selection-end-column="36" />
+            <state relative-caret-position="476">
+              <caret line="53" column="33" lean-forward="true" selection-start-line="53" selection-start-column="33" selection-end-line="53" selection-end-column="33" />
+              <folding>
+                <element signature="e#1353#1354#0" expanded="true" />
+                <element signature="e#1385#1386#0" expanded="true" />
+                <element signature="e#1435#1436#0" expanded="true" />
+                <element signature="e#1477#1478#0" expanded="true" />
+                <element signature="e#1511#1512#0" expanded="true" />
+                <element signature="e#1541#1542#0" expanded="true" />
+                <element signature="e#1587#1588#0" expanded="true" />
+                <element signature="e#1625#1626#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ConcertService.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/softeng325-concert/softeng325-concert-client/src/main/java/nz/ac/auckland/concert/client/service/ConcertService.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="498">
+              <caret line="189" column="47" lean-forward="true" selection-start-line="189" selection-start-column="47" selection-end-line="189" selection-end-column="47" />
             </state>
           </provider>
         </entry>
@@ -93,6 +103,7 @@
       <find>em.find</find>
       <find>booked</find>
       <find>notmod</find>
+      <find>uuid</find>
     </findStrings>
   </component>
   <component name="GradleLocalSettings">
@@ -111,7 +122,6 @@
         <option value="$PROJECT_DIR$/softeng325-concert/softeng325-concert-service/src/main/java/nz/ac/auckland/concert/service/domain/ReservationRequest.java" />
         <option value="$PROJECT_DIR$/softeng325-concert/softeng325-concert-client/src/main/java/nz/ac/auckland/concert/client/service/ReservationService.java" />
         <option value="$PROJECT_DIR$/softeng325-concert/softeng325-concert-service/src/main/java/nz/ac/auckland/concert/service/services/BookingApplication.java" />
-        <option value="$PROJECT_DIR$/softeng325-concert/softeng325-concert-service/src/main/java/nz/ac/auckland/concert/service/domain/Reservation.java" />
         <option value="$PROJECT_DIR$/softeng325-concert/softeng325-concert-service/src/main/resources/db-init.sql" />
         <option value="$PROJECT_DIR$/softeng325-concert/softeng325-concert-client/src/test/resources/log4j.properties" />
         <option value="$PROJECT_DIR$/softeng325-concert/softeng325-concert-service/src/main/resources/META-INF/persistence.xml" />
@@ -122,14 +132,17 @@
         <option value="$PROJECT_DIR$/softeng325-concert/softeng325-concert-common/src/main/java/nz/ac/auckland/concert/common/dto/ReservationDTO.java" />
         <option value="$PROJECT_DIR$/softeng325-concert/softeng325-concert-common/src/main/java/nz/ac/auckland/concert/common/dto/UserDTO.java" />
         <option value="$PROJECT_DIR$/softeng325-concert/softeng325-concert-service/src/main/java/nz/ac/auckland/concert/service/domain/Performer.java" />
-        <option value="$PROJECT_DIR$/softeng325-concert/softeng325-concert-service/src/main/java/nz/ac/auckland/concert/service/domain/Seat.java" />
         <option value="$PROJECT_DIR$/softeng325-concert/softeng325-concert-common/src/main/java/nz/ac/auckland/concert/common/dto/ConcertDTO.java" />
         <option value="$PROJECT_DIR$/softeng325-concert/softeng325-concert-service/src/main/java/nz/ac/auckland/concert/service/domain/CreditCard.java" />
         <option value="$PROJECT_DIR$/softeng325-concert/softeng325-concert-common/src/main/java/nz/ac/auckland/concert/common/dto/CreditCardDTO.java" />
         <option value="$PROJECT_DIR$/softeng325-concert/softeng325-concert-service/src/main/java/nz/ac/auckland/concert/service/domain/User.java" />
         <option value="$PROJECT_DIR$/softeng325-concert/softeng325-concert-client/src/test/java/nz/ac/auckland/concert/client/service/ConcertServiceTest.java" />
-        <option value="$PROJECT_DIR$/softeng325-concert/softeng325-concert-service/src/main/java/nz/ac/auckland/concert/service/services/ConcertResource.java" />
+        <option value="$PROJECT_DIR$/softeng325-concert/softeng325-concert-service/src/main/java/nz/ac/auckland/concert/service/domain/Seat.java" />
+        <option value="$PROJECT_DIR$/softeng325-concert/softeng325-concert-common/src/main/java/nz/ac/auckland/concert/common/dto/ReservationRequestDTO.java" />
+        <option value="$PROJECT_DIR$/softeng325-concert/softeng325-concert-common/src/main/java/nz/ac/auckland/concert/common/dto/SeatDTO.java" />
         <option value="$PROJECT_DIR$/softeng325-concert/softeng325-concert-client/src/main/java/nz/ac/auckland/concert/client/service/DefaultService.java" />
+        <option value="$PROJECT_DIR$/softeng325-concert/softeng325-concert-service/src/main/java/nz/ac/auckland/concert/service/domain/Reservation.java" />
+        <option value="$PROJECT_DIR$/softeng325-concert/softeng325-concert-service/src/main/java/nz/ac/auckland/concert/service/services/ConcertResource.java" />
       </list>
     </option>
   </component>
@@ -176,7 +189,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -391,6 +404,17 @@
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="service" type="462c0819:PsiDirectoryNode" />
+              <item name="domain" type="462c0819:PsiDirectoryNode" />
+              <item name="Seat.java" type="529ef68f:ClassesTreeStructureProvider$PsiClassOwnerTreeNode" />
+            </path>
+            <path>
+              <item name="softeng325-concert" type="b2602c69:ProjectViewProjectNode" />
+              <item name="softeng325-concert" type="462c0819:PsiDirectoryNode" />
+              <item name="softeng325-concert-service" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="service" type="462c0819:PsiDirectoryNode" />
               <item name="services" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -414,7 +438,7 @@
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -435,11 +459,11 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.ConcertServiceTest.testRegisterCreditCardWithUnauthenticatedUser">
+  <component name="RunManager" selected="JUnit.ConcertServiceTest.testConfirmReservation">
     <configuration default="true" type="Application" factoryName="Application">
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
     </configuration>
-    <configuration name="ConcertServiceTest.testCreateUser" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ConcertServiceTest.testConfirmReservation" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="softeng325-concert-client" />
       <extension name="coverage">
         <pattern>
@@ -451,7 +475,7 @@
       <option name="ALTERNATIVE_JRE_PATH" />
       <option name="PACKAGE_NAME" value="nz.ac.auckland.concert.client.service" />
       <option name="MAIN_CLASS_NAME" value="nz.ac.auckland.concert.client.service.ConcertServiceTest" />
-      <option name="METHOD_NAME" value="testCreateUser" />
+      <option name="METHOD_NAME" value="testConfirmReservation" />
       <option name="TEST_OBJECT" value="method" />
       <option name="VM_PARAMETERS" value="-ea" />
       <option name="PARAMETERS" />
@@ -462,7 +486,7 @@
       </option>
       <patterns />
     </configuration>
-    <configuration name="ConcertServiceTest.testCreateUserWithMissingField" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ConcertServiceTest.testMakeReservation" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="softeng325-concert-client" />
       <extension name="coverage">
         <pattern>
@@ -474,7 +498,30 @@
       <option name="ALTERNATIVE_JRE_PATH" />
       <option name="PACKAGE_NAME" value="nz.ac.auckland.concert.client.service" />
       <option name="MAIN_CLASS_NAME" value="nz.ac.auckland.concert.client.service.ConcertServiceTest" />
-      <option name="METHOD_NAME" value="testCreateUserWithMissingField" />
+      <option name="METHOD_NAME" value="testMakeReservation" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <patterns />
+    </configuration>
+    <configuration name="ConcertServiceTest.testMakeReservationWhereSeatsAreNotAvailable" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="softeng325-concert-client" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="nz.ac.auckland.concert.client.service.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="nz.ac.auckland.concert.client.service" />
+      <option name="MAIN_CLASS_NAME" value="nz.ac.auckland.concert.client.service.ConcertServiceTest" />
+      <option name="METHOD_NAME" value="testMakeReservationWhereSeatsAreNotAvailable" />
       <option name="TEST_OBJECT" value="method" />
       <option name="VM_PARAMETERS" value="-ea" />
       <option name="PARAMETERS" />
@@ -508,7 +555,7 @@
       </option>
       <patterns />
     </configuration>
-    <configuration name="ConcertServiceTest.testRegisterCreditCard" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ConcertServiceTest.testMakeReservationWithUnauthenticatedUser" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="softeng325-concert-client" />
       <extension name="coverage">
         <pattern>
@@ -520,30 +567,7 @@
       <option name="ALTERNATIVE_JRE_PATH" />
       <option name="PACKAGE_NAME" value="nz.ac.auckland.concert.client.service" />
       <option name="MAIN_CLASS_NAME" value="nz.ac.auckland.concert.client.service.ConcertServiceTest" />
-      <option name="METHOD_NAME" value="testRegisterCreditCard" />
-      <option name="TEST_OBJECT" value="method" />
-      <option name="VM_PARAMETERS" value="-ea" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="singleModule" />
-      </option>
-      <patterns />
-    </configuration>
-    <configuration name="ConcertServiceTest.testRegisterCreditCardWithUnauthenticatedUser" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="softeng325-concert-client" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="nz.ac.auckland.concert.client.service.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" value="nz.ac.auckland.concert.client.service" />
-      <option name="MAIN_CLASS_NAME" value="nz.ac.auckland.concert.client.service.ConcertServiceTest" />
-      <option name="METHOD_NAME" value="testRegisterCreditCardWithUnauthenticatedUser" />
+      <option name="METHOD_NAME" value="testMakeReservationWithUnauthenticatedUser" />
       <option name="TEST_OBJECT" value="method" />
       <option name="VM_PARAMETERS" value="-ea" />
       <option name="PARAMETERS" />
@@ -593,19 +617,19 @@
       <listeners />
     </configuration>
     <list>
-      <item itemvalue="JUnit.ConcertServiceTest.testRegisterCreditCardWithUnauthenticatedUser" />
-      <item itemvalue="JUnit.ConcertServiceTest.testRegisterCreditCard" />
+      <item itemvalue="JUnit.ConcertServiceTest.testMakeReservationWithUnauthenticatedUser" />
       <item itemvalue="JUnit.ConcertServiceTest.testMakeReservationWithBadRequest" />
-      <item itemvalue="JUnit.ConcertServiceTest.testCreateUser" />
-      <item itemvalue="JUnit.ConcertServiceTest.testCreateUserWithMissingField" />
+      <item itemvalue="JUnit.ConcertServiceTest.testMakeReservation" />
+      <item itemvalue="JUnit.ConcertServiceTest.testMakeReservationWhereSeatsAreNotAvailable" />
+      <item itemvalue="JUnit.ConcertServiceTest.testConfirmReservation" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.ConcertServiceTest.testRegisterCreditCardWithUnauthenticatedUser" />
-        <item itemvalue="JUnit.ConcertServiceTest.testRegisterCreditCard" />
-        <item itemvalue="JUnit.ConcertServiceTest.testCreateUser" />
-        <item itemvalue="JUnit.ConcertServiceTest.testCreateUserWithMissingField" />
+        <item itemvalue="JUnit.ConcertServiceTest.testConfirmReservation" />
         <item itemvalue="JUnit.ConcertServiceTest.testMakeReservationWithBadRequest" />
+        <item itemvalue="JUnit.ConcertServiceTest.testMakeReservationWhereSeatsAreNotAvailable" />
+        <item itemvalue="JUnit.ConcertServiceTest.testMakeReservationWithUnauthenticatedUser" />
+        <item itemvalue="JUnit.ConcertServiceTest.testMakeReservation" />
       </list>
     </recent_temporary>
   </component>
@@ -639,43 +663,44 @@
       <workItem from="1536665598961" duration="65000" />
       <workItem from="1536694419462" duration="6893000" />
       <workItem from="1536720149434" duration="1716000" />
+      <workItem from="1536832285061" duration="7939000" />
     </task>
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="ConcertServiceTest_testRegisterCreditCardWithUnauthenticatedUser - 2018.09.12 at 14h 54m 12s.xml">
-      <configuration name="ConcertServiceTest.testRegisterCreditCardWithUnauthenticatedUser" configurationId="JUnit" />
+    <history-entry file="ConcertServiceTest_testMakeReservationWithUnauthenticatedUser - 2018.09.13 at 22h 46m 59s.xml">
+      <configuration name="ConcertServiceTest.testMakeReservationWithUnauthenticatedUser" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="ConcertServiceTest_testRegisterCreditCardWithUnauthenticatedUser - 2018.09.12 at 14h 55m 39s.xml">
-      <configuration name="ConcertServiceTest.testRegisterCreditCardWithUnauthenticatedUser" configurationId="JUnit" />
+    <history-entry file="ConcertServiceTest_testMakeReservationWhereSeatsAreNotAvailable - 2018.09.13 at 22h 47m 12s.xml">
+      <configuration name="ConcertServiceTest.testMakeReservationWhereSeatsAreNotAvailable" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="ConcertServiceTest_testRegisterCreditCardWithUnauthenticatedUser - 2018.09.12 at 15h 01m 54s.xml">
-      <configuration name="ConcertServiceTest.testRegisterCreditCardWithUnauthenticatedUser" configurationId="JUnit" />
+    <history-entry file="ConcertServiceTest_testMakeReservationWithBadRequest - 2018.09.13 at 23h 09m 10s.xml">
+      <configuration name="ConcertServiceTest.testMakeReservationWithBadRequest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="ConcertServiceTest_testRegisterCreditCardWithUnauthenticatedUser - 2018.09.12 at 15h 03m 06s.xml">
-      <configuration name="ConcertServiceTest.testRegisterCreditCardWithUnauthenticatedUser" configurationId="JUnit" />
+    <history-entry file="ConcertServiceTest_testMakeReservationWithBadRequest - 2018.09.13 at 23h 13m 23s.xml">
+      <configuration name="ConcertServiceTest.testMakeReservationWithBadRequest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="ConcertServiceTest_testRegisterCreditCard - 2018.09.12 at 15h 03m 49s.xml">
-      <configuration name="ConcertServiceTest.testRegisterCreditCard" configurationId="JUnit" />
+    <history-entry file="ConcertServiceTest_testMakeReservationWithBadRequest - 2018.09.13 at 23h 14m 50s.xml">
+      <configuration name="ConcertServiceTest.testMakeReservationWithBadRequest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="ConcertServiceTest_testRegisterCreditCardWithUnauthenticatedUser - 2018.09.12 at 15h 05m 02s.xml">
-      <configuration name="ConcertServiceTest.testRegisterCreditCardWithUnauthenticatedUser" configurationId="JUnit" />
+    <history-entry file="ConcertServiceTest_testMakeReservationWithBadRequest - 2018.09.13 at 23h 22m 41s.xml">
+      <configuration name="ConcertServiceTest.testMakeReservationWithBadRequest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="ConcertServiceTest_testRegisterCreditCardWithUnauthenticatedUser - 2018.09.12 at 15h 07m 38s.xml">
-      <configuration name="ConcertServiceTest.testRegisterCreditCardWithUnauthenticatedUser" configurationId="JUnit" />
+    <history-entry file="ConcertServiceTest_testConfirmReservation - 2018.09.13 at 23h 59m 47s.xml">
+      <configuration name="ConcertServiceTest.testConfirmReservation" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="ConcertServiceTest_testRegisterCreditCardWithUnauthenticatedUser - 2018.09.12 at 15h 08m 11s.xml">
-      <configuration name="ConcertServiceTest.testRegisterCreditCardWithUnauthenticatedUser" configurationId="JUnit" />
+    <history-entry file="ConcertServiceTest_testConfirmReservation - 2018.09.14 at 00h 00m 27s.xml">
+      <configuration name="ConcertServiceTest.testConfirmReservation" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="ConcertServiceTest_testRegisterCreditCardWithUnauthenticatedUser - 2018.09.12 at 15h 09m 37s.xml">
-      <configuration name="ConcertServiceTest.testRegisterCreditCardWithUnauthenticatedUser" configurationId="JUnit" />
+    <history-entry file="ConcertServiceTest_testConfirmReservation - 2018.09.14 at 00h 04m 11s.xml">
+      <configuration name="ConcertServiceTest.testConfirmReservation" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="ConcertServiceTest_testRegisterCreditCardWithUnauthenticatedUser - 2018.09.12 at 15h 10m 33s.xml">
-      <configuration name="ConcertServiceTest.testRegisterCreditCardWithUnauthenticatedUser" configurationId="JUnit" />
+    <history-entry file="ConcertServiceTest_testConfirmReservation - 2018.09.14 at 00h 04m 35s.xml">
+      <configuration name="ConcertServiceTest.testConfirmReservation" configurationId="JUnit" />
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="143709000" />
+    <option name="totallyTimeSpent" value="151648000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -687,10 +712,10 @@
       <window_info anchor="right" id="Palette&#9;" order="6" />
       <window_info anchor="bottom" id="Java Enterprise" order="11" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
-      <window_info active="true" anchor="right" id="Maven Projects" order="5" visible="true" weight="0.2078125" />
+      <window_info anchor="right" id="Maven Projects" order="5" visible="true" weight="0.2078125" />
       <window_info anchor="bottom" id="Database Changes" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="7" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.24548353" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.24548353" />
       <window_info anchor="bottom" id="Terminal" order="9" />
       <window_info id="Persistence" order="2" sideWeight="0.2803468" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="5" />
@@ -828,29 +853,8 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/softeng325-concert/softeng325-concert-client/src/main/java/nz/ac/auckland/concert/client/service/ConcertService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-53">
-          <caret line="189" column="47" lean-forward="true" selection-start-line="189" selection-start-column="47" selection-end-line="189" selection-end-column="47" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/softeng325-concert/softeng325-concert-common/src/main/java/nz/ac/auckland/concert/common/dto/SeatDTO.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="442">
-          <caret line="34" column="5" lean-forward="true" selection-start-line="34" selection-start-column="5" selection-end-line="34" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/softeng325-concert/softeng325-concert-service/softeng325-concert-service.iml">
       <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/softeng325-concert/softeng325-concert-common/src/main/java/nz/ac/auckland/concert/common/dto/ReservationRequestDTO.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="26" column="4" selection-start-line="26" selection-start-column="4" selection-end-line="26" selection-end-column="4" />
-        </state>
-      </provider>
     </entry>
     <entry file="jar://$MAVEN_REPOSITORY$/org/jboss/resteasy/resteasy-jaxrs/3.1.4.Final/resteasy-jaxrs-3.1.4.Final.jar!/org/jboss/resteasy/core/registry/SegmentNode.class">
       <provider selected="true" editor-type-id="text-editor">
@@ -951,13 +955,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/softeng325-concert/softeng325-concert-service/src/main/java/nz/ac/auckland/concert/service/domain/Seat.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="17" selection-start-line="17" selection-end-line="17" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/softeng325-concert/softeng325-concert-common/src/main/java/nz/ac/auckland/concert/common/dto/ConcertDTO.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
@@ -976,27 +973,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="170">
           <caret line="13" column="44" lean-forward="true" selection-start-line="13" selection-start-column="44" selection-end-line="13" selection-end-column="44" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/softeng325-concert/softeng325-concert-service/src/main/java/nz/ac/auckland/concert/service/domain/Reservation.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="22" column="14" selection-start-line="22" selection-start-column="14" selection-end-line="22" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/softeng325-concert/softeng325-concert-common/src/main/java/nz/ac/auckland/concert/common/dto/ReservationDTO.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="373">
-          <caret line="39" column="4" lean-forward="true" selection-start-line="39" selection-start-column="4" selection-end-line="39" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/softeng325-concert/softeng325-concert-service/src/main/java/nz/ac/auckland/concert/service/domain/Performer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="425">
-          <caret line="34" column="41" selection-start-line="34" selection-start-column="41" selection-end-line="34" selection-end-column="41" />
         </state>
       </provider>
     </entry>
@@ -1038,27 +1014,116 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/softeng325-concert/softeng325-concert-client/src/test/java/nz/ac/auckland/concert/client/service/ConcertServiceTest.java">
+    <entry file="file://$PROJECT_DIR$/softeng325-concert/softeng325-concert-common/src/main/java/nz/ac/auckland/concert/common/dto/SeatDTO.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="390">
-          <caret line="420" column="36" lean-forward="true" selection-start-line="420" selection-start-column="36" selection-end-line="420" selection-end-column="36" />
+        <state relative-caret-position="255">
+          <caret line="30" column="31" lean-forward="true" selection-start-line="30" selection-start-column="31" selection-end-line="30" selection-end-column="31" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/softeng325-concert/softeng325-concert-service/src/main/java/nz/ac/auckland/concert/service/services/ConcertResource.java">
+    <entry file="file://$PROJECT_DIR$/softeng325-concert/softeng325-concert-common/src/main/java/nz/ac/auckland/concert/common/dto/ReservationRequestDTO.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1">
-          <caret line="375" column="29" lean-forward="true" selection-start-line="375" selection-start-column="29" selection-end-line="375" selection-end-column="29" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state relative-caret-position="-102">
+          <caret line="20" column="57" lean-forward="true" selection-start-line="20" selection-start-column="57" selection-end-line="20" selection-end-column="57" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/softeng325-concert/softeng325-concert-service/src/main/java/nz/ac/auckland/concert/service/domain/Performer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret line="33" column="38" lean-forward="true" selection-start-line="33" selection-start-column="38" selection-end-line="33" selection-end-column="38" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/softeng325-concert/softeng325-concert-client/src/main/java/nz/ac/auckland/concert/client/service/DefaultService.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="475">
-          <caret line="244" column="77" lean-forward="true" selection-start-line="244" selection-start-column="77" selection-end-line="244" selection-end-column="77" />
+          <caret line="191" column="9" selection-start-line="191" selection-start-column="9" selection-end-line="191" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/softeng325-concert/softeng325-concert-client/src/main/java/nz/ac/auckland/concert/client/service/ConcertService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="498">
+          <caret line="189" column="47" lean-forward="true" selection-start-line="189" selection-start-column="47" selection-end-line="189" selection-end-column="47" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/softeng325-concert/softeng325-concert-common/src/main/java/nz/ac/auckland/concert/common/dto/ReservationDTO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="407">
+          <caret line="40" column="30" lean-forward="true" selection-start-line="40" selection-start-column="30" selection-end-line="40" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/softeng325-concert/softeng325-concert-service/src/main/java/nz/ac/auckland/concert/service/domain/Reservation.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="612">
+          <caret line="43" column="35" lean-forward="true" selection-start-line="43" selection-start-column="35" selection-end-line="43" selection-end-column="35" />
+          <folding>
+            <element signature="e#1677#1678#0" expanded="true" />
+            <element signature="e#1704#1705#0" expanded="true" />
+            <element signature="e#1742#1743#0" expanded="true" />
+            <element signature="e#1774#1775#0" expanded="true" />
+            <element signature="e#1810#1811#0" expanded="true" />
+            <element signature="e#1841#1842#0" expanded="true" />
+            <element signature="e#1890#1891#0" expanded="true" />
+            <element signature="e#1930#1931#0" expanded="true" />
+            <element signature="e#1960#1961#0" expanded="true" />
+            <element signature="e#1988#1989#0" expanded="true" />
+            <element signature="e#2028#2029#0" expanded="true" />
+            <element signature="e#2062#2063#0" expanded="true" />
+            <element signature="e#2100#2101#0" expanded="true" />
+            <element signature="e#2129#2130#0" expanded="true" />
+            <element signature="e#2178#2179#0" expanded="true" />
+            <element signature="e#2214#2215#0" expanded="true" />
+            <element signature="e#2257#2258#0" expanded="true" />
+            <element signature="e#2289#2290#0" expanded="true" />
+            <element signature="e#2346#2347#0" expanded="true" />
+            <element signature="e#2388#2389#0" expanded="true" />
+            <element signature="e#2428#2429#0" expanded="true" />
+            <element signature="e#2461#2462#0" expanded="true" />
+            <element signature="e#2516#2517#0" expanded="true" />
+            <element signature="e#2560#2561#0" expanded="true" />
+            <element signature="e#2593#2594#0" expanded="true" />
+            <element signature="e#2622#2623#0" expanded="true" />
+            <element signature="e#2667#2668#0" expanded="true" />
+            <element signature="e#2703#2704#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/softeng325-concert/softeng325-concert-client/src/test/java/nz/ac/auckland/concert/client/service/ConcertServiceTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="220">
+          <caret line="343" selection-start-line="343" selection-end-line="343" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/softeng325-concert/softeng325-concert-service/src/main/java/nz/ac/auckland/concert/service/domain/Seat.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="476">
+          <caret line="53" column="33" lean-forward="true" selection-start-line="53" selection-start-column="33" selection-end-line="53" selection-end-column="33" />
+          <folding>
+            <element signature="e#1353#1354#0" expanded="true" />
+            <element signature="e#1385#1386#0" expanded="true" />
+            <element signature="e#1435#1436#0" expanded="true" />
+            <element signature="e#1477#1478#0" expanded="true" />
+            <element signature="e#1511#1512#0" expanded="true" />
+            <element signature="e#1541#1542#0" expanded="true" />
+            <element signature="e#1587#1588#0" expanded="true" />
+            <element signature="e#1625#1626#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/softeng325-concert/softeng325-concert-service/src/main/java/nz/ac/auckland/concert/service/services/ConcertResource.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="563">
+          <caret line="290" column="21" lean-forward="true" selection-start-line="290" selection-start-column="21" selection-end-line="290" selection-end-column="21" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

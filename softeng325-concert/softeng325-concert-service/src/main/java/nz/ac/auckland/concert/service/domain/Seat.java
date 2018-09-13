@@ -53,6 +53,26 @@ public class Seat {
     @Enumerated(EnumType.STRING)
     private PriceBand _priceband;
 
+    public String get_seatCode() {
+        return _seatCode;
+    }
+
+    public void set_seatCode(String _seatCode) {
+        this._seatCode = _seatCode;
+    }
+
+    public Status get_status() {
+        return _status;
+    }
+
+    public void set_status(Status _status) {
+        this._status = _status;
+    }
+
+    @Column(name = "Status",nullable = false)
+    @Enumerated(EnumType.STRING)
+    private Status _status;
+
 
     public Seat(SeatDTO seatDTO){
         _number =seatDTO.getNumber().intValue();
@@ -70,6 +90,10 @@ public class Seat {
         }else if(seatCode.length() ==3){
             _number = Integer.parseInt(seatCode.substring(1));
         }
+    }
+
+    public enum Status{
+        FREE, BOOKED, PENDING
     }
 
 

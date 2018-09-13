@@ -58,5 +58,59 @@ public class Reservation {
 
     }
 
+    public long get_rid() {
+        return _rid;
+    }
 
+    public void set_rid(long _rid) {
+        this._rid = _rid;
+    }
+
+    public Concert get_concert() {
+        return _concert;
+    }
+
+    public void set_concert(Concert _concert) {
+        this._concert = _concert;
+    }
+
+    public User get_user() {
+        return _user;
+    }
+
+    public void set_user(User _user) {
+        this._user = _user;
+    }
+
+    public Set<String> get_seats() {
+        return _seats;
+    }
+
+    public void set_seats(Set<String> _seats) {
+        this._seats = _seats;
+    }
+
+    public LocalDateTime get_dateTime() {
+        return _dateTime;
+    }
+
+    public void set_dateTime(LocalDateTime _dateTime) {
+        this._dateTime = _dateTime;
+    }
+
+    public PriceBand get_priceBand() {
+        return _priceBand;
+    }
+
+    public void set_priceBand(PriceBand _priceBand) {
+        this._priceBand = _priceBand;
+    }
+
+    public boolean isBooked() {
+        return booked;
+    }
+
+    public void setBooked(boolean booked) {
+        this.booked = booked;
+    }
 }
