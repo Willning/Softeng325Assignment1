@@ -17,7 +17,6 @@ import java.lang.reflect.Array;
 import java.net.URI;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
-import java.time.temporal.TemporalUnit;
 import java.util.*;
 
 /**
@@ -442,35 +441,43 @@ public class ConcertResource {
         List<Seat> seats = seatQuery.getResultList();
 
         boolean timeout = false;
+        boolean lockPass = true;
 
-        for (Seat seat:seats){
-            //need to do some timing stuff here
-            if (seat.get_timestamp().isBefore(LocalDateTime.now().minusSeconds(RESERVATION_EXPIRY_TIME_IN_SECONDS))){
-                timeout = true;
-                break;
+        while (lockPass){
+            try{
+                for (Seat seat:seats){
+                    //need to do some timing stuff here
+                    if (seat.get_timestamp().isBefore(LocalDateTime.now().minusSeconds(RESERVATION_EXPIRY_TIME_IN_SECONDS))){
+                        timeout = true;
+                        break;
 
-            }else{
-                //should be atomic, free all seats booked if one times out.
-                seat.set_status(Seat.Status.BOOKED);
-                em.merge(seat);
+                    }else{
+                        //should be atomic, free all seats booked if one times out.
+                        seat.set_status(Seat.Status.BOOKED);
+                        em.merge(seat);
+                    }
+                }
+
+                if (timeout){
+                    for (Seat seat:seats){
+                        seat.set_status(Seat.Status.FREE);
+                        em.merge(seat);
+                    }
+                    em.getTransaction().commit();
+                    em.close();
+
+                    return Response.status(Response.Status.REQUEST_TIMEOUT).build();
+                }
+
+                reservation.setBooked(true);
+                em.persist(reservation);
+                em.getTransaction().commit();
+                em.close();
+                lockPass = false;
+            }catch (OptimisticLockException e){
+                lockPass = true;
             }
         }
-
-        if (timeout){
-            for (Seat seat:seats){
-                seat.set_status(Seat.Status.FREE);
-                em.merge(seat);
-            }
-            em.getTransaction().commit();
-            em.close();
-
-            return Response.status(Response.Status.REQUEST_TIMEOUT).build();
-        }
-
-        reservation.setBooked(true);
-        em.persist(reservation);
-        em.getTransaction().commit();
-        em.close();
 
         return Response.ok().build();
 

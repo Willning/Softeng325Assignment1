@@ -1,11 +1,22 @@
 package nz.ac.auckland.concert.client.service;
 
+import com.amazonaws.auth.AWSStaticCredentialsProvider;
+import com.amazonaws.auth.BasicAWSCredentials;
+import com.amazonaws.regions.Regions;
 import com.amazonaws.services.dynamodbv2.xspec.M;
+import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.AmazonS3ClientBuilder;
+import com.amazonaws.services.s3.model.GetObjectRequest;
+import com.amazonaws.services.s3.model.ObjectListing;
+import com.amazonaws.services.s3.model.S3Object;
+import com.amazonaws.services.s3.model.S3ObjectInputStream;
 import nz.ac.auckland.concert.common.dto.*;
 import nz.ac.auckland.concert.common.message.Messages;
 import nz.ac.auckland.concert.service.domain.Concert;
 import nz.ac.auckland.concert.service.domain.User;
+import org.apache.commons.io.FileUtils;
 
+import javax.imageio.ImageIO;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
@@ -15,6 +26,7 @@ import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.awt.*;
+import java.io.File;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
@@ -22,6 +34,20 @@ import java.util.Set;
 public class DefaultService implements ConcertService {
 
     private static String WEB_SERVICE_URI = "http://localhost:10000/services/resource";
+
+    // AWS S3 access credentials for concert images.
+    private static final String AWS_ACCESS_KEY_ID = "AKIAJOG7SJ36SFVZNJMQ";
+    private static final String AWS_SECRET_ACCESS_KEY = "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";
+
+    // Name of the S3 bucket that stores images.
+    private static final String AWS_BUCKET = "concert2.aucklanduni.ac.nz";
+
+    private static final String FILE_SEPARATOR = System
+            .getProperty("file.separator");
+    private static final String USER_DIRECTORY = System
+            .getProperty("user.home");
+    private static final String DOWNLOAD_DIRECTORY = USER_DIRECTORY
+            + FILE_SEPARATOR + "images";
 
     private Cookie cookie; // held by the client to authenticate for later
 
@@ -159,7 +185,42 @@ public class DefaultService implements ConcertService {
 
     @Override
     public Image getImageForPerformer(PerformerDTO performer) throws ServiceException {
-        return null;
+       try{
+           //First check if we have the image in local files.
+           String performerName =performer.getImageName();
+
+           try{
+               File filePath = new File(performerName);
+               return ImageIO.read(filePath);
+           }catch (Exception e){
+               //file no existo.
+
+           }
+
+           File file = new File("Images");
+           file.mkdir();
+
+           //If not, download the picture from the server.
+           BasicAWSCredentials awsCredentials = new BasicAWSCredentials(
+                   AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY);
+           AmazonS3 s3 = AmazonS3ClientBuilder
+                   .standard()
+                   .withRegion(Regions.AP_SOUTHEAST_2)
+                   .withCredentials(
+                           new AWSStaticCredentialsProvider(awsCredentials))
+                   .build();
+
+           File imageFile = new File(file, performerName);
+
+           S3Object s3object = s3.getObject(AWS_BUCKET, performerName);
+           S3ObjectInputStream inputStream = s3object.getObjectContent();
+           FileUtils.copyInputStreamToFile(inputStream, imageFile);
+
+           return ImageIO.read(imageFile);
+
+       }catch (Exception e){
+           throw new ServiceException(e.getMessage());
+       }
     }
 
     @Override
