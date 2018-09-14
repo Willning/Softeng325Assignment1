@@ -38,33 +38,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Reservation.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/softeng325-concert/softeng325-concert-service/src/main/java/nz/ac/auckland/concert/service/domain/Reservation.java">
+      <file leaf-file-name="ConcertService.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/softeng325-concert/softeng325-concert-client/src/main/java/nz/ac/auckland/concert/client/service/ConcertService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-136">
-              <caret line="32" column="7" lean-forward="true" selection-start-line="32" selection-start-column="7" selection-end-line="32" selection-end-column="7" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ConcertServiceTest.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/softeng325-concert/softeng325-concert-client/src/test/java/nz/ac/auckland/concert/client/service/ConcertServiceTest.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="356">
-              <caret line="367" column="53" lean-forward="true" selection-start-line="367" selection-start-column="53" selection-end-line="367" selection-end-column="53" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ConcertResource.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/softeng325-concert/softeng325-concert-service/src/main/java/nz/ac/auckland/concert/service/services/ConcertResource.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="169">
-              <caret line="454" column="22" lean-forward="true" selection-start-line="454" selection-start-column="22" selection-end-line="454" selection-end-column="22" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#4623#4640#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="578">
+              <caret line="244" column="1" lean-forward="true" selection-start-line="244" selection-start-column="1" selection-end-line="244" selection-end-column="1" />
             </state>
           </provider>
         </entry>
@@ -72,26 +50,21 @@
       <file leaf-file-name="DefaultService.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/softeng325-concert/softeng325-concert-client/src/main/java/nz/ac/auckland/concert/client/service/DefaultService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="486">
-              <caret line="294" column="73" selection-start-line="294" selection-start-column="73" selection-end-line="294" selection-end-column="73" />
+            <state relative-caret-position="476">
+              <caret line="45" column="18" lean-forward="true" selection-start-line="45" selection-start-column="18" selection-end-line="45" selection-end-column="18" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ConcertService.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/softeng325-concert/softeng325-concert-client/src/main/java/nz/ac/auckland/concert/client/service/ConcertService.java">
+      <file leaf-file-name="ConcertResource.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/softeng325-concert/softeng325-concert-service/src/main/java/nz/ac/auckland/concert/service/services/ConcertResource.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="764">
-              <caret line="206" column="7" lean-forward="true" selection-start-line="206" selection-start-column="7" selection-end-line="206" selection-end-column="7" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SeatDTO.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/softeng325-concert/softeng325-concert-common/src/main/java/nz/ac/auckland/concert/common/dto/SeatDTO.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
-              <caret line="30" column="31" lean-forward="true" selection-start-line="30" selection-start-column="31" selection-end-line="30" selection-end-column="31" />
+            <state relative-caret-position="289">
+              <caret line="449" column="22" selection-start-line="449" selection-start-column="22" selection-end-line="449" selection-end-column="22" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#4623#4640#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -648,9 +621,9 @@
     <recent_temporary>
       <list>
         <item itemvalue="JUnit.ConcertServiceTest" />
+        <item itemvalue="JUnit.ConcertServiceTest.testConfirmReservation" />
         <item itemvalue="JUnit.ConcertServiceTest.testConfirmBookingWithExpiredReservation" />
         <item itemvalue="JUnit.ConcertServiceTest.testMakeReservation" />
-        <item itemvalue="JUnit.ConcertServiceTest.testConfirmReservation" />
         <item itemvalue="JUnit.ConcertServiceTest.testConfirmReservationWithoutRegisteredCreditCard" />
       </list>
     </recent_temporary>
@@ -685,44 +658,44 @@
       <workItem from="1536665598961" duration="65000" />
       <workItem from="1536694419462" duration="6893000" />
       <workItem from="1536720149434" duration="1716000" />
-      <workItem from="1536832285061" duration="33309000" />
+      <workItem from="1536832285061" duration="40117000" />
     </task>
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="ConcertServiceTest - 2018.09.14 at 14h 23m 41s.xml">
+    <history-entry file="ConcertServiceTest - 2018.09.14 at 18h 50m 45s.xml">
       <configuration name="ConcertServiceTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="ConcertServiceTest_testMakeReservation - 2018.09.14 at 14h 24m 25s.xml">
-      <configuration name="ConcertServiceTest.testMakeReservation" configurationId="JUnit" />
+    <history-entry file="ConcertServiceTest - 2018.09.14 at 19h 09m 20s.xml">
+      <configuration name="ConcertServiceTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="ConcertServiceTest_testConfirmBookingWithExpiredReservation - 2018.09.14 at 14h 25m 28s.xml">
+    <history-entry file="ConcertServiceTest_testConfirmBookingWithExpiredReservation - 2018.09.14 at 19h 09m 35s.xml">
       <configuration name="ConcertServiceTest.testConfirmBookingWithExpiredReservation" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="ConcertServiceTest_testConfirmBookingWithExpiredReservation - 2018.09.14 at 14h 26m 03s.xml">
+    <history-entry file="ConcertServiceTest_testConfirmBookingWithExpiredReservation - 2018.09.14 at 19h 10m 27s.xml">
       <configuration name="ConcertServiceTest.testConfirmBookingWithExpiredReservation" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="ConcertServiceTest - 2018.09.14 at 14h 34m 44s.xml">
+    <history-entry file="ConcertServiceTest_testConfirmBookingWithExpiredReservation - 2018.09.14 at 19h 15m 03s.xml">
+      <configuration name="ConcertServiceTest.testConfirmBookingWithExpiredReservation" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="ConcertServiceTest_testConfirmBookingWithExpiredReservation - 2018.09.14 at 19h 16m 10s.xml">
+      <configuration name="ConcertServiceTest.testConfirmBookingWithExpiredReservation" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="ConcertServiceTest_testConfirmBookingWithExpiredReservation - 2018.09.14 at 19h 26m 51s.xml">
+      <configuration name="ConcertServiceTest.testConfirmBookingWithExpiredReservation" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="ConcertServiceTest_testConfirmReservation - 2018.09.14 at 19h 28m 13s.xml">
+      <configuration name="ConcertServiceTest.testConfirmReservation" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="ConcertServiceTest - 2018.09.14 at 19h 30m 56s.xml">
       <configuration name="ConcertServiceTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="ConcertServiceTest - 2018.09.14 at 14h 40m 42s.xml">
-      <configuration name="ConcertServiceTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="ConcertServiceTest - 2018.09.14 at 14h 42m 15s.xml">
-      <configuration name="ConcertServiceTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="ConcertServiceTest - 2018.09.14 at 14h 46m 01s.xml">
-      <configuration name="ConcertServiceTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="ConcertServiceTest - 2018.09.14 at 14h 58m 28s.xml">
-      <configuration name="ConcertServiceTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="ConcertServiceTest - 2018.09.14 at 15h 08m 45s.xml">
+    <history-entry file="ConcertServiceTest - 2018.09.14 at 19h 47m 34s.xml">
       <configuration name="ConcertServiceTest" configurationId="JUnit" />
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="177018000" />
+    <option name="totallyTimeSpent" value="183826000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -1054,13 +1027,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/softeng325-concert/softeng325-concert-client/src/main/java/nz/ac/auckland/concert/client/service/ConcertService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="764">
-          <caret line="206" column="7" lean-forward="true" selection-start-line="206" selection-start-column="7" selection-end-line="206" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/softeng325-concert/softeng325-concert-service/src/main/java/nz/ac/auckland/concert/service/domain/Seat.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="153">
@@ -1082,10 +1048,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/softeng325-concert/softeng325-concert-service/src/main/java/nz/ac/auckland/concert/service/domain/Performer.java">
+    <entry file="file://$PROJECT_DIR$/softeng325-concert/softeng325-concert-service/src/main/java/nz/ac/auckland/concert/service/domain/Reservation.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret line="33" column="38" lean-forward="true" selection-start-line="33" selection-start-column="38" selection-end-line="33" selection-end-column="38" />
+        <state relative-caret-position="408">
+          <caret line="37" lean-forward="true" selection-start-line="37" selection-end-line="37" />
         </state>
       </provider>
     </entry>
@@ -1096,31 +1062,38 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/softeng325-concert/softeng325-concert-client/src/main/java/nz/ac/auckland/concert/client/service/DefaultService.java">
+    <entry file="file://$PROJECT_DIR$/softeng325-concert/softeng325-concert-service/src/main/java/nz/ac/auckland/concert/service/domain/Performer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="486">
-          <caret line="294" column="73" selection-start-line="294" selection-start-column="73" selection-end-line="294" selection-end-column="73" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/softeng325-concert/softeng325-concert-service/src/main/java/nz/ac/auckland/concert/service/domain/Reservation.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-136">
-          <caret line="32" column="7" lean-forward="true" selection-start-line="32" selection-start-column="7" selection-end-line="32" selection-end-column="7" />
+        <state>
+          <caret line="33" column="38" lean-forward="true" selection-start-line="33" selection-start-column="38" selection-end-line="33" selection-end-column="38" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/softeng325-concert/softeng325-concert-client/src/test/java/nz/ac/auckland/concert/client/service/ConcertServiceTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="356">
-          <caret line="367" column="53" lean-forward="true" selection-start-line="367" selection-start-column="53" selection-end-line="367" selection-end-column="53" />
+        <state relative-caret-position="-103">
+          <caret line="337" column="47" selection-start-line="337" selection-start-column="47" selection-end-line="337" selection-end-column="47" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/softeng325-concert/softeng325-concert-client/src/main/java/nz/ac/auckland/concert/client/service/ConcertService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="578">
+          <caret line="244" column="1" lean-forward="true" selection-start-line="244" selection-start-column="1" selection-end-line="244" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/softeng325-concert/softeng325-concert-client/src/main/java/nz/ac/auckland/concert/client/service/DefaultService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="476">
+          <caret line="45" column="18" lean-forward="true" selection-start-line="45" selection-start-column="18" selection-end-line="45" selection-end-column="18" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/softeng325-concert/softeng325-concert-service/src/main/java/nz/ac/auckland/concert/service/services/ConcertResource.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="169">
-          <caret line="454" column="22" lean-forward="true" selection-start-line="454" selection-start-column="22" selection-end-line="454" selection-end-column="22" />
+        <state relative-caret-position="289">
+          <caret line="449" column="22" selection-start-line="449" selection-start-column="22" selection-end-line="449" selection-end-column="22" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#4623#4640#0" expanded="true" />

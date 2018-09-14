@@ -50,8 +50,7 @@ public class DefaultService implements ConcertService {
             return concerts;
 
         }catch(Exception e){
-            throw new ServiceException(e.getMessage());
-            //throw new ServiceException(Messages.SERVICE_COMMUNICATION_ERROR);
+            throw new ServiceException(Messages.SERVICE_COMMUNICATION_ERROR);
         }finally {
             client.close();
         }
@@ -81,8 +80,8 @@ public class DefaultService implements ConcertService {
             return performers;
 
         }catch (Exception e){
-            throw new ServiceException(e.getMessage());
-            //throw new ServiceException(Messages.SERVICE_COMMUNICATION_ERROR);
+
+            throw new ServiceException(Messages.SERVICE_COMMUNICATION_ERROR);
         }finally {
             client.close();
         }
@@ -112,11 +111,10 @@ public class DefaultService implements ConcertService {
                 throw new ServiceException((Messages.CREATE_USER_WITH_NON_UNIQUE_NAME));
 
             }else{
-                throw new ServiceException("Unexpected HTTP code");
+                throw new ServiceException(Messages.SERVICE_COMMUNICATION_ERROR);
             }
         }catch (Exception e){
             throw new ServiceException(e.getMessage());
-            //throw new ServiceException(Messages.SERVICE_COMMUNICATION_ERROR);
         }finally {
             client.close();
         }
@@ -148,12 +146,12 @@ public class DefaultService implements ConcertService {
                 throw new ServiceException(Messages.AUTHENTICATE_USER_WITH_ILLEGAL_PASSWORD);
 
             }else{
-                throw new ServiceException("Failed with error code" + + response.getStatus());
+                throw new ServiceException(Messages.SERVICE_COMMUNICATION_ERROR);
             }
 
         }catch (Exception e){
-            //throw new ServiceException(Messages.SERVICE_COMMUNICATION_ERROR);
             throw new ServiceException(e.getMessage());
+
         }finally {
             client.close();
         }
@@ -185,7 +183,7 @@ public class DefaultService implements ConcertService {
 
             }else if(response.getStatus()== Response.Status.UNAUTHORIZED.getStatusCode()){
 
-                throw new ServiceException((Messages.UNAUTHENTICATED_REQUEST));
+                throw new ServiceException((Messages.BAD_AUTHENTICATON_TOKEN));
             }else if (response.getStatus() == Response.Status.BAD_REQUEST.getStatusCode()){
 
                 throw new ServiceException(Messages.CONCERT_NOT_SCHEDULED_ON_RESERVATION_DATE);
@@ -220,10 +218,18 @@ public class DefaultService implements ConcertService {
                     .post(Entity.entity(reservation,MediaType.APPLICATION_XML));
 
             if (response.getStatus() == Response.Status.OK.getStatusCode()){
-                //TODO do the thing here
+                return;
 
             }else if(response.getStatus()==Response.Status.LENGTH_REQUIRED.getStatusCode()){
                 throw new ServiceException(Messages.CREDIT_CARD_NOT_REGISTERED);
+
+            }else if (response.getStatus()==Response.Status.REQUEST_TIMEOUT.getStatusCode()){
+                throw new ServiceException(Messages.EXPIRED_RESERVATION);
+
+            }else if(response.getStatus() == Response.Status.UNAUTHORIZED.getStatusCode()){
+                throw new ServiceException(Messages.BAD_AUTHENTICATON_TOKEN);
+            }else{
+                throw new ServiceException(Messages.SERVICE_COMMUNICATION_ERROR);
             }
 
         }finally{
@@ -264,9 +270,10 @@ public class DefaultService implements ConcertService {
                 //no token, i.e. not authenticated
                 throw new ServiceException(Messages.UNAUTHENTICATED_REQUEST);
             } else {
-                throw new ServiceException("Failed with error code " + response.getStatus());
+                throw new ServiceException(Messages.SERVICE_COMMUNICATION_ERROR);
             }
         }catch (Exception e){
+
             throw new ServiceException(e.getMessage());
         }finally {
             client.close();
@@ -290,11 +297,11 @@ public class DefaultService implements ConcertService {
                 throw new ServiceException(Messages.UNAUTHENTICATED_REQUEST);
 
             }else if(response.getStatus() == Response.Status.UNAUTHORIZED.getStatusCode()){
+
                 throw new ServiceException((Messages.BAD_AUTHENTICATON_TOKEN));
-            }else if (response.getStatus()==Response.Status.REQUEST_TIMEOUT.getStatusCode()){
-                throw new ServiceException(Messages.EXPIRED_RESERVATION);
+
             }else{
-                throw new ServiceException(response.getStatus() + "");
+                throw new ServiceException(Messages.SERVICE_COMMUNICATION_ERROR);
             }
 
         }catch (Exception e){

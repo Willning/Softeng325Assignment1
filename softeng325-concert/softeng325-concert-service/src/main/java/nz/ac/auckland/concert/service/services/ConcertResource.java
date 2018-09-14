@@ -438,21 +438,21 @@ public class ConcertResource {
                 .setLockMode(LockModeType.OPTIMISTIC);
 
         //get all the seats booked in that reservation
-        //optimistic lock to provide scalability / no clashing
-
+        //optimistic lock to provide scalability/no clashing
         List<Seat> seats = seatQuery.getResultList();
 
         boolean timeout = false;
 
         for (Seat seat:seats){
             //need to do some timing stuff here
-            if (seat.get_timestamp().isAfter(LocalDateTime.now().minus(RESERVATION_EXPIRY_TIME_IN_SECONDS,ChronoUnit.SECONDS))) {
-                seat.set_status(Seat.Status.BOOKED);
-                em.merge(seat);
-            }else{
-                //should be atomic, free all seats booked if one times out.
+            if (seat.get_timestamp().isBefore(LocalDateTime.now().minusSeconds(RESERVATION_EXPIRY_TIME_IN_SECONDS))){
                 timeout = true;
                 break;
+
+            }else{
+                //should be atomic, free all seats booked if one times out.
+                seat.set_status(Seat.Status.BOOKED);
+                em.merge(seat);
             }
         }
 
@@ -471,7 +471,6 @@ public class ConcertResource {
         em.persist(reservation);
         em.getTransaction().commit();
         em.close();
-
 
         return Response.ok().build();
 
