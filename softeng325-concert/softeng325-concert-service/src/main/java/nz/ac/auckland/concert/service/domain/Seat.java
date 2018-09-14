@@ -46,6 +46,17 @@ public class Seat {
     @Column(name = "datetime", nullable = false)
     private LocalDateTime _datetime;
 
+    public LocalDateTime get_timestamp() {
+        return _timestamp;
+    }
+
+    public void set_timestamp(LocalDateTime _timestamp) {
+        this._timestamp = _timestamp;
+    }
+
+    @Column(name = "timestamp", nullable = true)
+    private LocalDateTime _timestamp;
+
     @ManyToOne
     private Reservation _reservation;
 

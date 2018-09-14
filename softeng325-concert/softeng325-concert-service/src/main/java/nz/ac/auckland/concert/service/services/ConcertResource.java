@@ -16,6 +16,8 @@ import javax.ws.rs.core.*;
 import java.lang.reflect.Array;
 import java.net.URI;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
+import java.time.temporal.TemporalUnit;
 import java.util.*;
 
 /**
@@ -26,6 +28,7 @@ import java.util.*;
 @Produces({javax.ws.rs.core.MediaType.APPLICATION_XML})
 @Consumes({javax.ws.rs.core.MediaType.APPLICATION_XML})
 public class ConcertResource {
+    private final int RESERVATION_EXPIRY_TIME_IN_SECONDS = 5;
 
     @GET
     @Path("/concerts")
@@ -104,7 +107,8 @@ public class ConcertResource {
         em.getTransaction().begin();
 
         try {
-            TypedQuery<User> userQuery = em.createQuery("SELECT u FROM User u WHERE u._token = :token", User.class).setParameter("token", token.getValue());
+            TypedQuery<User> userQuery = em.createQuery("SELECT u FROM User u WHERE u._token = :token", User.class)
+                    .setParameter("token", token.getValue());
 
             User user = userQuery.getSingleResult();
 
@@ -122,13 +126,15 @@ public class ConcertResource {
                 Set<BookingDTO> bookingDTOS = new HashSet<>();
 
                 for (Reservation r : reservations) {
-                    bookingDTOS.add(r.makeBookingDTO());
+                    if (r.isBooked()){
+                        bookingDTOS.add(r.makeBookingDTO());
+                    }
                 }
+
                 em.close();
                 //may need to wrap this to get it to work.
                 GenericEntity<Set<BookingDTO>> wrappedDTOs = new GenericEntity<Set<BookingDTO>>(bookingDTOS) {
                 };
-
 
                 return Response.ok(wrappedDTOs).build();
             }
@@ -254,6 +260,8 @@ public class ConcertResource {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
 
+        //TODO add some way so that pending seats get freed after a while.
+
         EntityManager em = PersistenceManager.instance().createEntityManager();
         em.getTransaction().begin();
 
@@ -275,7 +283,7 @@ public class ConcertResource {
 
             Concert concert = concertQuery.getSingleResult();
 
-            //First user will end up with no seats, have to allocate here, ideally would initilize when concert is created
+            //First user will end up with no seats, have to allocate here, ideally would initialize when concert is created
             if (concert.getDates().contains(requestDTO.getDate())) {
                 while (transactionPass) {
                     try {
@@ -307,20 +315,29 @@ public class ConcertResource {
                                     seat.set_status(Seat.Status.FREE);
                                     seat.set_concert(concert);
                                     seat.set_priceband(priceBand);
-                                    seat.set_datetime(LocalDateTime.now());
+                                    seat.set_datetime(requestDTO.getDate());
+                                    seat.set_timestamp(LocalDateTime.now());
                                     seatList.add(seat);
+
+                                    em.persist(seat);
                                 }
                             }
                         }
 
                         List<Seat> seatsToBook = new ArrayList<>();
 
+                        //be able to take either free seats or to take seats that have pended too long.
+
                         for (Seat seat : seatList) {
-                            if (seat.get_status().equals(Seat.Status.FREE) && seat.get_priceband().equals(requestDTO.getSeatType())) {
-                                //do the thing with expired pending requests
-                                //go through every seat and if it is free book it until we've reached the desired number.
+                            if ((seat.get_status().equals(Seat.Status.FREE)||
+                                    (seat.get_status().equals(Seat.Status.PENDING) && seat.get_timestamp()
+                                            .isBefore(LocalDateTime.now().
+                                    minus(RESERVATION_EXPIRY_TIME_IN_SECONDS ,ChronoUnit.SECONDS))))
+                                    && seat.get_priceband().equals(requestDTO.getSeatType())){
+                                //if a seat is free and or pending for over expiry time.
                                 seat.set_status(Seat.Status.PENDING);
                                 seatsToBook.add(seat);
+
                             }
                             if (seatsToBook.size() == requestDTO.getNumberOfSeats()) {
                                 break;
@@ -328,6 +345,7 @@ public class ConcertResource {
                         }
 
                         if (seatsToBook.size() < requestDTO.getNumberOfSeats()){
+
                             return Response.status(Response.Status.REQUESTED_RANGE_NOT_SATISFIABLE).build();
                         }
 
@@ -388,7 +406,6 @@ public class ConcertResource {
         //find the user by token
         TypedQuery<User> userQuery = em.createQuery("SELECT u FROM User u WHERE u._token = :token", User.class)
                 .setParameter("token", token.getValue());
-
         User user = userQuery.getSingleResult();
 
         if (user == null) {
@@ -405,26 +422,58 @@ public class ConcertResource {
 
         Reservation reservation = reservationQuery.getSingleResult();
 
-        Set<SeatDTO> dtoSet = new HashSet<>();
+        Set<String> seatCodes = new HashSet<>();
 
-        for (SeatDTO s : reservationDTO.getSeats()) {
+        for (String s : reservation.get_seats()) {
             //get all the seats in the reservation, then find all those seats and book them.
-            dtoSet.add(s);
+            seatCodes.add(s);
         }
 
-        TypedQuery<Seat> seatQuery = em.createQuery("SELECT s FROM Seat s WHERE s._concert._id =:cid AND s._datetime =:dateTime AND s._seatCode IN (:seatCodes)", Seat.class)
+        TypedQuery<Seat> seatQuery = em.createQuery("SELECT s FROM Seat s WHERE s._concert._id =:cid" +
+                " AND s._datetime =:dateTime" +
+                " AND s._seatCode IN (:seatCodes)", Seat.class)
                 .setParameter("cid", reservationDTO.getReservationRequest().getConcertId())
                 .setParameter("dateTime", reservationDTO.getReservationRequest().getDate())
-                .setParameter("seatCodes", dtoSet)
+                .setParameter("seatCodes", seatCodes)
                 .setLockMode(LockModeType.OPTIMISTIC);
 
+        //get all the seats booked in that reservation
         //optimistic lock to provide scalability / no clashing
 
         List<Seat> seats = seatQuery.getResultList();
+
+        boolean timeout = false;
+
+        for (Seat seat:seats){
+            //need to do some timing stuff here
+            if (seat.get_timestamp().isAfter(LocalDateTime.now().minus(RESERVATION_EXPIRY_TIME_IN_SECONDS,ChronoUnit.SECONDS))) {
+                seat.set_status(Seat.Status.BOOKED);
+                em.merge(seat);
+            }else{
+                //should be atomic, free all seats booked if one times out.
+                timeout = true;
+                break;
+            }
+        }
+
+        if (timeout){
+            for (Seat seat:seats){
+                seat.set_status(Seat.Status.FREE);
+                em.merge(seat);
+            }
+            em.getTransaction().commit();
+            em.close();
+
+            return Response.status(Response.Status.REQUEST_TIMEOUT).build();
+        }
+
+        reservation.setBooked(true);
+        em.persist(reservation);
+        em.getTransaction().commit();
         em.close();
 
-        //TODO the thing here
-        return null;
+
+        return Response.ok().build();
 
     }
 

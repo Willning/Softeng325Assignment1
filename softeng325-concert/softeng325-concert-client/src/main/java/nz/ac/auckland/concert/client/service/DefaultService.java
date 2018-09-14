@@ -253,7 +253,7 @@ public class DefaultService implements ConcertService {
 
             if (response.getStatus() == Response.Status.ACCEPTED.getStatusCode()) {
                 //we can throw errors when something goes wrong? But what to do when something goes right?
-                //TODO this should do something.
+
                 return;
 
             } else if (response.getStatus() == Response.Status.NOT_FOUND.getStatusCode()) {
@@ -277,8 +277,9 @@ public class DefaultService implements ConcertService {
     public Set<BookingDTO> getBookings() throws ServiceException {
         Client client = ClientBuilder.newClient();
         try {
-            Invocation.Builder builder = client.target(WEB_SERVICE_URI + "/booking").request().accept(MediaType.APPLICATION_XML);
-            Response response = builder.get();
+            Invocation.Builder builder = client.target(WEB_SERVICE_URI + "/bookings")
+                    .request().accept(MediaType.APPLICATION_XML);
+            Response response = builder.cookie("authenticationToken", cookie.getValue()).get();
 
 
             if (response.getStatus()== Response.Status.OK.getStatusCode()){
@@ -290,12 +291,14 @@ public class DefaultService implements ConcertService {
 
             }else if(response.getStatus() == Response.Status.UNAUTHORIZED.getStatusCode()){
                 throw new ServiceException((Messages.BAD_AUTHENTICATON_TOKEN));
+            }else if (response.getStatus()==Response.Status.REQUEST_TIMEOUT.getStatusCode()){
+                throw new ServiceException(Messages.EXPIRED_RESERVATION);
             }else{
-                throw new ServiceException(Messages.SERVICE_COMMUNICATION_ERROR);
+                throw new ServiceException(response.getStatus() + "");
             }
 
         }catch (Exception e){
-            throw new ServiceException(Messages.SERVICE_COMMUNICATION_ERROR);
+            throw new ServiceException(e.getMessage());
         }finally {
             client.close();
         }
