@@ -35,6 +35,10 @@ public class ConcertResource {
         EntityManager em = PersistenceManager.instance().createEntityManager();
         em.getTransaction().begin();
 
+        CacheControl cache = new CacheControl();
+        cache.setMaxAge(10); //not effective when demand is low, but on spikes, caching will be more effective.
+        cache.setPrivate(true);
+
         try {
             TypedQuery<Concert> concertQuery = em.createQuery("SELECT c FROM Concert c", Concert.class);
             List<Concert> concerts = concertQuery.getResultList();
@@ -49,7 +53,7 @@ public class ConcertResource {
                 GenericEntity<Set<ConcertDTO>> wrappedDTO = new GenericEntity<Set<ConcertDTO>>(concertDTOs) {
                 };
 
-                Response.ResponseBuilder builder = Response.ok().entity(wrappedDTO);
+                Response.ResponseBuilder builder = Response.ok().cacheControl(cache).entity(wrappedDTO);
 
 
                 return builder.build();
@@ -66,6 +70,10 @@ public class ConcertResource {
     public Response getAllPerformers() {
         EntityManager em = PersistenceManager.instance().createEntityManager();
         em.getTransaction().begin();
+
+        CacheControl cache = new CacheControl();
+        cache.setMaxAge(10); //not effective when demand is low, but on spikes, caching will be more effective.
+        cache.setPrivate(true);
 
         try {
 
@@ -86,7 +94,7 @@ public class ConcertResource {
                 };
 
 
-                Response.ResponseBuilder builder = Response.ok(wrappedDTOs);
+                Response.ResponseBuilder builder = Response.ok().entity(wrappedDTOs).cacheControl(cache);
                 return builder.build();
             }
         } finally {
@@ -333,7 +341,7 @@ public class ConcertResource {
                                             .isBefore(LocalDateTime.now().
                                     minus(RESERVATION_EXPIRY_TIME_IN_SECONDS ,ChronoUnit.SECONDS))))
                                     && seat.get_priceband().equals(requestDTO.getSeatType())){
-                                //if a seat is free and or pending for over expiry time.
+                                //if a seat is free and or pending for over expiry time, we can claim it.
                                 seat.set_status(Seat.Status.PENDING);
                                 seatsToBook.add(seat);
 

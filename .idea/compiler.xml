@@ -11,5 +11,11 @@
         <module name="softeng325-concert-service" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="softeng325-concert" target="1.8" />
+      <module name="softeng325-concert-client" target="1.8" />
+      <module name="softeng325-concert-common" target="1.8" />
+      <module name="softeng325-concert-service" target="1.8" />
+    </bytecodeTargetLevel>
   </component>
 </project>

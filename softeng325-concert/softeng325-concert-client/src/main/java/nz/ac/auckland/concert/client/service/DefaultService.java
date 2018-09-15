@@ -13,6 +13,7 @@ import com.amazonaws.services.s3.model.S3ObjectInputStream;
 import nz.ac.auckland.concert.common.dto.*;
 import nz.ac.auckland.concert.common.message.Messages;
 import nz.ac.auckland.concert.service.domain.Concert;
+import nz.ac.auckland.concert.service.domain.Performer;
 import nz.ac.auckland.concert.service.domain.User;
 import org.apache.commons.io.FileUtils;
 
@@ -51,6 +52,10 @@ public class DefaultService implements ConcertService {
 
     private Cookie cookie; // held by the client to authenticate for later
 
+    private Set<ConcertDTO> _concertCache = new HashSet<>();
+    private Set<PerformerDTO> _performerCache = new HashSet<>();
+
+
 
     @Override
     public Set<ConcertDTO> getConcerts() throws ServiceException {
@@ -68,6 +73,10 @@ public class DefaultService implements ConcertService {
                 //if ok status.
                 concerts = response.readEntity(new GenericType<Set<ConcertDTO>>() {
                 });
+                _concertCache = concerts;
+            }else if(response.getStatus() == Response.Status.NOT_MODIFIED.getStatusCode()){
+                //get value from cache.
+                concerts = _concertCache;
 
             }else{
                 concerts = new HashSet<>();
@@ -98,6 +107,10 @@ public class DefaultService implements ConcertService {
                 //if ok status.
                 performers = response.readEntity(new GenericType<Set<PerformerDTO>>() {
                 });
+
+                _performerCache = performers;
+            }else if(response.getStatus() ==Response.Status.NOT_MODIFIED.getStatusCode()){
+                performers = _performerCache;
 
             }else{
                performers = new HashSet<>();
