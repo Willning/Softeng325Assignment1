@@ -431,4 +431,19 @@ public class ConcertServiceTest {
 		} 
 	}
 
+	@Test
+	public void testGetImages(){
+		try{
+			PerformerDTO performerDTO = _service.getPerformers().iterator().next();
+
+			_service.getImageForPerformer(performerDTO);
+			File file = new File("./Images/"+performerDTO.getImageName());
+			//just download the image and check it is downloaded.
+			assert (file.exists());
+
+		}catch (ServiceException e){
+			fail();
+		}
+	}
+
 }

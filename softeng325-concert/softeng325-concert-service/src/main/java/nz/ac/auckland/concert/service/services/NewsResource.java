@@ -91,7 +91,6 @@ public class NewsResource {
         }finally {
             em.close();
         }
-
     }
 
     @POST

@@ -37,7 +37,7 @@ public class Concert {
     private Set<LocalDateTime> _dates;
 
 
-    //Seems to be error here in the join.
+    //Each concert can have many performers just as each performer can perform in many concerts.
     @ManyToMany
     @JoinTable(name = "CONCERT_PERFORMER",
             joinColumns = {@JoinColumn(name = "cid")},

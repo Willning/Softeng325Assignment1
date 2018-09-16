@@ -10,22 +10,26 @@ public class ConcertApplication extends Application {
 
 
     public ConcertApplication(){
-        //soemthing is iffy with the manager
-        //create the singleton manager here.
+
     }
 
     @Override
     public Set<Object> getSingletons(){
-        Set<Object> persistenceManger = new HashSet<>();
+        Set<Object> singleTons= new HashSet<>();
         PersistenceManager manager = new PersistenceManager();
-        persistenceManger.add(manager);
+        singleTons.add(manager);
 
-        return persistenceManger;
+        //News resrouce maintains state and will be a singleton.
+
+        singleTons.add(new NewsResource());
+
+        return singleTons;
     }
 
     @Override
     public Set<Class<?>> getClasses(){
         Set<Class<?>> classSet = new HashSet<>();
+        //ConcertResource uses resource per request.
         classSet.add(ConcertResource.class);
         return classSet;
 

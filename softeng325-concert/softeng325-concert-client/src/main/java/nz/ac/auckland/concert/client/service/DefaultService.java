@@ -13,15 +13,13 @@ import com.amazonaws.services.s3.model.S3ObjectInputStream;
 import nz.ac.auckland.concert.common.dto.*;
 import nz.ac.auckland.concert.common.message.Messages;
 import nz.ac.auckland.concert.service.domain.Concert;
+import nz.ac.auckland.concert.service.domain.NewsItem;
 import nz.ac.auckland.concert.service.domain.Performer;
 import nz.ac.auckland.concert.service.domain.User;
 import org.apache.commons.io.FileUtils;
 
 import javax.imageio.ImageIO;
-import javax.ws.rs.client.Client;
-import javax.ws.rs.client.ClientBuilder;
-import javax.ws.rs.client.Entity;
-import javax.ws.rs.client.Invocation;
+import javax.ws.rs.client.*;
 import javax.ws.rs.core.Cookie;
 import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.MediaType;
@@ -31,6 +29,7 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.concurrent.Future;
 
 public class DefaultService implements ConcertService {
 
@@ -196,11 +195,12 @@ public class DefaultService implements ConcertService {
         }
     }
 
+    //Method doesn't contact server at all.
     @Override
     public Image getImageForPerformer(PerformerDTO performer) throws ServiceException {
        try{
            //First check if we have the image in local files.
-           String performerName =performer.getImageName();
+           String performerName = performer.getImageName();
 
            try{
                File filePath = new File(performerName);
@@ -213,7 +213,7 @@ public class DefaultService implements ConcertService {
            File file = new File("Images");
            file.mkdir();
 
-           //If not, download the picture from the server.
+           //If not, download the picture from the AWS server.
            BasicAWSCredentials awsCredentials = new BasicAWSCredentials(
                    AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY);
            AmazonS3 s3 = AmazonS3ClientBuilder
@@ -256,14 +256,17 @@ public class DefaultService implements ConcertService {
                 return response.readEntity(ReservationDTO.class);
 
             }else if(response.getStatus()== Response.Status.UNAUTHORIZED.getStatusCode()){
-
                 throw new ServiceException((Messages.BAD_AUTHENTICATON_TOKEN));
+
             }else if (response.getStatus() == Response.Status.BAD_REQUEST.getStatusCode()){
-
                 throw new ServiceException(Messages.CONCERT_NOT_SCHEDULED_ON_RESERVATION_DATE);
-            }else if(response.getStatus() == Response.Status.REQUESTED_RANGE_NOT_SATISFIABLE.getStatusCode()){
 
+            }else if(response.getStatus() == Response.Status.REQUESTED_RANGE_NOT_SATISFIABLE.getStatusCode()){
                 throw new ServiceException(Messages.INSUFFICIENT_SEATS_AVAILABLE_FOR_RESERVATION);
+
+            }else if (response.getStatus()==Response.Status.LENGTH_REQUIRED.getStatusCode()){
+               throw new ServiceException(Messages.RESERVATION_REQUEST_WITH_MISSING_FIELDS);
+
             }else{
                 throw new ServiceException(Messages.SERVICE_COMMUNICATION_ERROR);
             }
@@ -328,11 +331,12 @@ public class DefaultService implements ConcertService {
 
             Response response = builder.cookie("authenticationToken", cookie.getValue())
                     .post(Entity.entity(creditCard, MediaType.APPLICATION_XML));
-            //actually will need to post information to the server
+
 
 
             if (response.getStatus() == Response.Status.ACCEPTED.getStatusCode()) {
                 //we can throw errors when something goes wrong? But what to do when something goes right?
+                //apparently doing nothing is an alright solution.
 
                 return;
 
@@ -395,8 +399,20 @@ public class DefaultService implements ConcertService {
         }
 
         Client client = ClientBuilder.newClient();
+        Future futreNews = client.target(WEB_SERVICE_URI + "/subscribe")
+                .request(MediaType.APPLICATION_XML).cookie("authenticationToken",cookie.getValue())
+                .async()
+                .get(new InvocationCallback<NewsDTO>() {
+                    @Override
+                    public void completed(NewsDTO newsDTO) {
+                        //Do something if complete.
+                    }
 
-
+                    @Override
+                    public void failed(Throwable throwable) {
+                        //something else if fail
+                    }
+                });
 
     }
 
@@ -415,14 +431,12 @@ public class DefaultService implements ConcertService {
             if (response.getStatus() == Response.Status.OK.getStatusCode()){
                 return;
             }else{
-
+                throw new ServiceException(Messages.SERVICE_COMMUNICATION_ERROR);
             }
 
         }finally {
             client.close();
         }
-
-
 
     }
 

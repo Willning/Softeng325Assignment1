@@ -93,7 +93,6 @@ public class ConcertResource {
                 GenericEntity<Set<PerformerDTO>> wrappedDTOs = new GenericEntity<Set<PerformerDTO>>(performerDTOS) {
                 };
 
-
                 Response.ResponseBuilder builder = Response.ok().entity(wrappedDTOs).cacheControl(cache);
                 return builder.build();
             }
@@ -267,8 +266,6 @@ public class ConcertResource {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
 
-        //TODO add some way so that pending seats get freed after a while.
-
         EntityManager em = PersistenceManager.instance().createEntityManager();
         em.getTransaction().begin();
 
@@ -283,7 +280,15 @@ public class ConcertResource {
                 return Response.status(Response.Status.UNAUTHORIZED).build();
             }
 
-            boolean transactionPass = true; //used to keep trying if no success.
+            if (requestDTO.getConcertId() == null
+                    || requestDTO.getNumberOfSeats() == 0
+                    || requestDTO.getDate() == null
+                    ||requestDTO.getSeatType() ==null){
+                return Response.status(Response.Status.LENGTH_REQUIRED).build();
+
+            }
+
+            boolean transactionPass = true; //used to keep trying if no success with optimistic lock.
 
             TypedQuery<Concert> concertQuery = em.createQuery("SELECT c FROM Concert c WHERE c._id =:cid", Concert.class)
                     .setParameter("cid", requestDTO.getConcertId());
@@ -352,6 +357,7 @@ public class ConcertResource {
                         }
 
                         if (seatsToBook.size() < requestDTO.getNumberOfSeats()){
+                            //if there are not enough seats to fufill the booking, we have a problem.
 
                             return Response.status(Response.Status.REQUESTED_RANGE_NOT_SATISFIABLE).build();
                         }
@@ -387,6 +393,7 @@ public class ConcertResource {
                         }).build();
                     } catch (OptimisticLockException e) {
                         transactionPass = true;
+                        //if lock exception occurs, go back to top and try reserving again.
                     }
                 }
                 return null;
@@ -467,6 +474,7 @@ public class ConcertResource {
                 }
 
                 if (timeout){
+                    //if a timeout in confirming occurs, set all seats to be set to free.
                     for (Seat seat:seats){
                         seat.set_status(Seat.Status.FREE);
                         em.merge(seat);
@@ -488,13 +496,12 @@ public class ConcertResource {
         }
 
         return Response.ok().build();
-
     }
 
     @POST
     @Path("/register_credit_card")
     public Response registerCreditCard(CreditCardDTO creditCardDTO, @CookieParam("authenticationToken") Cookie token) {
-        //need to be able to catch errors
+
         EntityManager em = PersistenceManager.instance().createEntityManager();
         em.getTransaction().begin();
 
