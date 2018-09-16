@@ -1,5 +1,7 @@
 package nz.ac.auckland.concert.service.domain;
 
+import nz.ac.auckland.concert.common.dto.NewsDTO;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -19,6 +21,16 @@ public class NewsItem {
 
     @Column(name = "message")
     private String _message;
+
+    public NewsItem(){
+
+    }
+
+    public NewsItem(NewsDTO newsDTO){
+        _id = newsDTO.get_id();
+        _date = newsDTO.get_time();
+        _message = newsDTO.get_newsMessage();
+    }
 
 
     public Long get_id() {

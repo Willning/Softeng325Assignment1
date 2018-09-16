@@ -33,6 +33,10 @@ public class User {
     @Column(name ="tokenTimeStamp")
     private LocalDateTime _tokenTimeStamp;
 
+
+    @ManyToOne
+    private NewsItem _lastMessage;
+
     public User(){
 
     }
@@ -106,5 +110,13 @@ public class User {
 
     public void set_tokenTimeStamp(LocalDateTime _tokenTimeStamp) {
         this._tokenTimeStamp = _tokenTimeStamp;
+    }
+
+    public NewsItem get_lastMessage() {
+        return _lastMessage;
+    }
+
+    public void set_lastMessage(NewsItem _lastMessage) {
+        this._lastMessage = _lastMessage;
     }
 }

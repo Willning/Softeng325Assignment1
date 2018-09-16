@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: nz.ac.auckland.concert.client.service.ConcertServiceTest
 -------------------------------------------------------------------------------
-Tests run: 19, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 17.804 sec
+Tests run: 18, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 17.129 sec

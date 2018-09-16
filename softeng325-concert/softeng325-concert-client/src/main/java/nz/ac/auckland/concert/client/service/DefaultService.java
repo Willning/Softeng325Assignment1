@@ -357,6 +357,10 @@ public class DefaultService implements ConcertService {
     @Override
     public Set<BookingDTO> getBookings() throws ServiceException {
         Client client = ClientBuilder.newClient();
+        if (cookie == null) {
+            throw new ServiceException(Messages.UNAUTHENTICATED_REQUEST);
+        }
+
         try {
             Invocation.Builder builder = client.target(WEB_SERVICE_URI + "/bookings")
                     .request().accept(MediaType.APPLICATION_XML);
@@ -383,6 +387,44 @@ public class DefaultService implements ConcertService {
         }finally {
             client.close();
         }
+    }
+
+    public void subscribeToService(){
+        if (cookie == null) {
+            throw new ServiceException(Messages.UNAUTHENTICATED_REQUEST);
+        }
+
+        Client client = ClientBuilder.newClient();
+
+
 
     }
+
+    public void unsubscribeFromService(){
+        if (cookie == null) {
+            throw new ServiceException(Messages.UNAUTHENTICATED_REQUEST);
+        }
+        Client client = ClientBuilder.newClient();
+
+        try{
+            Invocation.Builder builder = client.target(WEB_SERVICE_URI + "/unsubscribe")
+                    .request(MediaType.APPLICATION_XML);
+            Response response = builder
+                    .cookie("authenticationToken", cookie.getValue())
+                    .delete();
+            if (response.getStatus() == Response.Status.OK.getStatusCode()){
+                return;
+            }else{
+
+            }
+
+        }finally {
+            client.close();
+        }
+
+
+
+    }
+
+
 }
