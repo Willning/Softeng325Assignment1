@@ -1,4 +1,4 @@
-About academic integrity
+## About academic integrity
 Find out what working to a high level of academic integrity means for you.
 
 The University belongs to an internationally recognised community of higher education with a special responsibility to:
